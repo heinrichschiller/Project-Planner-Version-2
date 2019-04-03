@@ -1,0 +1,13 @@
+{
+    "name": "heinrich/project-planner-version-2",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Heinrich Schiller",
+            "email": "heinrich@heinrich-schiller.de"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
