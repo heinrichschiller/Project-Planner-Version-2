@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 
+ *
  * MIT License
  *
  * Copyright (c) 2019 Heinrich Schiller
@@ -25,3 +25,5 @@
  * SOFTWARE.
  *
  */
+
+require __DIR__ . '/../bootstrap.php';
