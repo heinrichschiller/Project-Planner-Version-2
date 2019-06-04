@@ -26,7 +26,7 @@
  *
  */
 
-namespace View;
+namespace ProjectPlanner\View;
 
 class View
 {
@@ -45,7 +45,7 @@ class View
 
         $template = $this->_getTemplate();
 
-        include  __DIR__ . '/../templates/main.phtml';
+        require_once  __DIR__ . '/../Templates/main.phtml';
 
         $html = ob_get_contents();
 
@@ -56,7 +56,7 @@ class View
 
     private function _getTemplate()
     {
-        $template = __DIR__ . '/../templates/' . $this->_template;
+        $template = __DIR__ . '/../Templates/' . $this->_template;
 
         if(!file_exists($template)) {
             throw new \Exception('Template:' . $this->_template . ' not found.');
