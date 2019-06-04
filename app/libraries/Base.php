@@ -26,9 +26,9 @@
  *
  */
 
-namespace Libraries;
+namespace ProjectPlanner\Libraries;
 
-use View\View;
+use ProjectPlanner\View\View;
 
 class Base
 {
