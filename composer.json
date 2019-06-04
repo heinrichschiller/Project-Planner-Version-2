@@ -9,5 +9,12 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "heinrichschiller/normalize.css": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "ProjectPlanner\\": "app/"
+        }
+    }
 }
