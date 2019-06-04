@@ -29,7 +29,9 @@
 error_reporting(-1);
 ini_set('display_errors', true);
 
-require __DIR__ . '/app/autoloader.php';
+require __DIR__ . '/vendor/autoload.php';
 
-$pp = new ProjectPlanner;
-$pp->run();
+use ProjectPlanner\Libraries\Application;
+
+$app = new Application;
+$app->run();
