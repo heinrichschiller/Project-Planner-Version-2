@@ -26,7 +26,11 @@
  *
  */
 
-class ProjectPlanner
+namespace ProjectPlanner\Libraries;
+
+use ProjectPlanner\Controller;
+
+class Application
 {
     private $_controller = '';
     private $_action     = '';
@@ -57,10 +61,11 @@ class ProjectPlanner
 
     private function _setController(string $ctrl)
     {
-        $ctrl = sprintf("\Controller\%sController", ucfirst(strtolower($ctrl)));
+        $format = "ProjectPlanner\Controller\%sController";
+        $ctrl = sprintf($format, ucfirst(strtolower($ctrl)));
 
         if(!class_exists($ctrl)) {
-            throw new InvalidArgumentException("Unknown controller: $ctrl");
+            throw new \InvalidArgumentException("Unknown controller: $ctrl");
         }
 
         $this->_controller = $ctrl;
@@ -69,10 +74,10 @@ class ProjectPlanner
     private function _setAction(string $action)
     {
         $action = sprintf("%sAction", strtolower($action));
-        $reflection = new ReflectionClass($this->_controller);
+        $reflection = new \ReflectionClass($this->_controller);
 
         if(!$reflection->hasMethod($action)) {
-            throw new InvalidArgumentException("Unknown action: $action");
+            throw new \InvalidArgumentException("Unknown action: $action");
         }
 
         $this->_action = $action;
@@ -80,7 +85,7 @@ class ProjectPlanner
 
     private function _setParams(array $params)
     {
-        //var_dump($params);
+
     }
 
     public function run()
