@@ -28,8 +28,6 @@
 
 namespace ProjectPlanner\Libraries;
 
-use ProjectPlanner\Controller;
-
 class Application
 {
     private $_controller = '';
