@@ -29,11 +29,16 @@
 namespace ProjectPlanner\Controller;
 
 use ProjectPlanner\Libraries\Base;
+use ProjectPlanner\Repositories\ContactRepository;
 
 class ContactsController extends Base
 {
     public function indexAction()
     {
+        $contactRepository = new ContactRepository;
+
+        echo $contactRepository->read();
+
         return $this->render('/contact/index.phtml');
     }
 }
