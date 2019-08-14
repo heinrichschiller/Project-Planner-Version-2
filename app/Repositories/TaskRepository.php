@@ -25,3 +25,33 @@
  * SOFTWARE.
  *
  */
+
+namespace ProjectPlanner\Repositories;
+
+use ProjectPlanner\Libraries\Base;
+use ProjectPlanner\Model\TaskModel;
+
+class TaskRepository extends Base implements RepositoryInterface
+{
+    public function create()
+    {
+
+    }
+
+    public function read()
+    {
+        $taskModel = new TaskModel;
+        echo $taskModel->getId();
+    }
+
+    public function update()
+    {
+
+    }
+
+    public function delete()
+    {
+
+    }
+ }
+

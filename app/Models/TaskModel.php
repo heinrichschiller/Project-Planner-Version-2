@@ -25,3 +25,20 @@
  * SOFTWARE.
  *
  */
+
+namespace ProjectPlanner\Model;
+
+class TaskModel
+{
+    private $_id = 0;
+
+    public function getId(): int
+    {
+        return $this->_id;
+    }
+
+    public function setId(int $id)
+    {
+        $this->_id = $id;
+    }
+}
