@@ -25,3 +25,93 @@
  * SOFTWARE.
  *
  */
+
+namespace ProjectPlanner\Library;
+
+class Database
+{
+    private $_host     = '';
+    private $_user     = '';
+    private $_password = '';
+    private $_dbname   = '';
+
+    private $_stmt  = null;
+    private $_error = '';
+
+    public function __construct()
+    {
+        $this->_loadConfig();
+        $this->_init();
+    }
+
+    private function _init()
+    {
+        $dsn = 'mysql:host=' . self::_getHost() . ';dbname=' . self::_getDbName();
+        $options = [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION];
+        
+        try {
+            return new \PDO($dsn, $this->_getUser(), $this->_getPassword(), $options);
+        } catch (PDOException $e) {
+            $this->_setError($e->getMessage());
+            echo $this->_getError();
+        }
+    }
+
+    private function _loadConfig()
+    {
+        $this->_setHost('localhost');
+        $this->_setUser('root');
+        $this->_setPassword('');
+        $this->_setDbName('projectplanner');
+    }
+
+    private function _getHost(): string
+    {
+        return $this->_host;
+    }
+
+    private function _setHost(string $hostname)
+    {
+        $this->_host = $hostname;
+    }
+
+    private function _getUser(): string 
+    {
+        return $this->_user;
+    }
+
+    private function _setUser(string $username)
+    {
+        $this->_user = $username;
+    }
+
+    private function _getPassword(): string 
+    {
+        return $this->_password;
+    }
+
+    private function _setPassword(string $password)
+    {
+        $this->_password = $password;
+    }
+
+    private function _getDbName(): string
+    {
+        return $this->_dbname;
+    }
+
+    private function _setDbName(string $dbName)
+    {
+        $this->_dbname = $dbName;
+    }
+
+    private function _getError(): string 
+    {
+        return $this->_error;
+    }
+
+    private function _setError(string $error)
+    {
+        $this->_error = $error;
+    }
+}

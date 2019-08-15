@@ -25,3 +25,31 @@
  * SOFTWARE.
  *
  */
+
+namespace ProjectPlanner\Model;
+
+class TaskModel
+{
+    private $_id = 0;
+    private $_title = '';
+    private $_desc = '';
+    private $_beginAt = '';
+    private $_endAt = '';
+    private $_priority = '';
+    private $_status = '';
+    private $_contactId = 0;
+    private $_projectId = 0;
+    private $_createdAt = '';
+    private $_updatedAt = '';
+    private $_projectTitle = '';
+
+    public function getId(): int
+    {
+        return $this->_id;
+    }
+
+    public function setId(int $id)
+    {
+        $this->_id = $id;
+    }
+}
