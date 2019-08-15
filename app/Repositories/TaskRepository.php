@@ -31,7 +31,7 @@ namespace ProjectPlanner\Repositories;
 use ProjectPlanner\Libraries\Base;
 use ProjectPlanner\Model\TaskModel;
 
-class TaskRepository extends Base implements RepositoryInterface
+class TaskRepository extends RepositoryBase implements RepositoryInterface
 {
     public function create()
     {
@@ -42,6 +42,30 @@ class TaskRepository extends Base implements RepositoryInterface
     {
         $taskModel = new TaskModel;
         echo $taskModel->getId();
+    }
+
+    public function readAll()
+    {
+        $sql = '
+        SELECT `tasks`.`id`,
+        	`tasks`.`title`,
+            `tasks`.`desc`,
+            UNIX_TIMESTAMP(`tasks`.`begin`) as begin,
+            UNIX_TIMESTAMP(`tasks`.`end`) as end,
+            `priority`.`desc` as priority,
+            `status`.`desc` as status,
+            `tasks`.`contact_id`,
+            `tasks`.`project_id`,
+            UNIX_TIMESTAMP(`tasks`.`created_at`) as created_at,
+            `tasks`.`updated_at`,
+            `projects`.`title` as projectTitle
+            FROM `tasks`
+            LEFT JOIN `priority` ON `priority`.`id` = `tasks`.`priority`
+            LEFT JOIN `status` ON `status`.`id` = `tasks`.`status`
+            LEFT JOIN `projects` ON `projects`.`id` = `tasks`.`project_id`
+                WHERE `tasks`.`status` != 4 
+                    AND `tasks`.`status` != 5
+        ';
     }
 
     public function update()

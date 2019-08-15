@@ -28,10 +28,15 @@
 
 namespace ProjectPlanner\Libraries;
 
+use ProjectPlanner\Repositories\RepositoryInterface;
 use ProjectPlanner\View\View;
 
 class Base
 {
+    public function repository(RepositoryInterface $repository) {
+        return new $repository();
+    }
+
     public function render(string $template, array $data = [])
     {
         $view = new View($template);

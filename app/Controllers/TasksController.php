@@ -36,7 +36,7 @@ class TaskController extends Base
     public function indexAction()
     {
         $taskRepository = new TaskRepository;
-        echo $taskRepository->read();
+        echo $taskRepository->readAll();
         return $this->render('/task/index.phtml');
     }
 }
