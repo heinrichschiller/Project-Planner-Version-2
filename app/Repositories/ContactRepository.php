@@ -25,3 +25,32 @@
  * SOFTWARE.
  *
  */
+
+namespace ProjectPlanner\Repositories;
+
+use ProjectPlanner\Libraries\Base;
+use ProjectPlanner\Model\ContactModel;
+
+class ContactRepository extends Base implements RepositoryInterface
+{
+    public function create()
+    {
+
+    }
+
+    public function read()
+    {
+        $contact = new ContactModel;
+        return $contact->getId();
+    }
+
+    public function update()
+    {
+
+    }
+
+    public function delete()
+    {
+         
+    }
+}

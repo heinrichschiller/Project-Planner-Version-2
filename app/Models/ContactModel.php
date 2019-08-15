@@ -25,3 +25,20 @@
  * SOFTWARE.
  *
  */
+
+namespace ProjectPlanner\Model;
+
+class ContactModel
+{
+    private $_id = 0;
+
+    public function getId()
+    {
+        return $this->_id;
+    }
+
+    public function setId(int $id): int
+    {
+        $this->_id = $id;
+    }
+}
