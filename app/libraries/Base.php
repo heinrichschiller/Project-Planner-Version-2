@@ -28,13 +28,13 @@
 
 namespace ProjectPlanner\Libraries;
 
-use ProjectPlanner\Repositories\RepositoryInterface;
 use ProjectPlanner\View\View;
 
-class Base
+abstract class Base
 {
-    public function repository(RepositoryInterface $repository) {
-        return new $repository();
+    public function repository($repository) {
+        $class = "\\ProjectPlanner\\Repositories\\$repository";
+        return new $class();
     }
 
     public function render(string $template, array $data = [])

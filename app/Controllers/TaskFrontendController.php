@@ -31,12 +31,20 @@ namespace ProjectPlanner\Controller;
 use ProjectPlanner\Libraries\Base;
 use ProjectPlanner\Repositories\TaskRepository;
 
-class TaskController extends Base
+class TaskFrontendController extends Base
 {
+    private $_repository = null;
+
+    public function __construct()
+    {
+        $this->_repository = $this->repository('TaskRepository');
+    }
+
     public function indexAction()
     {
-        $taskRepository = new TaskRepository;
-        echo $taskRepository->readAll();
+        $list = $this->_repository->readAll();
+
+        var_dump($list);
         return $this->render('/task/index.phtml');
     }
 }

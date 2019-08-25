@@ -31,7 +31,7 @@ namespace ProjectPlanner\Repositories;
 use ProjectPlanner\Libraries\Base;
 use ProjectPlanner\Model\TaskModel;
 
-class TaskRepository extends RepositoryBase implements RepositoryInterface
+class TaskFrontendRepository extends RepositoryBase implements RepositoryInterface
 {
     public function create()
     {
@@ -66,6 +66,18 @@ class TaskRepository extends RepositoryBase implements RepositoryInterface
                 WHERE `tasks`.`status` != 4 
                     AND `tasks`.`status` != 5
         ';
+
+        $stmt = $this->getDatabaseConnection()->query($sql);
+
+        $taskList = [];
+        while ($row = $stmt->fetch(\PDO::FETCH_OBJ)) {
+            $taskModel = new TaskModel;
+            $taskModel->fetchAll($row);
+
+            $taskList[] = $taskModel;
+        }
+
+        return $taskList;
     }
 
     public function update()
