@@ -28,12 +28,28 @@
 
 namespace ProjectPlanner\Repositories;
 
-use ProjectPlanner\Library\Database;
+use ProjectPlanner\Libraries\Base;
+use ProjectPlanner\Model\TaskModel;
 
-class RepositoryBase
+class TaskBackendRepository extends RepositoryBase implements RepositoryInterface
 {
-    public function getDatabaseConnection()
+    public function create()
     {
-        return new Database;
+
+    }
+
+    public function read()
+    {
+
+    }
+
+    public function update()
+    {
+
+    }
+
+    public function delete()
+    {
+        
     }
 }

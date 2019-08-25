@@ -26,14 +26,18 @@
  *
  */
 
-namespace ProjectPlanner\Repositories;
+namespace ProjectPlanner\Model;
 
-use ProjectPlanner\Library\Database;
-
-class RepositoryBase
+abstract class BaseModel
 {
-    public function getDatabaseConnection()
+    public function fetchAll($data)
     {
-        return new Database;
+        foreach($data as $key => $value) {
+            $setter = 'set' . ucfirst($key);
+
+            if (method_exists($this, $setter) ) {
+                $this->$setter($value);
+            }
+        } 
     }
 }

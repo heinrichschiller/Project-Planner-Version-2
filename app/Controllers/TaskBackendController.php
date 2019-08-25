@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  *
  * MIT License
@@ -26,14 +27,15 @@
  *
  */
 
-namespace ProjectPlanner\Repositories;
+namespace ProjectPlanner\Controller;
 
-use ProjectPlanner\Library\Database;
+use ProjectPlanner\Libraries\Base;
+use ProjectPlanner\Repositories\TaskRepository;
 
-class RepositoryBase
+class TaskBackendController extends BaseController
 {
-    public function getDatabaseConnection()
+    public function indexAction()
     {
-        return new Database;
+        
     }
 }

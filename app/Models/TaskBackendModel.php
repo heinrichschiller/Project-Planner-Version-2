@@ -26,14 +26,9 @@
  *
  */
 
-namespace ProjectPlanner\Repositories;
+namespace ProjectPlanner\Model;
 
-use ProjectPlanner\Library\Database;
-
-class RepositoryBase
+class TaskBackendModel extends BaseModel
 {
-    public function getDatabaseConnection()
-    {
-        return new Database;
-    }
+    
 }

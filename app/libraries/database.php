@@ -35,6 +35,7 @@ class Database
     private $_password = '';
     private $_dbname   = '';
 
+    private $_pdo   = null;
     private $_stmt  = null;
     private $_error = '';
 
@@ -50,7 +51,7 @@ class Database
         $options = [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION];
         
         try {
-            return new \PDO($dsn, $this->_getUser(), $this->_getPassword(), $options);
+            $this->_pdo = new \PDO($dsn, $this->_getUser(), $this->_getPassword(), $options);
         } catch (PDOException $e) {
             $this->_setError($e->getMessage());
             echo $this->_getError();
@@ -113,5 +114,30 @@ class Database
     private function _setError(string $error)
     {
         $this->_error = $error;
+    }
+
+    public function query(string $query)
+    {
+        return $this->_pdo->query($query);
+    }
+
+    public function prepare(string $query)
+    {
+        $this->_stmt = $this->_pdo->prepare($query);
+    }
+
+    public function bindValue()
+    {
+
+    }
+
+    public function bindParam()
+    {
+
+    }
+
+    public function execute(): PDOStatement
+    {
+        return $this->_stmt->execute();
     }
 }
