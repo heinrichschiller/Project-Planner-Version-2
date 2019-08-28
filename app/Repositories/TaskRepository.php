@@ -31,7 +31,7 @@ namespace ProjectPlanner\Repositories;
 use ProjectPlanner\Libraries\Base;
 use ProjectPlanner\Model\TaskModel;
 
-class TaskFrontendRepository extends RepositoryBase implements RepositoryInterface
+class TaskRepository extends RepositoryBase implements RepositoryInterface
 {
     public function create()
     {

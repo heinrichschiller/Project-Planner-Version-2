@@ -31,7 +31,7 @@ namespace ProjectPlanner\Controller;
 use ProjectPlanner\Libraries\Base;
 use ProjectPlanner\Repositories\TaskRepository;
 
-class TaskFrontendController extends Base
+class TaskController extends Base
 {
     private $_repository = null;
 

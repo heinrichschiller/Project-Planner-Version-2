@@ -28,7 +28,7 @@
 
 namespace ProjectPlanner\Model;
 
-class TaskFrontendModel extends BaseModel
+class TaskModel extends BaseModel
 {
     private $_id = 0;
     private $_title = '';
