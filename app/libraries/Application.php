@@ -44,8 +44,7 @@ class Application
         $request = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
         $reqItems = explode('/', $request, 3);
 
-        $controller = !empty($reqItems[0]) ? $reqItems['0'] : 'dashboard';
-        $this->_setController($controller);
+        $this->_setController($reqItems[0]);
 
         $action     = !empty($reqItems[1]) ? $reqItems['1'] : 'index';
         $this->_setAction($action);
@@ -57,10 +56,17 @@ class Application
         }
     }
 
-    private function _setController(string $ctrl)
+    private function _setController(string $ctrl = '')
     {
+        $controller = 'dashboard';
+
+        if(!empty($ctrl) && !is_numeric($ctrl)) {
+            $ctrl = htmlspecialchars($ctrl);
+            $controller = trim($ctrl);
+        }
+
         $format = "ProjectPlanner\Controller\%sController";
-        $ctrl = sprintf($format, ucfirst(strtolower($ctrl)));
+        $ctrl = sprintf($format, ucfirst(strtolower($controller)));
 
         if(!class_exists($ctrl)) {
             throw new \InvalidArgumentException("Unknown controller: $ctrl");

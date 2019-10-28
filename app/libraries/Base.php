@@ -32,8 +32,8 @@ use ProjectPlanner\View\View;
 
 abstract class Base
 {
-    public function repository($repository) {
-        $class = "\\ProjectPlanner\\Repositories\\$repository";
+    public function model($model) {
+        $class = "\\ProjectPlanner\\Model\\$model";
         return new $class();
     }
 
