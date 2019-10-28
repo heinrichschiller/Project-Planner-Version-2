@@ -18,8 +18,8 @@
     .container {
         height: 100vh;
         display: grid;
-        grid-template-rows: 50px 1fr 80px;
-        grid-template-columns: 15% 1fr 15%;
+        grid-template-rows: 50px 1fr 40px;
+        grid-template-columns: 5% 1fr 5%;
         grid-template-areas:
             "header header header"
             "box-left box-content box-right"
