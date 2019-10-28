@@ -28,19 +28,99 @@
 
 namespace ProjectPlanner\Model;
 
-class TaskModel extends BaseModel
+use ProjectPlanner\Util\Collection;
+
+class TaskModel extends BaseModel implements ModelInterface 
 {
+    /**
+     * Id
+     * 
+     * @var integer
+     */
     private $_id = 0;
+    
+    /**
+     * Title
+     * 
+     * @var string
+     */
     private $_title = '';
+    
+    /**
+     * Description
+     * 
+     * @var string
+     */
     private $_desc = '';
-    private $_beginAt = '';
-    private $_endAt = '';
+    
+    /**
+     * Begin
+     * 
+     * @var string
+     */
+    private $_begin = '';
+    
+    /**
+     * End
+     * 
+     * @var string
+     */
+    private $_end = '';
+    
+    /**
+     * Creator Id
+     * 
+     * @var integer
+     */
+    private $_creatorId = 0;
+    
+    /**
+     * Priority Id
+     * 
+     * @var integer
+     */
     private $_priorityId = 0;
+    
+    /**
+     * Status Id
+     * 
+     * @var integer
+     */
     private $_statusId = 0;
+    
+    /**
+     * Contact Id
+     * 
+     * @var integer
+     */
     private $_contactId = 0;
+    
+    /**
+     * Project Id
+     * 
+     * @var integer
+     */
     private $_projectId = 0;
+    
+    /**
+     * Created at
+     * 
+     * @var string
+     */
     private $_createdAt = '';
+    
+    /**
+     * Updated At
+     * 
+     * @var string
+     */
     private $_updatedAt = '';
+    
+    /**
+     * Project Title
+     * 
+     * @var string
+     */
     private $_projectTitle = '';
 
     /**
@@ -103,24 +183,34 @@ class TaskModel extends BaseModel
         $this->_desc = $desc;
     }
 
-    public function getBeginAt()
+    public function getBegin()
     {
         return $this->_beginAt;
     }
 
-    public function setBeginAt(string $date)
+    public function setBegin(string $date)
     {
         $this->_beginAt = $date;
     }
 
-    public function getEndAt()
+    public function getEnd()
     {
         return $this->_endAt;
     }
 
-    public function setEndAt(string $date)
+    public function setEnd(string $date)
     {
         $this->_endAt = $date;
+    }
+
+    public function getCreatorId(): int
+    {
+        return $this->_creatorId;
+    }
+
+    public function setCreatorId(int $id)
+    {
+        $this->_creatorId = $id;
     }
 
     public function getPriorityId(): int
@@ -191,5 +281,62 @@ class TaskModel extends BaseModel
     public function setProjectTitle(string $title)
     {
         $this->_projectTitle;
+    }
+
+    public function create()
+    {
+
+    }
+
+    public function read()
+    {
+        $taskModel = new TaskModel;
+        echo $taskModel->getId();
+    }
+
+    public function readAll()
+    {
+        $sql = '
+        SELECT `tasks`.`id`,
+        	`tasks`.`title`,
+            `tasks`.`desc`,
+            UNIX_TIMESTAMP(`tasks`.`begin`) as begin,
+            UNIX_TIMESTAMP(`tasks`.`end`) as end,
+            `priority`.`desc` as priority,
+            `status`.`desc` as status,
+            `tasks`.`contact_id`,
+            `tasks`.`project_id`,
+            UNIX_TIMESTAMP(`tasks`.`created_at`) as created_at,
+            `tasks`.`updated_at`,
+            `projects`.`title` as projectTitle
+            FROM `tasks`
+            LEFT JOIN `priority` ON `priority`.`id` = `tasks`.`priority`
+            LEFT JOIN `status` ON `status`.`id` = `tasks`.`status`
+            LEFT JOIN `projects` ON `projects`.`id` = `tasks`.`project_id`
+                WHERE `tasks`.`status` != 4 
+                    AND `tasks`.`status` != 5
+        ';
+
+        $stmt = $this->getDatabaseConnection()->query($sql);
+
+        $collection = new Collection;
+        while ($row = $stmt->fetch(\PDO::FETCH_OBJ)) {
+            $taskModel = new TaskModel;
+            $taskModel->fetchAll($row);
+
+            $collection->add($taskModel);
+        }
+
+        return $collection;
+    }
+
+    public function update()
+    {
+
+    }
+
+    public function delete()
+    {
+
     }
 }

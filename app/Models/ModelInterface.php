@@ -28,23 +28,10 @@
 
 namespace ProjectPlanner\Model;
 
-use ProjectPlanner\Library\Database;
-
-abstract class BaseModel
+interface ModelInterface
 {
-    public function getDatabaseConnection()
-    {
-        return new Database;
-    }
-
-    public function fetchAll($data)
-    {
-        foreach($data as $key => $value) {
-            $setter = 'set' . ucfirst($key);
-
-            if (method_exists($this, $setter) ) {
-                $this->$setter($value);
-            }
-        } 
-    }
+    public function create();
+    public function read();
+    public function update();
+    public function delete();
 }
