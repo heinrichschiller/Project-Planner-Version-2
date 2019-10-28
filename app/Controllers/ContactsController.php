@@ -37,7 +37,7 @@ class ContactsController extends Base
     {
         $contactRepository = new ContactRepository;
 
-        echo $contactRepository->read();
+        //echo $contactRepository->read();
 
         return $this->render('/contact/index.phtml');
     }
