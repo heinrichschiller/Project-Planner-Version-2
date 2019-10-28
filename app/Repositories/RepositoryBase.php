@@ -28,12 +28,9 @@
 
 namespace ProjectPlanner\Repositories;
 
-use ProjectPlanner\Library\Database;
+
 
 class RepositoryBase
 {
-    public function getDatabaseConnection()
-    {
-        return new Database;
-    }
+    
 }
