@@ -26,10 +26,20 @@
  *
  */
 
-return [
-    'type'   => '',
-    'host'   => '',
-    'user'   => '',
-    'passwd' => '',
-    'dbname' => ''
-];
+namespace ProjectPlanner\Libraries;
+
+use ProjectPlanner\View\View;
+
+abstract class Base
+{
+    public function model($model) {
+        $class = "\\ProjectPlanner\\Model\\$model";
+        return new $class();
+    }
+
+    public function render(string $template, array $data = [])
+    {
+        $view = new View($template);
+        return $view->renderTemplate($data);
+    }
+}

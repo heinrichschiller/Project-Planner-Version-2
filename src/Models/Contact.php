@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  *
@@ -28,16 +28,16 @@
 
 namespace ProjectPlanner\Model;
 
-class ContactModel
+class Contact
 {
     private $_id = 0;
 
-    public function getId()
+    public function getId(): int
     {
         return $this->_id;
     }
 
-    public function setId(int $id): int
+    public function setId(int $id)
     {
         $this->_id = $id;
     }

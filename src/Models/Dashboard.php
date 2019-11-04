@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  *
@@ -26,20 +26,9 @@
  *
  */
 
-namespace ProjectPlanner\Libraries;
+namespace ProjectPlanner\Model;
 
-use ProjectPlanner\View\View;
-
-abstract class Base
+class Dashboard extends Model
 {
-    public function model($model) {
-        $class = "\\ProjectPlanner\\Model\\$model";
-        return new $class();
-    }
-
-    public function render(string $template, array $data = [])
-    {
-        $view = new View($template);
-        return $view->renderTemplate($data);
-    }
+    
 }

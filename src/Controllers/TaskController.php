@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  *
@@ -25,3 +25,51 @@
  * SOFTWARE.
  *
  */
+
+namespace ProjectPlanner\Controller;
+
+use ProjectPlanner\Interfaces\ControllerInterface;
+use ProjectPlanner\Libraries\Base;
+use ProjectPlanner\Model\TaskModel;
+
+class TaskController extends Base implements ControllerInterface
+{
+    private $_model = null;
+
+    public function __construct()
+    {
+        $this->_model = $this->model('TaskModel');
+    }
+
+    /**
+     * Shows all active tasks.
+     * 
+     * @return string   string with rendered html-template of tasks
+     */
+    public function indexAction(): string
+    {
+        $tasks = $this->_model->readAll();
+
+        return $this->render('/task/index.phtml', ['tasks' => $tasks]);
+    }
+
+    public function createAction(): string
+    {
+        return $this->render('/task/create.phtml');
+    }
+
+    public function readAction(): string
+    {
+        return $this->render('/task/read.phtml');
+    }
+
+    public function updateAction(): string
+    {
+        return $this->render('/task/update.phtml');
+    }
+
+    public function deleteAction(): string
+    {
+        return $this->render('/task/delete.phtml');
+    }
+}

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  *
@@ -30,7 +30,7 @@ namespace ProjectPlanner\Model;
 
 use ProjectPlanner\Util\Collection;
 
-class TaskModel extends BaseModel implements ModelInterface 
+class Task extends Model implements ModelInterface 
 {
     /**
      * Id
@@ -73,6 +73,13 @@ class TaskModel extends BaseModel implements ModelInterface
      * @var integer
      */
     private $_creatorId = 0;
+
+    /**
+     * Creator
+     * 
+     * @var string
+     */
+    private $_creator = '';
     
     /**
      * Priority Id
@@ -80,13 +87,27 @@ class TaskModel extends BaseModel implements ModelInterface
      * @var integer
      */
     private $_priorityId = 0;
-    
+
+    /**
+     * Priority
+     * 
+     * @var string
+     */
+    private $_priority;
+
     /**
      * Status Id
      * 
      * @var integer
      */
     private $_statusId = 0;
+    
+    /**
+     * Status
+     * 
+     * @var string
+     */
+    private $_status = '';
     
     /**
      * Contact Id
@@ -96,12 +117,61 @@ class TaskModel extends BaseModel implements ModelInterface
     private $_contactId = 0;
     
     /**
+     * Contact
+     * 
+     * @var string
+     */
+    private $_contact = '';
+
+    /**
      * Project Id
      * 
      * @var integer
      */
     private $_projectId = 0;
     
+    /**
+     * Project
+     * 
+     * @var string
+     */
+    private $_project = '';
+
+    /**
+     * Employee id
+     * 
+     * @var int
+     */
+    private $_employeeId = 0;
+
+    /**
+     * Employee
+     * 
+     * @var string
+     */
+    private $_employee;
+
+    /**
+     * Tested
+     * 
+     * @var boolean
+     */
+    private $_testId = false;
+
+    /**
+     * Deployment
+     * 
+     * @var boolean
+     */
+    private $_deployment = false;
+    
+    /**
+     * Deployed at
+     * 
+     * @var string
+     */
+    private $_deployedAt = '';
+
     /**
      * Created at
      * 
@@ -115,13 +185,6 @@ class TaskModel extends BaseModel implements ModelInterface
      * @var string
      */
     private $_updatedAt = '';
-    
-    /**
-     * Project Title
-     * 
-     * @var string
-     */
-    private $_projectTitle = '';
 
     /**
      * Get the value of _id
@@ -183,44 +246,91 @@ class TaskModel extends BaseModel implements ModelInterface
         $this->_desc = $desc;
     }
 
-    public function getBegin()
+    /**
+     * Get the value of _beginAt
+     */
+    public function getBegin(): string
     {
         return $this->_beginAt;
     }
 
+    /**
+     * Set the value of _beginAt
+     * 
+     * @param string $date - The begining of a task.
+     */
     public function setBegin(string $date)
     {
         $this->_beginAt = $date;
     }
 
+    /**
+     * Get the value of _endAt
+     */
     public function getEnd()
     {
         return $this->_endAt;
     }
 
+    /**
+     * Set the value of _endAt
+     * 
+     * @param string $date - The begining of a task.
+     */
     public function setEnd(string $date)
     {
         $this->_endAt = $date;
     }
 
+    /**
+     * Get the value of _creatorId
+     */
     public function getCreatorId(): int
     {
         return $this->_creatorId;
     }
 
+    /**
+     * Set the value of _creatorId
+     * 
+     * @param int $id - The id of a creator.
+     */
     public function setCreatorId(int $id)
     {
         $this->_creatorId = $id;
     }
 
+    /**
+     * Get the value of _priorityId
+     */
     public function getPriorityId(): int
+    {
+        return $this->_priorityId;
+    }
+
+    /**
+     * Set the value of _priorityId
+     * 
+     * @param int $id - Set _priorityId of a task
+     */
+    public function setPriorityId(int $id)
+    {
+        $this->_priorityId = $id;
+    }
+
+    /**
+     * Get the value of _priority
+     * 
+     * @return string 
+     */
+    public function getPriority(): string
     {
         return $this->_priority;
     }
 
-    public function setPriorityId(int $id)
+    public function setPriority(string $priority)
     {
-        $this->_priorityId = $id;
+        $this->_priority = $priority;
     }
 
     public function getStatusId(): int
@@ -233,6 +343,16 @@ class TaskModel extends BaseModel implements ModelInterface
         $this->_statusId = $id;
     }
 
+    public function getStatus(): string
+    {
+        return $this->_status;
+    }
+
+    public function setStatus(string $status)
+    {
+        $this->_status = $status;
+    }
+
     public function getContactId(): int
     {
         return $this->_contactId;
@@ -243,6 +363,16 @@ class TaskModel extends BaseModel implements ModelInterface
         $this->_contactId = $id;
     }
 
+    public function getContact(): string
+    {
+        return $this->_contact;
+    }
+
+    public function setContact(string $contact)
+    {
+        $this->_contact = $contact;
+    }
+
     public function getProjectId(): int
     {
         return $this->_projectId;
@@ -251,6 +381,26 @@ class TaskModel extends BaseModel implements ModelInterface
     public function setProjectId(int $id)
     {
         $this->_projectId = $id;
+    }
+
+    public function getTestId(): int
+    {
+        return $this->_testId;
+    }
+
+    public function setTestId(int $id)
+    {
+        $this->_testId = $id;
+    }
+
+    public function getDeploymentAt(): string
+    {
+        return $this->_deployedAt;
+    }
+
+    public function setDeploymentAt(string $date)
+    {
+        $this->_deployedAt = $date;
     }
 
     public function getCreatedAt()
@@ -273,14 +423,14 @@ class TaskModel extends BaseModel implements ModelInterface
         $this->_updatedAt = $date;
     }
 
-    public function getProjectTitle(): string
+    public function getProject(): string
     {
-        return $this->_projectTitle;
+        return $this->_project;
     }
 
-    public function setProjectTitle(string $title)
+    public function setProject(string $title)
     {
-        $this->_projectTitle;
+        $this->_project = $title;
     }
 
     public function create()
@@ -290,13 +440,12 @@ class TaskModel extends BaseModel implements ModelInterface
 
     public function read()
     {
-        $taskModel = new TaskModel;
-        echo $taskModel->getId();
+        
     }
 
     public function readAll()
     {
-        $sql = '
+        $sql = <<<SQL
         SELECT `tasks`.`id`,
         	`tasks`.`title`,
             `tasks`.`desc`,
@@ -304,18 +453,19 @@ class TaskModel extends BaseModel implements ModelInterface
             UNIX_TIMESTAMP(`tasks`.`end`) as end,
             `priority`.`desc` as priority,
             `status`.`desc` as status,
-            `tasks`.`contact_id`,
+            `contacts`.`name` as contact,
             `tasks`.`project_id`,
             UNIX_TIMESTAMP(`tasks`.`created_at`) as created_at,
             `tasks`.`updated_at`,
-            `projects`.`title` as projectTitle
+            `projects`.`title` as project
             FROM `tasks`
-            LEFT JOIN `priority` ON `priority`.`id` = `tasks`.`priority`
-            LEFT JOIN `status` ON `status`.`id` = `tasks`.`status`
+            LEFT JOIN `priority` ON `priority`.`id` = `tasks`.`priority_id`
+            LEFT JOIN `status` ON `status`.`id` = `tasks`.`status_id`
             LEFT JOIN `projects` ON `projects`.`id` = `tasks`.`project_id`
-                WHERE `tasks`.`status` != 4 
-                    AND `tasks`.`status` != 5
-        ';
+            LEFT JOIN `contacts`ON `contacts`.`id`= `tasks`.`contact_id`
+            WHERE `tasks`.`status_id` != 4 
+                AND `tasks`.`status_id` != 5
+        SQL;
 
         $stmt = $this->getDatabaseConnection()->query($sql);
 

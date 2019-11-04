@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  *
@@ -25,3 +25,32 @@
  * SOFTWARE.
  *
  */
+
+namespace ProjectPlanner\Model;
+
+use ProjectPlanner\Library\Database;
+
+abstract class Model
+{
+    public function getDatabaseConnection()
+    {
+        return new Database;
+    }
+
+    public function fetchAll($data)
+    {
+        foreach($data as $key => $value) {
+            if (strpos($key, '_')) {
+                $pieces = explode('_', $key);
+
+                $key = $pieces[0] . \ucfirst($pieces[1]);
+            }
+
+            $setter = 'set' . ucfirst($key);
+
+            if (method_exists($this, $setter) ) {
+                $this->$setter($value);
+            }
+        } 
+    }
+}

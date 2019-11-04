@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  *
@@ -26,24 +26,9 @@
  *
  */
 
-namespace ProjectPlanner\Controller;
+namespace ProjectPlanner\Model;
 
-use ProjectPlanner\Libraries\Base;
-use ProjectPlanner\Model\TaskModel;
-
-class TaskController extends Base
+class Note extends Model
 {
-    private $_model = null;
-
-    public function __construct()
-    {
-        $this->_model = $this->model('TaskModel');
-    }
-
-    public function indexAction()
-    {
-        $tasks = $this->_model->readAll();
-
-        return $this->render('/task/index.phtml', ['tasks' => $tasks]);
-    }
+    
 }

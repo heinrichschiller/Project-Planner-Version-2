@@ -60,10 +60,12 @@ class Database
 
     private function _loadConfig()
     {
-        $this->_setHost('localhost');
-        $this->_setUser('root');
-        $this->_setPassword('');
-        $this->_setDbName('projectplanner');
+        $config = include ROOT_DIR . 'src/configs/database.config.php';
+
+        $this->_setHost($config['host']);
+        $this->_setUser($config['user']);
+        $this->_setPassword($config['passwd']);
+        $this->_setDbName($config['dbname']);
     }
 
     private function _getHost(): string

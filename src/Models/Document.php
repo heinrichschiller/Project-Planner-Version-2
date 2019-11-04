@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  *
@@ -28,10 +28,7 @@
 
 namespace ProjectPlanner\Model;
 
-interface ModelInterface
+class Document extends Model
 {
-    public function create();
-    public function read();
-    public function update();
-    public function delete();
+    
 }

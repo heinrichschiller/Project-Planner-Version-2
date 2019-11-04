@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  *
@@ -25,3 +25,10 @@
  * SOFTWARE.
  *
  */
+
+namespace ProjectPlanner\Model;
+
+class Project extends Model
+{
+    
+}

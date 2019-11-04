@@ -1,5 +1,4 @@
-<?php
-
+<?php declare(strict_types=1);
 
 /**
  *
@@ -27,15 +26,9 @@
  *
  */
 
-namespace ProjectPlanner\Controller;
-
-use ProjectPlanner\Libraries\Base;
-use ProjectPlanner\Repositories\TaskRepository;
-
-class TaskBackendController extends BaseController
-{
-    public function indexAction()
-    {
-        
-    }
-}
+return [
+    'host'   => 'localhost',
+    'user'   => 'root',
+    'passwd' => '',
+    'dbname' => 'projectplanner'
+];

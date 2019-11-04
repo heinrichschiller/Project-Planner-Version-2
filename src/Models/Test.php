@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  *
@@ -28,7 +28,7 @@
 
 namespace ProjectPlanner\Model;
 
-class TaskBackendModel extends BaseModel
+class Test extends Model
 {
     
 }

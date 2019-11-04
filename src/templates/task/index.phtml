@@ -27,7 +27,10 @@
                 <td><?= $task->getTitle() ?></td>
                 <td><?= $task->getBegin()?></td>
                 <td><?= $task->getEnd() ?></td>
-                <td><?= $task->getProjectTitle() ?></td>
+                <td><?= $task->getPriority() ?></td>
+                <td><?= $task->getStatus() ?></td>
+                <td><?= $task->getContact() ?></td>
+                <td><?= $task->getProject() ?></td>
             </tr>
         <?php endforeach; ?>    
         </tbody>
