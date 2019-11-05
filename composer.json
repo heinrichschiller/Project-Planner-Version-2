@@ -10,8 +10,8 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "heinrichschiller/normalize.css": "dev-master",
-        "twbs/bootstrap": "4.3.1"
+        "twbs/bootstrap": "4.3.1",
+        "mustache/mustache": "dev-master"
     },
     "autoload": {
         "psr-4": {
