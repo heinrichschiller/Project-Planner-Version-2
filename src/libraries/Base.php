@@ -28,10 +28,13 @@
 
 namespace ProjectPlanner\Libraries;
 
-use ProjectPlanner\View\View;
-
 abstract class Base
 {
+    public function __construct()
+    {
+        \Mustache_Autoloader::register();
+    }
+
     public function model($model) {
         $class = "\\ProjectPlanner\\Model\\$model";
         return new $class();
@@ -39,7 +42,7 @@ abstract class Base
 
     public function render(string $template, array $data = [])
     {
-        $view = new View($template);
-        return $view->renderTemplate($data);
+        $view = new \Mustache_Engine;
+        return $view->render('Hello {{planet}}', array('planet' => 'World!'));
     }
 }
