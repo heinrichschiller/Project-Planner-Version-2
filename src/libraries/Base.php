@@ -32,7 +32,7 @@ abstract class Base
 {
     public function __construct()
     {
-        \Mustache_Autoloader::register();
+        // put your code here
     }
 
     public function model($model) {
@@ -42,7 +42,16 @@ abstract class Base
 
     public function render(string $template, array $data = [])
     {
-        $view = new \Mustache_Engine;
-        return $view->render('Hello {{planet}}', array('planet' => 'World!'));
+        $options = [
+            'extension' => '.html'
+        ];
+
+        $viewPath = ROOT_DIR . 'src/views';
+
+        $view = new \Mustache_Engine([
+            'loader' => new \Mustache_Loader_FilesystemLoader($viewPath, $options)
+        ]);
+
+        return $view->render('index', ['text' => 'Willkommen bei Project-Planner!']);
     }
 }
