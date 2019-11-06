@@ -11,7 +11,8 @@
     "minimum-stability": "dev",
     "require": {
         "twbs/bootstrap": "4.3.1",
-        "mustache/mustache": "dev-master"
+        "mustache/mustache": "dev-master",
+        "components/jquery": "dev-master"
     },
     "autoload": {
         "psr-4": {
