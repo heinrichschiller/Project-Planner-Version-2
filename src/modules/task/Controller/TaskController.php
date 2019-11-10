@@ -26,13 +26,50 @@
  *
  */
 
-namespace ProjectPlanner\Interfaces;
+namespace ProjectPlanner\Controller;
 
-interface ControllerInterface
+use ProjectPlanner\Interfaces\ControllerInterface;
+use ProjectPlanner\Library\Controller;
+use ProjectPlanner\Model\TaskModel;
+
+class TaskController extends Controller implements ControllerInterface
 {
-    public function indexAction(): string;
-    public function createAction(): string;
-    public function readAction(): string;
-    public function updateAction(): string;
-    public function deleteAction(): string;
+    private $_model = null;
+
+    public function __construct()
+    {
+        $this->_model = $this->model('TaskModel');
+    }
+
+    /**
+     * Shows all active tasks.
+     * 
+     * @return string   string with rendered html-template of tasks
+     */
+    public function indexAction(): string
+    {
+        $tasks = $this->_model->readAll();
+
+        return $this->render('/task/index', ['tasks' => $tasks]);
+    }
+
+    public function createAction(): string
+    {
+        return $this->render('/task/create');
+    }
+
+    public function readAction(): string
+    {
+        return $this->render('/task/read');
+    }
+
+    public function updateAction(): string
+    {
+        return $this->render('/task/update');
+    }
+
+    public function deleteAction(): string
+    {
+        return $this->render('/task/delete');
+    }
 }

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 /**
  *
@@ -26,16 +26,16 @@
  *
  */
 
+use ProjectPlanner\Library\Application;
+
 error_reporting(-1);
 ini_set('display_errors', '1');
-
-require __DIR__ . '/vendor/autoload.php';
-
-use ProjectPlanner\Libraries\Application;
 
 if(!defined('ROOT_DIR')) {
     define('ROOT_DIR', __DIR__ . '/');
 }
+
+require ROOT_DIR . '/vendor/autoload.php';
 
 $app = new Application;
 $app->run();

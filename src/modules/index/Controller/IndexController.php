@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 /**
  *
@@ -26,13 +26,23 @@
  *
  */
 
-namespace ProjectPlanner\Interfaces;
+namespace ProjectPlanner\Controller;
 
-interface ControllerInterface
+use ProjectPlanner\Interfaces\ControllerInterface;
+use ProjectPlanner\Libraries\Controller;
+
+class IndexController extends Controller implements ControllerInterface
 {
-    public function indexAction(): string;
-    public function createAction(): string;
-    public function readAction(): string;
-    public function updateAction(): string;
-    public function deleteAction(): string;
+    public function indexAction(): string
+    {
+        return $this->render('index/index');
+    }
+
+    public function createAction(): string {}
+
+    public function readAction(): string {}
+
+    public function updateAction(): string {}
+
+    public function deleteAction(): string {}
 }

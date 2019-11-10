@@ -26,13 +26,9 @@
  *
  */
 
-namespace ProjectPlanner\Interfaces;
+namespace ProjectPlanner\Model;
 
-interface ControllerInterface
+class Note extends Model
 {
-    public function indexAction(): string;
-    public function createAction(): string;
-    public function readAction(): string;
-    public function updateAction(): string;
-    public function deleteAction(): string;
+    
 }

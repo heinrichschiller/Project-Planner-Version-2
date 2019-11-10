@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  *
@@ -26,13 +26,14 @@
  *
  */
 
-namespace ProjectPlanner\Interfaces;
+namespace ProjectPlanner\Controller;
 
-interface ControllerInterface
+use ProjectPlanner\Libraries\Base;
+
+class UsersController extends Base
 {
-    public function indexAction(): string;
-    public function createAction(): string;
-    public function readAction(): string;
-    public function updateAction(): string;
-    public function deleteAction(): string;
+    public function indexAction()
+    {
+        return $this->render('/user/index.phtml');
+    }
 }

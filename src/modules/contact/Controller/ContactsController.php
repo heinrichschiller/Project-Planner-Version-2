@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  *
@@ -26,13 +26,19 @@
  *
  */
 
-namespace ProjectPlanner\Interfaces;
+namespace ProjectPlanner\Controller;
 
-interface ControllerInterface
+use ProjectPlanner\Libraries\Base;
+use ProjectPlanner\Repositories\ContactRepository;
+
+class ContactsController extends Base
 {
-    public function indexAction(): string;
-    public function createAction(): string;
-    public function readAction(): string;
-    public function updateAction(): string;
-    public function deleteAction(): string;
+    public function indexAction()
+    {
+        $contactRepository = new ContactRepository;
+
+        //echo $contactRepository->read();
+
+        return $this->render('/contact/index.phtml');
+    }
 }

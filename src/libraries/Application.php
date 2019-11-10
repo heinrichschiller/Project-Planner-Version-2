@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /**
  *
@@ -26,16 +26,57 @@
  *
  */
 
-namespace ProjectPlanner\Libraries;
+namespace ProjectPlanner\Library;
 
 class Application
 {
+    /**
+     * Index of controller-method
+     * 
+     * @var int
+     */
+    const REQUEST_CONTROLLER = 0;
+
+    /**
+     * Index of action-method
+     * 
+     * @var int
+     */
+    const REQUEST_ACTION     = 1;
+
+    /**
+     * Index of params-method
+     * 
+     * @var int
+     */
+    const REQUEST_PARAMS     = 2;
+
+    /**
+     * Controller
+     * 
+     * @var string
+     */
     private $_controller = '';
+
+    /**
+     * Action
+     * 
+     * @var string
+     */
     private $_action     = '';
+
+    /**
+     * Params
+     * 
+     * @var array
+     */
     private $_params     = [];
+
+    private $_config     = [];
 
     public function __construct()
     {
+        $this->_loadConfig();
         $this->_parseRequest();
     }
 
@@ -44,12 +85,21 @@ class Application
         $request = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
         $reqItems = explode('/', $request, 3);
 
-        $this->_setController($reqItems[0]);
+        $controller = !empty($reqItems[self::REQUEST_CONTROLLER]) 
+            ? $reqItems[self::REQUEST_CONTROLLER] 
+            : $this->_config['default_controller'];
 
-        $action     = !empty($reqItems[1]) ? $reqItems['1'] : 'index';
+        $this->_setController($controller);
+
+        $action = !empty($reqItems[self::REQUEST_ACTION]) 
+            ? $reqItems[self::REQUEST_ACTION] 
+            : $this->_config['default_action'];
+
         $this->_setAction($action);
 
-        $params     = !empty($reqItems[2]) ? $reqItems['2'] : [];
+        $params = !empty($reqItems[self::REQUEST_PARAMS]) 
+            ? $reqItems[self::REQUEST_PARAMS] 
+            : [];
 
         if(isset($params)) {
             $this->_setParams($params);
@@ -58,9 +108,7 @@ class Application
 
     private function _setController(string $ctrl = '')
     {
-        $controller = 'dashboard';
-
-        if(!empty($ctrl) && !is_numeric($ctrl)) {
+        if( !empty($ctrl) && !is_numeric($ctrl)) {
             $ctrl = htmlspecialchars($ctrl);
             $controller = trim($ctrl);
         }
@@ -77,6 +125,11 @@ class Application
 
     private function _setAction(string $action)
     {
+        if( !empty($action) && !is_numeric($action)) {
+            $action = htmlspecialchars($action);
+            $action = trim($action);
+        }
+
         $action = sprintf("%sAction", strtolower($action));
         $reflection = new \ReflectionClass($this->_controller);
 
@@ -87,9 +140,20 @@ class Application
         $this->_action = $action;
     }
 
-    private function _setParams(array $params)
+    private function _setParams(array $params): array
     {
+        return [];
+    }
 
+    private function _loadConfig()
+    {
+        $configFile = ROOT_DIR . 'src/configs/settings.config.php';
+
+        if( file_exists($configFile) ) {
+            return $this->_config = include $configFile;
+        }
+
+        throw \Exception("Config file not found.");
     }
 
     public function run()

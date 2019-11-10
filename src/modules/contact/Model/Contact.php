@@ -26,32 +26,19 @@
  *
  */
 
-namespace ProjectPlanner\Libraries;
+namespace ProjectPlanner\Model;
 
-abstract class Base
+class Contact
 {
-    public function __construct()
+    private $_id = 0;
+
+    public function getId(): int
     {
-        // put your code here
+        return $this->_id;
     }
 
-    public function model($model) {
-        $class = "\\ProjectPlanner\\Model\\$model";
-        return new $class();
-    }
-
-    public function render(string $template, array $data = [])
+    public function setId(int $id)
     {
-        $options = [
-            'extension' => '.html'
-        ];
-
-        $viewPath = ROOT_DIR . 'src/views';
-
-        $view = new \Mustache_Engine([
-            'loader' => new \Mustache_Loader_FilesystemLoader($viewPath, $options)
-        ]);
-
-        return $view->render('index', ['text' => 'Willkommen bei Project-Planner!']);
+        $this->_id = $id;
     }
 }

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 /**
  *
@@ -26,13 +26,31 @@
  *
  */
 
-namespace ProjectPlanner\Interfaces;
+namespace ProjectPlanner\Library;
 
-interface ControllerInterface
+use ProjectPlanner\Library\Database;
+
+abstract class Model
 {
-    public function indexAction(): string;
-    public function createAction(): string;
-    public function readAction(): string;
-    public function updateAction(): string;
-    public function deleteAction(): string;
+    public function getDatabaseConnection()
+    {
+        return new Database;
+    }
+
+    public function fetchAll($data)
+    {
+        foreach($data as $key => $value) {
+            if (strpos($key, '_')) {
+                $pieces = explode('_', $key);
+
+                $key = $pieces[0] . \ucfirst($pieces[1]);
+            }
+
+            $setter = 'set' . ucfirst($key);
+
+            if (method_exists($this, $setter) ) {
+                $this->$setter($value);
+            }
+        } 
+    }
 }

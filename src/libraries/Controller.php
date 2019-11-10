@@ -26,13 +26,32 @@
  *
  */
 
-namespace ProjectPlanner\Interfaces;
+namespace ProjectPlanner\Library;
 
-interface ControllerInterface
+abstract class Controller
 {
-    public function indexAction(): string;
-    public function createAction(): string;
-    public function readAction(): string;
-    public function updateAction(): string;
-    public function deleteAction(): string;
+    public function __construct()
+    {
+        // put your code here
+    }
+
+    public function model($model) {
+        $class = "\\ProjectPlanner\\Model\\$model";
+        return new $class();
+    }
+
+    public function render(string $template, array $data = [])
+    {
+        $options = [
+            'extension' => '.html'
+        ];
+
+        $viewPath = ROOT_DIR . 'src/views';
+
+        $view = new \Mustache_Engine([
+            'loader' => new \Mustache_Loader_FilesystemLoader($viewPath, $options)
+        ]);
+
+        return $view->render($template, ['text' => 'Willkommen bei Project-Planner!']);
+    }
 }
