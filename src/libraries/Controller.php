@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  *
@@ -52,6 +52,6 @@ abstract class Controller
             'loader' => new \Mustache_Loader_FilesystemLoader($viewPath, $options)
         ]);
 
-        return $view->render($template, ['text' => 'Willkommen bei Project-Planner!']);
+        return $view->render($template, $data);
     }
 }

@@ -30,10 +30,10 @@ namespace ProjectPlanner\Library;
 
 class Database
 {
-    private $_host     = '';
-    private $_user     = '';
+    private $_hostname = '';
+    private $_username = '';
     private $_password = '';
-    private $_dbname   = '';
+    private $_database = '';
 
     private $_pdo   = null;
     private $_stmt  = null;
@@ -47,11 +47,11 @@ class Database
 
     private function _init()
     {
-        $dsn = 'mysql:host=' . self::_getHost() . ';dbname=' . self::_getDbName();
+        $dsn = 'mysql:host=' . self::_getHostname() . ';dbname=' . self::_getDatabase();
         $options = [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION];
         
         try {
-            $this->_pdo = new \PDO($dsn, $this->_getUser(), $this->_getPassword(), $options);
+            $this->_pdo = new \PDO($dsn, $this->_getUsername(), $this->_getPassword(), $options);
         } catch (PDOException $e) {
             $this->_setError($e->getMessage());
             echo $this->_getError();
@@ -62,30 +62,30 @@ class Database
     {
         $config = include ROOT_DIR . 'src/configs/database.config.php';
 
-        $this->_setHost($config['host']);
-        $this->_setUser($config['user']);
-        $this->_setPassword($config['passwd']);
-        $this->_setDbName($config['dbname']);
+        $this->_setHostname($config['hostname']);
+        $this->_setUsername($config['username']);
+        $this->_setPassword($config['password']);
+        $this->_setDatabase($config['database']);
     }
 
-    private function _getHost(): string
+    private function _getHostname(): string
     {
-        return $this->_host;
+        return $this->_hostname;
     }
 
-    private function _setHost(string $hostname)
+    private function _setHostname(string $hostname)
     {
-        $this->_host = $hostname;
+        $this->_hostname = $hostname;
     }
 
-    private function _getUser(): string 
+    private function _getUsername(): string 
     {
-        return $this->_user;
+        return $this->_username;
     }
 
-    private function _setUser(string $username)
+    private function _setUsername(string $username)
     {
-        $this->_user = $username;
+        $this->_username = $username;
     }
 
     private function _getPassword(): string 
@@ -98,14 +98,14 @@ class Database
         $this->_password = $password;
     }
 
-    private function _getDbName(): string
+    private function _getDatabase(): string
     {
-        return $this->_dbname;
+        return $this->_database;
     }
 
-    private function _setDbName(string $dbName)
+    private function _setDatabase(string $database)
     {
-        $this->_dbname = $dbName;
+        $this->_database = $database;
     }
 
     private function _getError(): string 

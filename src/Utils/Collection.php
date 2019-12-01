@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  *
@@ -31,7 +31,7 @@ namespace ProjectPlanner\Util;
 class Collection
 {
     private $_list = [];
-    private $_key = null;
+    private $_key  = null;
 
     public function add($data, $key = null)
     {
@@ -59,7 +59,7 @@ class Collection
      * 
      * @return integer - length of the collection.
      */
-    public function length(): integer
+    public function length(): int
     {
         return count($this->_list);
     }
@@ -79,7 +79,7 @@ class Collection
         if ( isset($this->_list[$item])) {
             return $this->_list[$item];
         } else {
-            throw KeyInvalidException("Invalid key $key");
+            throw KeyInvalidException("Invalid key $item");
         }
     }
 

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  *
@@ -27,8 +27,9 @@
  */
 
 return [
-    'host'   => 'localhost',
-    'user'   => 'root',
-    'passwd' => '',
-    'dbname' => 'projectplanner'
+    'type'     => '',
+    'hostname' => 'localhost',
+    'username' => 'root',
+    'password' => '',
+    'database' => 'projectplanner'
 ];

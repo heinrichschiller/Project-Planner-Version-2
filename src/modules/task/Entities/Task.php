@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  *
@@ -56,14 +56,14 @@ class Task
      * 
      * @var string
      */
-    private $_begin = '';
+    private $_beginAt = '';
     
     /**
      * End
      * 
      * @var string
      */
-    private $_end = '';
+    private $_endAt = '';
     
     /**
      * Creator Id
@@ -154,7 +154,7 @@ class Task
      * 
      * @var boolean
      */
-    private $_testId = false;
+    private $_testId = 0;
 
     /**
      * Deployment
@@ -247,7 +247,7 @@ class Task
     /**
      * Get the value of _beginAt
      */
-    public function getBegin(): string
+    public function getBeginAt(): string
     {
         return $this->_beginAt;
     }
@@ -257,7 +257,7 @@ class Task
      * 
      * @param string $date - The begining of a task.
      */
-    public function setBegin(string $date)
+    public function setBeginAt(string $date)
     {
         $this->_beginAt = $date;
     }
@@ -265,7 +265,7 @@ class Task
     /**
      * Get the value of _endAt
      */
-    public function getEnd()
+    public function getEndAt()
     {
         return $this->_endAt;
     }
@@ -275,7 +275,7 @@ class Task
      * 
      * @param string $date - The begining of a task.
      */
-    public function setEnd(string $date)
+    public function setEndAt(string $date)
     {
         $this->_endAt = $date;
     }

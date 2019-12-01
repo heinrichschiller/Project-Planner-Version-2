@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  *
@@ -48,9 +48,9 @@ class TaskController extends Controller implements ControllerInterface
      */
     public function indexAction(): string
     {
-        $tasks = $this->_model->readAll();
-
-        return $this->render('/task/index', ['tasks' => $tasks]);
+        //$tasks = $this->_model->readAll();
+//var_dump($tasks);
+        return $this->render('/task/index', ['text' => 'huhu']);
     }
 
     public function createAction(): string

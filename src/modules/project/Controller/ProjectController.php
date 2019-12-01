@@ -26,14 +26,37 @@
  *
  */
 
+declare( strict_types = 1 );
+
 namespace ProjectPlanner\Controller;
 
-use ProjectPlanner\Libraries\Base;
+use ProjectPlanner\Interfaces\ControllerInterface;
+use ProjectPlanner\Library\Controller;
 
-class ProjectsController extends Base
+class ProjectController extends Controller implements ControllerInterface
 {
-    public function indexAction()
+    public function indexAction(): string
     {
-        return $this->render('/project/index.phtml');
+        return '';
+    }
+
+    public function createAction(): string
+    {
+        return '';
+    }
+
+    public function readAction(): string
+    {
+        return '';
+    }
+
+    public function updateAction(): string
+    {
+        return '';
+    }
+
+    public function deleteAction(): string
+    {
+        return '';
     }
 }

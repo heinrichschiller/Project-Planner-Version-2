@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 /**
  *
@@ -37,7 +37,7 @@ abstract class Model
         return new Database;
     }
 
-    public function fetchAll($data)
+    public function fetchAll($data, $entity)
     {
         foreach($data as $key => $value) {
             if (strpos($key, '_')) {
@@ -48,8 +48,8 @@ abstract class Model
 
             $setter = 'set' . ucfirst($key);
 
-            if (method_exists($this, $setter) ) {
-                $this->$setter($value);
+            if (method_exists($entity, $setter) ) {
+                $entity->{$setter}($value);
             }
         } 
     }

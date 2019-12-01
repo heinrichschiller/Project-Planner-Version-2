@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 /**
  *
@@ -153,7 +153,7 @@ class Application
             return $this->_config = include $configFile;
         }
 
-        throw \Exception("Config file not found.");
+        throw new \Exception("Config file not found.");
     }
 
     public function run()

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 /**
  *
@@ -29,7 +29,7 @@
 namespace ProjectPlanner\Controller;
 
 use ProjectPlanner\Interfaces\ControllerInterface;
-use ProjectPlanner\Libraries\Controller;
+use ProjectPlanner\Library\Controller;
 
 class IndexController extends Controller implements ControllerInterface
 {

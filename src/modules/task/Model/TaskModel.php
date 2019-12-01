@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  *
@@ -30,7 +30,7 @@ namespace ProjectPlanner\Model;
 
 use ProjectPlanner\Entities\Task;
 use ProjectPlanner\Library\Model;
-use ProjectPlanner\Utils\Collection;
+use ProjectPlanner\Util\Collection;
 
 class TaskModel extends Model implements ModelInterface 
 {
@@ -48,8 +48,8 @@ class TaskModel extends Model implements ModelInterface
         SELECT `tasks`.`id`,
         	`tasks`.`title`,
             `tasks`.`desc`,
-            UNIX_TIMESTAMP(`tasks`.`begin`) as begin,
-            UNIX_TIMESTAMP(`tasks`.`end`) as end,
+            UNIX_TIMESTAMP(`tasks`.`begin_at`) as begin_at,
+            UNIX_TIMESTAMP(`tasks`.`end_at`) as end_at,
             `priority`.`desc` as priority,
             `status`.`desc` as status,
             `contacts`.`name` as contact,
@@ -70,10 +70,22 @@ class TaskModel extends Model implements ModelInterface
 
         $tasks = new Collection;
         while ($row = $stmt->fetch(\PDO::FETCH_OBJ)) {
-            // $task = new Task;
-            // $task->fetchAll($row);
+            $task = new Task;
 
-            // $tasks->add($taskModel);
+            $task->setId( (int) $row->id );
+            $task->setTitle( $row->title );
+            $task->setDesc( $row->desc );
+            $task->setBeginAt( $row->begin_at );
+            $task->setEndAt( $row->end_at );
+            $task->setPriority( $row->priority );
+            $task->setStatus( $row->status );
+            $task->setContact( $row->contact );
+            $task->setProjectId( (int) $row->project_id );
+            $task->setCreatedAt( $row->created_at );
+            $task->setUpdatedAt( $row->updated_at );
+            $task->setProject( $row->project );
+
+            $tasks->add($task);
         }
 
         return $tasks;
