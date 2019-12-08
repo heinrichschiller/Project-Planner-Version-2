@@ -26,11 +26,12 @@
  *
  */
 
-namespace ProjectPlanner\Controller;
+namespace ProjectPlanner\Dashboard;
 
-use ProjectPlanner\Libraries\Base;
+use ProjectPlanner\Interfaces\ControllerInterface;
+use ProjectPlanner\Library\Controller;
 
-class DashboardController extends Base
+class DashboardController extends Controller implements ControllerInterface
 {
     public function indexAction()
     {

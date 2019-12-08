@@ -28,7 +28,7 @@
 
 declare( strict_types = 1 );
 
-namespace ProjectPlanner\Controller;
+namespace ProjectPlanner\Project;
 
 use ProjectPlanner\Interfaces\ControllerInterface;
 use ProjectPlanner\Library\Controller;
@@ -37,7 +37,7 @@ class ProjectController extends Controller implements ControllerInterface
 {
     public function indexAction(): string
     {
-        return '';
+        return $this->render('project/index');
     }
 
     public function createAction(): string

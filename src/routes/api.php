@@ -26,9 +26,4 @@
  *
  */
 
-namespace ProjectPlanner\Library;
-
-class Router
-{
-    
-}
+use ProjectPlanner\Library\Route;

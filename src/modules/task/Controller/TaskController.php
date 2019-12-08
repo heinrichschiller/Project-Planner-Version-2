@@ -26,7 +26,7 @@
  *
  */
 
-namespace ProjectPlanner\Controller;
+namespace ProjectPlanner\Task;
 
 use ProjectPlanner\Interfaces\ControllerInterface;
 use ProjectPlanner\Library\Controller;
@@ -50,7 +50,7 @@ class TaskController extends Controller implements ControllerInterface
     {
         //$tasks = $this->_model->readAll();
 //var_dump($tasks);
-        return $this->render('/task/index', ['text' => 'huhu']);
+        return $this->render('task/index');
     }
 
     public function createAction(): string

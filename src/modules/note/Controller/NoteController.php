@@ -26,14 +26,35 @@
  *
  */
 
-namespace ProjectPlanner\Controller;
+namespace ProjectPlanner\Note;
 
-use ProjectPlanner\Libraries\Base;
+use ProjectPlanner\Interfaces\ControllerInterface;
+use ProjectPlanner\Library\Controller;
 
-class DocumentsController extends Base
+class NoteController extends Controller implements ControllerInterface
 {
-    public function indexAction()
+    public function indexAction(): string
     {
-        return $this->render('/documents/index.phtml');
+        return $this->render('note/index');
+    }
+
+    public function createAction(): string
+    {
+        return '';
+    }
+
+    public function readAction(): string
+    {
+        return '';
+    }
+
+    public function updateAction(): string
+    {
+        return '';
+    }
+
+    public function deleteAction(): string
+    {
+        return '';
     }
 }

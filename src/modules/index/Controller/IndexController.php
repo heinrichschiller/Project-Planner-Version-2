@@ -38,11 +38,19 @@ class IndexController extends Controller implements ControllerInterface
         return $this->render('index/index');
     }
 
-    public function createAction(): string {}
+    public function createAction(): string {
+        return '';
+    }
 
-    public function readAction(): string {}
+    public function readAction(): string {
+        return '';
+    }
 
-    public function updateAction(): string {}
+    public function updateAction(): string {
+        return '';
+    }
 
-    public function deleteAction(): string {}
+    public function deleteAction(): string {
+        return '';
+    }
 }

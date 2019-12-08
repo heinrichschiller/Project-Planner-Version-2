@@ -28,7 +28,8 @@
 
 declare(strict_types = 1);
 
-use ProjectPlanner\Library\Application;
+//use ProjectPlanner\Library\Application;
+
 
 error_reporting(-1);
 ini_set('display_errors', '1');
@@ -38,6 +39,8 @@ if(!defined('ROOT_DIR')) {
 }
 
 require ROOT_DIR . '/vendor/autoload.php';
+require ROOT_DIR . 'src/routes/web.php';
 
-$app = new Application;
-$app->run();
+//$app = new Application;
+//$app->run();
+

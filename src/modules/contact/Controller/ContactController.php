@@ -28,7 +28,7 @@
 
 declare( strict_types = 1 );
 
-namespace ProjectPlanner\Controller;
+namespace ProjectPlanner\Contact;
 
 use ProjectPlanner\Interfaces\ControllerInterface;
 use ProjectPlanner\Library\Controller;
@@ -41,9 +41,7 @@ class ContactController extends Controller implements ControllerInterface
 
         //echo $contactRepository->read();
 
-        //return $this->render('/contact/index.phtml');
-
-        return '';
+        return $this->render('contact/index');
     }
 
     public function createAction(): string
