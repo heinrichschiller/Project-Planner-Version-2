@@ -30,10 +30,10 @@ namespace ProjectPlanner\Library;
 
 class Database
 {
-    private $_hostname = '';
-    private $_username = '';
-    private $_password = '';
-    private $_database = '';
+    private string $_hostname = '';
+    private string $_username = '';
+    private string $_password = '';
+    private string $_database = '';
 
     private $_pdo   = null;
     private $_stmt  = null;

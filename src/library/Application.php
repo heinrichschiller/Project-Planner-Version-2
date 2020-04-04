@@ -42,14 +42,14 @@ class Application
      * 
      * @var int
      */
-    const REQUEST_ACTION     = 1;
+    const REQUEST_ACTION = 1;
 
     /**
      * Index of params-method
      * 
      * @var int
      */
-    const REQUEST_PARAMS     = 2;
+    const REQUEST_PARAMS = 2;
 
     /**
      * Controller
