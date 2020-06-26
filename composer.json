@@ -1,5 +1,6 @@
 {
     "name": "heinrich/project-planner-version-2",
+    "description": "...",
     "type": "project",
     "license": "MIT",
     "authors": [
@@ -12,7 +13,8 @@
     "require": {
         "twbs/bootstrap": "4.3.1",
         "mustache/mustache": "dev-master",
-        "components/jquery": "dev-master"
+        "components/jquery": "dev-master",
+        "vlucas/phpdotenv": "^5.0@dev"
     },
     "autoload": {
         "psr-4": {
