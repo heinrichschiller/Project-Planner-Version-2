@@ -73,4 +73,12 @@ Route::add('/note/index', function() {
     echo $controller->indexAction();
 });
 
+//
+// ---------------------------Timetrack-Routes-----------------------
+//
+Route::add('/timetrack/index', function() {
+    $controller = new ProjectPlanner\Timetrack\TimetrackController;
+    echo $controller->indexAction();
+});
+
 Route::run('/');
