@@ -35,56 +35,56 @@ class Task
      * 
      * @var integer
      */
-    private $_id = 0;
+    private int $_id = 0;
     
     /**
      * Title
      * 
      * @var string
      */
-    private $_title = '';
+    private string $_title = '';
     
     /**
      * Description
      * 
      * @var string
      */
-    private $_desc = '';
+    private string $_desc = '';
     
     /**
      * Begin
      * 
      * @var string
      */
-    private $_beginAt = '';
+    private string $_beginAt = '';
     
     /**
      * End
      * 
      * @var string
      */
-    private $_endAt = '';
+    private string $_endAt = '';
     
     /**
      * Creator Id
      * 
      * @var integer
      */
-    private $_creatorId = 0;
+    private int $_creatorId = 0;
 
     /**
      * Creator
      * 
      * @var string
      */
-    private $_creator = '';
+    private string $_creator = '';
     
     /**
      * Priority Id
      * 
      * @var integer
      */
-    private $_priorityId = 0;
+    private int $_priorityId = 0;
 
     /**
      * Priority
@@ -98,49 +98,49 @@ class Task
      * 
      * @var integer
      */
-    private $_statusId = 0;
+    private int $_statusId = 0;
     
     /**
      * Status
      * 
      * @var string
      */
-    private $_status = '';
+    private string $_status = '';
     
     /**
      * Contact Id
      * 
      * @var integer
      */
-    private $_contactId = 0;
+    private int $_contactId = 0;
     
     /**
      * Contact
      * 
      * @var string
      */
-    private $_contact = '';
+    private string $_contact = '';
 
     /**
      * Project Id
      * 
      * @var integer
      */
-    private $_projectId = 0;
+    private int $_projectId = 0;
     
     /**
      * Project
      * 
      * @var string
      */
-    private $_project = '';
+    private string $_project = '';
 
     /**
      * Employee id
      * 
      * @var int
      */
-    private $_employeeId = 0;
+    private int $_employeeId = 0;
 
     /**
      * Employee
@@ -154,35 +154,35 @@ class Task
      * 
      * @var boolean
      */
-    private $_testId = 0;
+    private int $_testId = 0;
 
     /**
      * Deployment
      * 
      * @var boolean
      */
-    private $_deployment = false;
+    private bool $_deployment = false;
     
     /**
      * Deployed at
      * 
      * @var string
      */
-    private $_deployedAt = '';
+    private string $_deployedAt = '';
 
     /**
      * Created at
      * 
      * @var string
      */
-    private $_createdAt = '';
+    private string $_createdAt = '';
     
     /**
      * Updated At
      * 
      * @var string
      */
-    private $_updatedAt = '';
+    private string $_updatedAt = '';
 
     /**
      * Get the value of _id
