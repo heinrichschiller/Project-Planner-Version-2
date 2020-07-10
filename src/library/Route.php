@@ -26,7 +26,7 @@
  *
  */
 
-namespace ProjectPlanner\Library;
+namespace App\Library;
 
 class Route
 {

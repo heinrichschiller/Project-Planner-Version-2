@@ -26,7 +26,7 @@
  *
  */
 
-namespace ProjectPlanner\Interfaces;
+namespace App\Interfaces;
 
 interface ControllerInterface
 {

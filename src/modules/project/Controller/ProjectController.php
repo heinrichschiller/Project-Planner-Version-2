@@ -28,10 +28,10 @@
 
 declare( strict_types = 1 );
 
-namespace ProjectPlanner\Project;
+namespace App\Modules\Project\Controller;
 
-use ProjectPlanner\Interfaces\ControllerInterface;
-use ProjectPlanner\Library\Controller;
+use App\Interfaces\ControllerInterface;
+use App\Library\Controller;
 
 class ProjectController extends Controller implements ControllerInterface
 {

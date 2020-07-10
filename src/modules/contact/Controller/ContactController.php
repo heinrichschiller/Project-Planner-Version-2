@@ -28,10 +28,10 @@
 
 declare( strict_types = 1 );
 
-namespace ProjectPlanner\Contact;
+namespace App\Modules\Contact\Controller;
 
-use ProjectPlanner\Interfaces\ControllerInterface;
-use ProjectPlanner\Library\Controller;
+use App\Interfaces\ControllerInterface;
+use App\Library\Controller;
 
 class ContactController extends Controller implements ControllerInterface
 {

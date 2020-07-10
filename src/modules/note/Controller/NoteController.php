@@ -26,10 +26,10 @@
  *
  */
 
-namespace ProjectPlanner\Note;
+namespace App\Modules\Note\Controller;
 
-use ProjectPlanner\Interfaces\ControllerInterface;
-use ProjectPlanner\Library\Controller;
+use App\Interfaces\ControllerInterface;
+use App\Library\Controller;
 
 class NoteController extends Controller implements ControllerInterface
 {

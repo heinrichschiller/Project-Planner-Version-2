@@ -26,11 +26,12 @@
  *
  */
 
-namespace ProjectPlanner\Model;
+namespace App\Modules\Task\Model;
 
-use ProjectPlanner\Entities\Task;
-use ProjectPlanner\Library\Model;
-use ProjectPlanner\Util\Collection;
+use App\Modules\Task\Entities\Task as Task;
+use App\Library\Model;
+use App\Interfaces\ModelInterface;
+use App\Utils\Collection;
 
 class TaskModel extends Model implements ModelInterface 
 {
@@ -42,6 +43,9 @@ class TaskModel extends Model implements ModelInterface
 
     public function delete() {}
 
+    /**
+     * 
+     */
     public function readAll()
     {
         $sql = <<<SQL

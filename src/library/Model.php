@@ -26,9 +26,9 @@
  *
  */
 
-namespace ProjectPlanner\Library;
+namespace App\Library;
 
-use ProjectPlanner\Library\Database;
+use App\Library\Database;
 
 abstract class Model
 {

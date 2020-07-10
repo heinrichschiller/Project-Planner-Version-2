@@ -26,10 +26,10 @@
  *
  */
 
-use ProjectPlanner\Library\Route;
+use App\Library\Route;
 
 Route::add('/', function() {
-    $controller = new ProjectPlanner\Controller\IndexController;
+    $controller = new App\Modules\Index\Controller\IndexController;
     echo $controller->indexAction();
 });
 
@@ -37,7 +37,7 @@ Route::add('/', function() {
 // ------------------------Contact-Routes-----------------------
 //
 Route::add('/contact/index', function() {
-    $controller = new ProjectPlanner\Contact\ContactController;
+    $controller = new App\Modules\Contact\Controller\ContactController;
     echo $controller->indexAction();
 });
 
@@ -45,7 +45,7 @@ Route::add('/contact/index', function() {
 // ------------------------Project-Routes-----------------------
 //
 Route::add('/project/index', function() {
-    $controller = new ProjectPlanner\Project\ProjectController;
+    $controller = new App\Modules\Project\Controller\ProjectController;
     echo $controller->indexAction();
 });
 
@@ -53,15 +53,19 @@ Route::add('/project/index', function() {
 // --------------------------Task-Routes------------------------
 //
 Route::add('/task/index', function() {
-    $controller = new ProjectPlanner\Task\TaskController;
+    $controller = new App\Modules\Task\Controller\TaskController;
     echo $controller->indexAction();
 });
 
+Route::add('/task/new', function() {
+    $controller = new \App\Modules\Task\Controller\TaskController;
+    echo $controller->newAction();
+});
 //
 // ------------------------Document-Routes----------------------
 //
 Route::add('/document/index', function() {
-    $controller = new ProjectPlanner\Document\DocumentController;
+    $controller = new App\Modules\Document\Controller\DocumentController;
     echo $controller->indexAction();
 });
 
@@ -69,7 +73,7 @@ Route::add('/document/index', function() {
 // ---------------------------Note-Routes-----------------------
 //
 Route::add('/note/index', function() {
-    $controller = new ProjectPlanner\Note\NoteController;
+    $controller = new App\Modules\Note\Controller\NoteController;
     echo $controller->indexAction();
 });
 
@@ -77,7 +81,7 @@ Route::add('/note/index', function() {
 // ---------------------------Timetrack-Routes-----------------------
 //
 Route::add('/timetrack/index', function() {
-    $controller = new ProjectPlanner\Timetrack\TimetrackController;
+    $controller = new App\Modules\Timetrack\Controller\TimetrackController;
     echo $controller->indexAction();
 });
 

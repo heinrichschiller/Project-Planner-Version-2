@@ -28,10 +28,10 @@
 
 declare( strict_types = 1 );
 
-namespace ProjectPlanner\Document;
+namespace App\Modules\Document\Controller;
 
-use ProjectPlanner\Interfaces\ControllerInterface;
-use ProjectPlanner\Library\Controller;
+use App\Interfaces\ControllerInterface;
+use App\Library\Controller;
 
 class DocumentController extends Controller implements ControllerInterface
 {

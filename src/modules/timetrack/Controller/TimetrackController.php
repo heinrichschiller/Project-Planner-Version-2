@@ -26,10 +26,10 @@
  *
  */
 
-namespace ProjectPlanner\Timetrack;
+namespace App\Modules\Timetrack\Controller;
 
-use ProjectPlanner\Library\Controller;
-use ProjectPlanner\Interfaces\ControllerInterface;
+use App\Library\Controller;
+use App\Interfaces\ControllerInterface;
 
 class TimetrackController extends Controller implements ControllerInterface
 {

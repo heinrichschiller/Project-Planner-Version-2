@@ -26,7 +26,7 @@
  *
  */
 
-namespace ProjectPlanner\Entities;
+namespace App\Modules\Task\Entities;
 
 class Task 
 {

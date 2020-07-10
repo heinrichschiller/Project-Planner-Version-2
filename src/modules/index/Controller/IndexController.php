@@ -26,10 +26,10 @@
  *
  */
 
-namespace ProjectPlanner\Controller;
+namespace App\Modules\Index\Controller;
 
-use ProjectPlanner\Interfaces\ControllerInterface;
-use ProjectPlanner\Library\Controller;
+use App\Interfaces\ControllerInterface;
+use App\Library\Controller;
 
 class IndexController extends Controller implements ControllerInterface
 {

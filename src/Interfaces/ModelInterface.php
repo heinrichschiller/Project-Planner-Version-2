@@ -26,7 +26,7 @@
  *
  */
 
-namespace ProjectPlanner\Model;
+namespace App\Interfaces;
 
 interface ModelInterface
 {
