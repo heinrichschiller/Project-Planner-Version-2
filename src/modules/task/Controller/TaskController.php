@@ -26,11 +26,10 @@
  *
  */
 
-namespace ProjectPlanner\Task;
+namespace App\Modules\Task\Controller;
 
-use ProjectPlanner\Interfaces\ControllerInterface;
-use ProjectPlanner\Library\Controller;
-use ProjectPlanner\Model\TaskModel;
+use App\Interfaces\ControllerInterface;
+use App\Library\Controller;
 
 class TaskController extends Controller implements ControllerInterface
 {
@@ -38,19 +37,19 @@ class TaskController extends Controller implements ControllerInterface
 
     public function __construct()
     {
-        $this->_model = $this->model('TaskModel');
+        $this->_model = $this->model(new \App\Modules\Task\Model\TaskModel);
     }
 
     /**
      * Shows all active tasks.
      * 
-     * @return string   string with rendered html-template of tasks
+     * @return string string with rendered html-template of tasks
      */
     public function indexAction(): string
     {
-        //$tasks = $this->_model->readAll();
-//var_dump($tasks);
-        return $this->render('task/index');
+        $tasks = $this->_model->readAll();
+
+        return $this->render('task/index', ['task' => $tasks->toArray()]);
     }
 
     public function createAction(): string
@@ -71,5 +70,10 @@ class TaskController extends Controller implements ControllerInterface
     public function deleteAction(): string
     {
         return $this->render('/task/delete');
+    }
+
+    public function newAction(): string
+    {
+        return $this->render('/task/new');
     }
 }
