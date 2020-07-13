@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        
+        {{> partials/head }}
+
+    </head>
+    <body>
+        <div class="navigation">
+
+            {{> partials/navigation }}
+
+        </div>
+        
+        <div class="header">
+            <div class="container-fluid">
+                <h1>Aufgaben</h1>
+            </div>
+        </div>
+
+        <div class="table">
+            <div class="container-fluid">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Titel</th>
+                            <th>Projekt</th>
+                            <th>Kontakt</th>
+                            <th>Anfang</th>
+                            <th>Ende</th>
+                            <th>Status</th>
+                            <th>Priorität</th>
+                            <th>Fortschritt</th>
+                            <th>Getestet</th>
+                            <th>Veröffentlicht</th>
+                            <th>Erstellt</th>
+                            <th>Aktualisiert</th>
+                            <th colspan="3">Aktionen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#task}}
+                        <tr>
+                            <td>{{id}}</td>
+                            <td>{{title}}</td>
+                            <td>{{project}}</td>
+                            <td>{{contact}}</td>
+                            <td>{{beginAt}}</td>
+                            <td>{{endAt}}</td>
+                            <td>{{status}}</td>
+                            <td>{{priority}}</td>
+                            <td>-</td>
+                            <td>{{testId}}</td>
+                            <td>{{deployedAt}}</td>
+                            <td>{{createdAt}}</td>
+                            <td>{{updatedAt}}</td>
+                        </tr>
+                        {{/task}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="/vendor/components/jquery/jquery.min.js"></script>
+        <script src="/public/assets/js/libs/popper-core-1.16.0/dist/umd/popper.min.js"></script>
+        <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+    </body>
+</html>
