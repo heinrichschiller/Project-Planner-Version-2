@@ -4,7 +4,7 @@
  *
  * MIT License
  *
- * Copyright (c) 2019 Heinrich Schiller
+ * Copyright (c) 2020 Heinrich Schiller
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,8 +28,7 @@
 
 declare(strict_types = 1);
 
-//use ProjectPlanner\Library\Application;
-
+use Dotenv\Dotenv;
 
 error_reporting(-1);
 ini_set('display_errors', '1');
@@ -38,9 +37,7 @@ if(!defined('ROOT_DIR')) {
     define('ROOT_DIR', __DIR__ . '/');
 }
 
-require ROOT_DIR . '/vendor/autoload.php';
 require ROOT_DIR . 'src/routes/web.php';
 
-//$app = new Application;
-//$app->run();
-
+$dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
