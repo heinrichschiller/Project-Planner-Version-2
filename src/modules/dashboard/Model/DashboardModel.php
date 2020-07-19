@@ -4,7 +4,7 @@
  *
  * MIT License
  *
- * Copyright (c) 2019 Heinrich Schiller
+ * Copyright (c) 2019-2020 Heinrich Schiller
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,9 +26,20 @@
  *
  */
 
-namespace ProjectPlanner\Model;
+namespace App\Modules\Dashboard\Model;
 
-class Dashboard extends Model
+use App\Library\Model;
+use App\Interfaces\ModelInterface;
+
+class DashboardModel extends Model implements ModelInterface
 {
-    
+    public function create() {}
+
+    public function read() {}
+
+    public function readAll() {}
+
+    public function update() {}
+
+    public function delete() {}
 }
