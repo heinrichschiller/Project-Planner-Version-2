@@ -147,12 +147,12 @@ class Task
      * 
      * @var string
      */
-    private $_employee;
+    private $_employee = '';
 
     /**
      * Tested
      * 
-     * @var boolean
+     * @var int
      */
     private int $_testId = 0;
 
@@ -191,7 +191,7 @@ class Task
      */
     public function getId(): int
     {
-        return $this->_id;
+        return (int) $this->_id;
     }
 
     /**
