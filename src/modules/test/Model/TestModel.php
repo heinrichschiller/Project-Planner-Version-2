@@ -4,7 +4,7 @@
  *
  * MIT License
  *
- * Copyright (c) 2019 Heinrich Schiller
+ * Copyright (c) 2019-2020 Heinrich Schiller
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,9 +26,3 @@
  *
  */
 
-namespace ProjectPlanner\Model;
-
-class User extends Model
-{
-
-}
