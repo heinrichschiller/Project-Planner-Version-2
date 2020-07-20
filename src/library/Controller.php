@@ -26,7 +26,7 @@
  *
  */
 
-namespace ProjectPlanner\Library;
+namespace App\Library;
 
 abstract class Controller
 {
@@ -35,9 +35,8 @@ abstract class Controller
         // put your code here
     }
 
-    public function model($model) {
-        $class = "\\ProjectPlanner\\Model\\$model";
-        return new $class();
+    public function model(\App\Interfaces\ModelInterface $model) {        
+        return $model;
     }
 
     public function render(string $template, array $data = [])
@@ -46,10 +45,10 @@ abstract class Controller
             'extension' => '.html'
         ];
 
-        $viewPath = ROOT_DIR . 'src/views';
+        $viewPath = ROOT_DIR . 'ressources/views';
 
         $view = new \Mustache_Engine([
-            'loader' => new \Mustache_Loader_FilesystemLoader($viewPath, $options)
+            'loader' => new \Mustache_Loader_FilesystemLoader($viewPath, $options),
         ]);
 
         return $view->render($template, $data);
