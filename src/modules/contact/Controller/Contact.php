@@ -30,37 +30,36 @@ declare( strict_types = 1 );
 
 namespace App\Modules\Contact\Controller;
 
-use App\Interfaces\ControllerInterface;
 use App\Library\Controller;
 
-class ContactController extends Controller implements ControllerInterface
+class Contact extends Controller
 {
-    public function indexAction(): string
+    public function index(): void
     {
         //$contactRepository = new ContactRepository;
 
         //echo $contactRepository->read();
 
-        return $this->render('contact/index');
+        echo $this->render('contact/index');
     }
 
-    public function createAction(): string
+    public function create(): void
     {
-        return '';
+        echo '';
     }
 
-    public function readAction(): string
+    public function read(): void
     {
-        return '';
+        echo '';
     }
 
-    public function updateAction(): string
+    public function update(): void
     {
-        return '';
+        echo '';
     }
 
-    public function deleteAction(): string
+    public function delete(): void
     {
-        return '';
+        echo '';
     }
 }
