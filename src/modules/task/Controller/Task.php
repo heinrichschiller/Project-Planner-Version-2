@@ -31,8 +31,7 @@ namespace App\Modules\Task\Controller;
 use App\Interfaces\ControllerInterface;
 use App\Library\Controller;
 
-class TaskController extends Controller implements ControllerInterface
-{
+class Task extends Controller{
     private $_model = null;
 
     public function __construct()
@@ -42,38 +41,36 @@ class TaskController extends Controller implements ControllerInterface
 
     /**
      * Shows all active tasks.
-     * 
-     * @return string string with rendered html-template of tasks
      */
-    public function indexAction(): string
+    public function index(): void
     {
         $tasks = $this->_model->readAll();
 
-        return $this->render('task/index', ['task' => $tasks->toArray()]);
+        echo $this->render('task/index', ['task' => $tasks->toArray()]);
     }
 
-    public function createAction(): string
+    public function create(): void
     {
-        return $this->render('/task/create');
+        echo $this->render('/task/create');
     }
 
-    public function readAction(): string
+    public function read(): void
     {
-        return $this->render('/task/read');
+        echo $this->render('/task/read');
     }
 
-    public function updateAction(): string
+    public function update(): void
     {
-        return $this->render('/task/update');
+        echo $this->render('/task/update');
     }
 
-    public function deleteAction(): string
+    public function deleten(): void
     {
-        return $this->render('/task/delete');
+        echo $this->render('/task/delete');
     }
 
-    public function newAction(): string
+    public function new(): void
     {
-        return $this->render('/task/new');
+        echo $this->render('/task/new');
     }
 }
