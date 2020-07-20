@@ -26,63 +26,56 @@
  *
  */
 
-use App\Library\Route;
+$dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
 
-Route::add('/', function() {
-    $controller = new App\Modules\Dashboard\Controller\DashboardController;
-    echo $controller->indexAction();
-});
+    /*
+    |----------------------------------------------------------------------------
+    | Index route
+    |----------------------------------------------------------------------------
+    */
+    $r->addRoute('GET', '/', 'App\Modules\Dashboard\Controller\Dashboard/index');
 
-//
-// ------------------------Contact-Routes-----------------------
-//
-Route::add('/contact/index', function() {
-    $controller = new App\Modules\Contact\Controller\ContactController;
-    echo $controller->indexAction();
-});
+    /*
+    |----------------------------------------------------------------------------
+    | Contact-Routes
+    |----------------------------------------------------------------------------
+    */
+    $r->addRoute('GET', '/contacts', 'App\Modules\Contact\Controller\Contact/index');
 
-//
-// ------------------------Project-Routes-----------------------
-//
-Route::add('/project/index', function() {
-    $controller = new App\Modules\Project\Controller\ProjectController;
-    echo $controller->indexAction();
-});
+    /*
+    |----------------------------------------------------------------------------
+    | Project-Routes
+    |----------------------------------------------------------------------------
+    */
+    $r->addRoute('GET', '/projects', 'App\Modules\Project\Controller\Project/index');
 
-//
-// --------------------------Task-Routes------------------------
-//
-Route::add('/task/index', function() {
-    $controller = new App\Modules\Task\Controller\TaskController;
-    echo $controller->indexAction();
-});
+    /*
+    |----------------------------------------------------------------------------
+    | Task-Routes
+    |----------------------------------------------------------------------------
+    */
+    $r->addRoute('GET', '/tasks', 'App\Modules\Task\Controller\Task/index');
+    $r->addRoute('GET', '/tasks/new', 'App\Modules\Task\Controller\Task/new');
 
-Route::add('/task/new', function() {
-    $controller = new \App\Modules\Task\Controller\TaskController;
-    echo $controller->newAction();
-});
-//
-// ------------------------Document-Routes----------------------
-//
-Route::add('/document/index', function() {
-    $controller = new App\Modules\Document\Controller\DocumentController;
-    echo $controller->indexAction();
-});
+    /*
+    |----------------------------------------------------------------------------
+    | Document-Routes
+    |----------------------------------------------------------------------------
+    */
+    $r->addRoute('GET', '/documents', 'App\Modules\Document\Controller\Document/index');
 
-//
-// ---------------------------Note-Routes-----------------------
-//
-Route::add('/note/index', function() {
-    $controller = new App\Modules\Note\Controller\NoteController;
-    echo $controller->indexAction();
-});
+    /*
+    |----------------------------------------------------------------------------
+    | Note-Routes
+    |----------------------------------------------------------------------------
+    */
+    $r->addRoute('GET', '/notes', 'App\Modules\Note\Controller\Note/index');
 
-//
-// ---------------------------Timetrack-Routes-----------------------
-//
-Route::add('/timetrack/index', function() {
-    $controller = new App\Modules\Timetrack\Controller\TimetrackController;
-    echo $controller->indexAction();
-});
+    /*
+    |----------------------------------------------------------------------------
+    | Timetrack-Routes
+    |----------------------------------------------------------------------------
+    */
+    $r->addRoute('GET', '/timetrack', 'App\Modules\Timetrack\Controller\Timetrack/index');
 
-Route::run('/');
+});
