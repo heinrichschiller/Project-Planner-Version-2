@@ -28,10 +28,9 @@
 
 namespace App\Modules\Dashboard\Controller;
 
-use App\Interfaces\ControllerInterface;
 use App\Library\Controller;
 
-class DashboardController extends Controller implements ControllerInterface
+class Dashboard extends Controller
 {
     private $_model = null;
 
@@ -40,28 +39,8 @@ class DashboardController extends Controller implements ControllerInterface
         $this->_model = $this->model(new \App\Modules\Dashboard\Model\DashboardModel);
     }
 
-    public function indexAction(): string
+    public function index()
     {
-        return $this->render('dashboard/index.html');
-    }
-
-    public function createAction(): string
-    {
-        return $this->render('dashboard/index.html');
-    }
-
-    public function readAction(): string
-    {
-        return $this->render('dashboard/index.html');
-    }
-
-    public function updateAction(): string
-    {
-        return $this->render('dashboard/index.html');
-    }
-
-    public function deleteAction(): string
-    {
-        return $this->render('dashboard/index.html');
+        echo $this->render('dashboard/index.html');
     }
 }
