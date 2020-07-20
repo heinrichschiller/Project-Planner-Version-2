@@ -1,6 +1,7 @@
 composer.lock
 composer.phar
 
+/configs/
 /public/assets/js/libs/
 /src/configs/
 /vendor/
