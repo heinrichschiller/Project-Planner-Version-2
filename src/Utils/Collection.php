@@ -4,7 +4,7 @@
  *
  * MIT License
  *
- * Copyright (c) 2019 Heinrich Schiller
+ * Copyright (c) 2019-2020 Heinrich Schiller
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,22 +26,22 @@
  *
  */
 
-namespace ProjectPlanner\Util;
+namespace App\Utils;
 
 class Collection
 {
-    private $_list = [];
+    private $_items = [];
     private $_key  = null;
 
     public function add($data, $key = null)
     {
         if ( $key == null) {
-            $this->_list[] = $data;
+            $this->_items[] = $data;
         } else {
-            if ( isset($this->_list[$key])) {
+            if ( isset($this->_items[$key])) {
                 throw new KeyHasUseException("Key $key alredy in use.");
             } else {
-                $this->_list[$key] = $data;
+                $this->_items[$key] = $data;
             }
         } 
     }
@@ -51,7 +51,7 @@ class Collection
      */
     public function clear()
     {
-        $this->_list = [];
+        $this->_items = [];
     }
 
     /**
@@ -61,23 +61,23 @@ class Collection
      */
     public function length(): int
     {
-        return count($this->_list);
+        return count($this->_items);
     }
 
     public function get()
     {
-        return $this->_list;
+        return $this->_items;
     }
 
     public function has(string $needle)
     {
-        return in_array($needle, $this->_list);
+        return in_array($needle, $this->_items);
     }
 
     public function item($item)
     {
-        if ( isset($this->_list[$item])) {
-            return $this->_list[$item];
+        if ( isset($this->_items[$item])) {
+            return $this->_items[$item];
         } else {
             throw KeyInvalidException("Invalid key $item");
         }
@@ -85,8 +85,8 @@ class Collection
 
     public function remove($key)
     {
-        if (isset($this->_list[$key])) {
-            unset($this->_list[$key]);
+        if (isset($this->_items[$key])) {
+            unset($this->_items[$key]);
         } else {
             throw KeyInvalidException("Invalid key $key");
         }
@@ -94,7 +94,7 @@ class Collection
 
     public function keys()
     {
-        return array_keys($this->_list);
+        return array_keys($this->_items);
     }
 
     public function firstKey()
@@ -110,7 +110,7 @@ class Collection
             }
         }
 
-        return array_key_first($this->_list);
+        return array_key_first($this->_items);
     }
 
     public function lastKey()
@@ -126,6 +126,26 @@ class Collection
             }
         }
 
-        return array_key_last($this->_list);
+        return array_key_last($this->_items);
+    }
+
+    public function toArray(): array {
+        $items = [];
+
+        foreach($this->_items as $item) {
+            $item = (array) $item;
+            $newItem = [];
+            $keys = array_keys($item);
+            $values = array_values($item);
+
+            for($i = 0; $i < count($keys); $i++) {
+                preg_match('/[_]\S+/', $keys[$i], $match);
+                $newItem[substr($match[0], 1)] = $values[$i];
+            }
+            
+            $items[] = $newItem;
+        }
+
+        return $items;
     }
 }
