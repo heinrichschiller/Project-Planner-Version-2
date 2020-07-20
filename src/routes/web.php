@@ -29,7 +29,7 @@
 use App\Library\Route;
 
 Route::add('/', function() {
-    $controller = new App\Modules\Index\Controller\IndexController;
+    $controller = new App\Modules\Dashboard\Controller\DashboardController;
     echo $controller->indexAction();
 });
 
