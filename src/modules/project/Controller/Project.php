@@ -30,33 +30,32 @@ declare( strict_types = 1 );
 
 namespace App\Modules\Project\Controller;
 
-use App\Interfaces\ControllerInterface;
 use App\Library\Controller;
 
-class ProjectController extends Controller implements ControllerInterface
+class Project extends Controller
 {
-    public function indexAction(): string
+    public function index(): void
     {
-        return $this->render('project/index');
+        echo $this->render('project/index');
     }
 
-    public function createAction(): string
+    public function create(): void
     {
-        return '';
+        echo '';
     }
 
-    public function readAction(): string
+    public function read(): void
     {
-        return '';
+        echo '';
     }
 
-    public function updateAction(): string
+    public function update(): void
     {
-        return '';
+        echo '';
     }
 
-    public function deleteAction(): string
+    public function delete(): void
     {
-        return '';
+        echo '';
     }
 }
