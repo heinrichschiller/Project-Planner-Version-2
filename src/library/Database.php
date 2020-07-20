@@ -26,18 +26,24 @@
  *
  */
 
-namespace ProjectPlanner\Library;
+namespace App\Library;
+
+use PDO;
+use PDOStatement;
 
 class Database
 {
+    private string $_type     = '';
+    private int    $_port     = 0;
+    private string $_host     = '';
     private string $_hostname = '';
     private string $_username = '';
     private string $_password = '';
     private string $_database = '';
 
-    private $_pdo   = null;
-    private $_stmt  = null;
-    private $_error = '';
+    private PDO $_pdo;
+    private PDOStatement $_stmt;
+    private bool $_error = false;
 
     public function __construct()
     {
@@ -47,12 +53,12 @@ class Database
 
     private function _init()
     {
-        $dsn = 'mysql:host=' . self::_getHostname() . ';dbname=' . self::_getDatabase();
-        $options = [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION];
+        $dsn = $this->_getType() . ':host=' . $this->_getHostname() . ';dbname=' . $this->_getDatabase();
+        $options = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
         
         try {
-            $this->_pdo = new \PDO($dsn, $this->_getUsername(), $this->_getPassword(), $options);
-        } catch (PDOException $e) {
+            $this->_pdo = new PDO($dsn, $this->_getUsername(), $this->_getPassword(), $options);
+        } catch (\PDOException $e) {
             $this->_setError($e->getMessage());
             echo $this->_getError();
         }
@@ -60,12 +66,22 @@ class Database
 
     private function _loadConfig()
     {
-        $config = include ROOT_DIR . 'src/configs/database.config.php';
+        $config = include ROOT_DIR . 'configs/database.config.php';
 
+        $this->_setType($config['type']);
         $this->_setHostname($config['hostname']);
         $this->_setUsername($config['username']);
         $this->_setPassword($config['password']);
         $this->_setDatabase($config['database']);
+    }
+
+    private function _getType(): string
+    {
+        return $this->_type;
+    }
+
+    private function _setType(string $type) {
+        $this->_type = $type;
     }
 
     private function _getHostname(): string
@@ -138,7 +154,7 @@ class Database
 
     }
 
-    public function execute(): PDOStatement
+    public function execute()
     {
         return $this->_stmt->execute();
     }
