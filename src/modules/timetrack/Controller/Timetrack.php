@@ -29,32 +29,31 @@
 namespace App\Modules\Timetrack\Controller;
 
 use App\Library\Controller;
-use App\Interfaces\ControllerInterface;
 
-class TimetrackController extends Controller implements ControllerInterface
+class Timetrack extends Controller
 {
-    public function indexAction(): string
+    public function index(): void
     {
-        return $this->render('timetrack/index');
+        echo $this->render('timetrack/index');
     }
 
-    public function createAction(): string
+    public function create(): void
     {
-        return '';
+        echo '';
     }
 
-    public function readAction(): string
+    public function read(): void
     {
-        return '';
+        echo '';
     }
 
-    public function updateAction(): string
+    public function update(): void
     {
-        return '';
+        echo '';
     }
 
-    public function deleteAction(): string
+    public function delete(): void
     {
-        return '';
+        echo '';
     }
 }
