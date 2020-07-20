@@ -26,15 +26,42 @@
  *
  */
 
-namespace ProjectPlanner\Dashboard;
+namespace App\Modules\Dashboard\Controller;
 
-use ProjectPlanner\Interfaces\ControllerInterface;
-use ProjectPlanner\Library\Controller;
+use App\Interfaces\ControllerInterface;
+use App\Library\Controller;
 
 class DashboardController extends Controller implements ControllerInterface
 {
-    public function indexAction()
+    private $_model = null;
+
+    public function __construct()
     {
-        return $this->render('dashboard/index.phtml');
+        $this->_model = $this->model(new \App\Modules\Dashboard\Model\DashboardModel);
+    }
+
+    public function indexAction(): string
+    {
+        return $this->render('dashboard/index.html');
+    }
+
+    public function createAction(): string
+    {
+        return $this->render('dashboard/index.html');
+    }
+
+    public function readAction(): string
+    {
+        return $this->render('dashboard/index.html');
+    }
+
+    public function updateAction(): string
+    {
+        return $this->render('dashboard/index.html');
+    }
+
+    public function deleteAction(): string
+    {
+        return $this->render('dashboard/index.html');
     }
 }
