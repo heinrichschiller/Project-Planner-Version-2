@@ -2,3 +2,34 @@
     font-family: 'Open Sans Condensed', sans-serif;
     font-size: 3.5rem !important;
 }
+
+.table-scrollable {
+    width: 100%;
+    overflow-y: auto;
+    margin: 0 0 1em;
+}
+
+.table-scrollable::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+  }
+  
+.table-scrollable::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    border: 3px solid #fff;
+    background-color: rgba(0, 0, 0, .3);
+}
+
+table {
+    width: 120em !important;
+}
+
+.project,
+.contact,
+.begin,
+.end,
+.created,
+.updatedAt {
+    width: 10em;
+}
