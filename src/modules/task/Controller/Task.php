@@ -28,7 +28,6 @@
 
 namespace App\Modules\Task\Controller;
 
-use App\Interfaces\ControllerInterface;
 use App\Library\Controller;
 
 class Task extends Controller{
@@ -44,9 +43,9 @@ class Task extends Controller{
      */
     public function index(): void
     {
-        $tasks = $this->_model->readAll();
+        $tasks = $this->_model->getAllActiveTasks();
 
-        echo $this->render('task/index', ['task' => $tasks->toArray()]);
+        echo $this->render('task/index', ['tasks' => $tasks->toArray()]);
     }
 
     public function create(): void
@@ -54,9 +53,11 @@ class Task extends Controller{
         echo $this->render('/task/create');
     }
 
-    public function read(): void
+    public function read($id): void
     {
-        echo $this->render('/task/read');
+        $task = $this->_model->read($id);
+
+        echo $this->render('/task/read', $task);
     }
 
     public function update(): void
