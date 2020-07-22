@@ -37,7 +37,66 @@ class TaskModel extends Model implements ModelInterface
 {
     public function create() {}
 
-    public function read() {}
+    public function read(int $id) 
+    {
+        $sql = <<<SQL
+        SELECT `tasks`.`id`,
+        	`tasks`.`title`,
+            `tasks`.`desc`,
+            `tasks`.`begin_at` as begin_at,
+            `tasks`.`end_at` as end_at,
+            `priority`.`desc` as priority,
+            `status`.`desc` as status,
+            `contacts`.`display_name` as contact,
+            `tasks`.`project_id`,
+            `tasks`.`created_at` as created_at,
+            `tasks`.`updated_at`,
+            `projects`.`title` as project
+            FROM `tasks`
+            LEFT JOIN `priority` ON `priority`.`id` = `tasks`.`priority_id`
+            LEFT JOIN `status` ON `status`.`id` = `tasks`.`status_id`
+            LEFT JOIN `projects` ON `projects`.`id` = `tasks`.`project_id`
+            LEFT JOIN `contacts`ON `contacts`.`id`= `tasks`.`contact_id`
+            WHERE `tasks`.`status_id` != 4 
+                AND `tasks`.`status_id` != 5
+                AND `tasks`.`id` = $id
+        SQL;
+
+        $stmt = $this->getDatabaseConnection()->query($sql);
+        $row = $stmt->fetch(\PDO::FETCH_OBJ);
+
+        $task = new Task;
+
+        $task->setId( (int) $row->id );
+        $task->setTitle( $row->title );
+        $task->setDesc( $row->desc );
+        $task->setBeginAt( $row->begin_at );
+        $task->setEndAt( $row->end_at );
+        $task->setPriority( $row->priority );
+        $task->setStatus( $row->status );
+        $task->setContact( $row->contact );
+        $task->setProjectId( (int) $row->project_id );
+        $task->setCreatedAt( $row->created_at );
+        $task->setUpdatedAt( $row->updated_at );
+        $task->setProject( $row->project );
+
+        $arr = [
+            'id' => $task->getId(),
+            'title' => $task->getTitle(),
+            'desc' => $task->getDesc(),
+            'beginAt' => $task->getBeginAt(),
+            'endAt' => $task->getEndAt(),
+            'priority' => $task->getPriority(),
+            'status' => $task->getStatus(),
+            'contact' => $task->getContact(),
+            'projectId' => $task->getProjectId(),
+            'createdAt' => $task->getCreatedAt(),
+            'updatedAt' => $task->getUpdatedAt(),
+            'project' => $task->getProject()
+        ];
+
+        return $arr;
+    }
 
     public function update() {}
 
@@ -46,19 +105,19 @@ class TaskModel extends Model implements ModelInterface
     /**
      * 
      */
-    public function readAll()
+    public function getAllActiveTasks()
     {
         $sql = <<<SQL
         SELECT `tasks`.`id`,
         	`tasks`.`title`,
             `tasks`.`desc`,
-            UNIX_TIMESTAMP(`tasks`.`begin_at`) as begin_at,
-            UNIX_TIMESTAMP(`tasks`.`end_at`) as end_at,
+            `tasks`.`begin_at` as begin_at,
+            `tasks`.`end_at` as end_at,
             `priority`.`desc` as priority,
             `status`.`desc` as status,
-            `contacts`.`name` as contact,
+            `contacts`.`display_name` as contact,
             `tasks`.`project_id`,
-            UNIX_TIMESTAMP(`tasks`.`created_at`) as created_at,
+            `tasks`.`created_at` as created_at,
             `tasks`.`updated_at`,
             `projects`.`title` as project
             FROM `tasks`
