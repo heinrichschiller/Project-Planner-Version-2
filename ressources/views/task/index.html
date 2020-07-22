@@ -18,47 +18,49 @@
             </div>
         </div>
 
-        <div class="table">
-            <div class="container-fluid">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Titel</th>
-                            <th>Projekt</th>
-                            <th>Kontakt</th>
-                            <th>Anfang</th>
-                            <th>Ende</th>
-                            <th>Status</th>
-                            <th>Priorität</th>
-                            <th>Fortschritt</th>
-                            <th>Getestet</th>
-                            <th>Veröffentlicht</th>
-                            <th>Erstellt</th>
-                            <th>Aktualisiert</th>
-                            <th colspan="3">Aktionen</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#task}}
-                        <tr>
-                            <td>{{id}}</td>
-                            <td>{{title}}</td>
-                            <td>{{project}}</td>
-                            <td>{{contact}}</td>
-                            <td>{{beginAt}}</td>
-                            <td>{{endAt}}</td>
-                            <td>{{status}}</td>
-                            <td>{{priority}}</td>
-                            <td>-</td>
-                            <td>{{testId}}</td>
-                            <td>{{deployedAt}}</td>
-                            <td>{{createdAt}}</td>
-                            <td>{{updatedAt}}</td>
-                        </tr>
-                        {{/task}}
-                    </tbody>
-                </table>
+        <div class="table-scrollable">
+            <div class="table table-striped table-hover table-sm">
+                <div class="container-fluid">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Titel</th>
+                                <th class="project">Projekt</th>
+                                <th class="contact">Kontakt</th>
+                                <th class="begin">Anfang</th>
+                                <th class="end">Ende</th>
+                                <th>Status</th>
+                                <th>Priorität</th>
+                                <th>Fortschritt</th>
+                                <th>Getestet</th>
+                                <th>Veröffentlicht</th>
+                                <th class="created">Erstellt</th>
+                                <th class="updatedAt">Aktualisiert</th>
+                                <th colspan="3">Aktionen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#tasks}}
+                            <tr>
+                                <td>{{id}}</td>
+                                <td>{{title}}</td>
+                                <td>{{project}}</td>
+                                <td>{{contact}}</td>
+                                <td>{{beginAt}}</td>
+                                <td>{{endAt}}</td>
+                                <td>{{status}}</td>
+                                <td>{{priority}}</td>
+                                <td>-</td>
+                                <td>{{testId}}</td>
+                                <td>{{deployedAt}}</td>
+                                <td>{{createdAt}}</td>
+                                <td>{{updatedAt}}</td>
+                            </tr>
+                            {{/tasks}}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         
