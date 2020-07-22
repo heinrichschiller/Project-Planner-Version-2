@@ -31,8 +31,7 @@ namespace App\Interfaces;
 interface ModelInterface
 {
     public function create();
-    public function read();
-    public function readAll();
+    public function read(int $id);
     public function update();
     public function delete();
 }
