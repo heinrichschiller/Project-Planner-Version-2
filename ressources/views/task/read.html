@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        
+        {{> partials/head }}
+
+    </head>
+    <body>
+        <div class="navigation">
+
+            {{> partials/navigation }}
+
+        </div>
+        
+        <div class="header">
+            <div class="container-fluid">
+                <h1>Aufgabe - {{title}}</h1>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div>
+                {{id}}
+            </div>
+            <div>
+                {{title}}
+            </div>
+            <div>
+                {{desc}}
+            </div>
+            <div>
+                {{beginAt}}
+            </div>
+            <div>
+                {{endAt}}
+            </div>
+            <div>
+                {{priority}}
+            </div>
+            <div>
+                {{status}}
+            </div>
+            <div>
+                {{contact}}
+            </div>
+            <div>
+                {{projectId}}
+            </div>
+            <div>
+                {{project}}
+            </div>
+            <div>
+                {{createdAt}}
+            </div>
+            <div>
+                {{updatedAt}}
+            </div>       
+                
+        </div>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="/vendor/components/jquery/jquery.min.js"></script>
+        <script src="/public/assets/js/libs/popper-core-1.16.0/dist/umd/popper.min.js"></script>
+        <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+    </body>
+</html>
