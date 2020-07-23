@@ -35,7 +35,7 @@ class DashboardModel extends Model implements ModelInterface
 {
     public function create() {}
 
-    public function read() {}
+    public function read($id) {}
 
     public function readAll() {}
 
