@@ -114,7 +114,9 @@ class TaskModel extends Model implements ModelInterface
             `tasks`.`begin_at` as begin_at,
             `tasks`.`end_at` as end_at,
             `priority`.`desc` as priority,
+            `tasks`.`priority_id` as priority_id,
             `status`.`desc` as status,
+            `tasks`.`status_id` as status_id,
             `contacts`.`display_name` as contact,
             `tasks`.`project_id`,
             `tasks`.`created_at` as created_at,
@@ -141,7 +143,9 @@ class TaskModel extends Model implements ModelInterface
             $task->setBeginAt( $row->begin_at );
             $task->setEndAt( $row->end_at );
             $task->setPriority( $row->priority );
+            $task->setPriorityId( (int) $row->priority_id );
             $task->setStatus( $row->status );
+            $task->setStatusId( (int) $row->status_id );
             $task->setContact( $row->contact );
             $task->setProjectId( (int) $row->project_id );
             $task->setCreatedAt( $row->created_at );

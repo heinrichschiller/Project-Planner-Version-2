@@ -22,7 +22,12 @@
 }
 
 table {
-    width: 120em !important;
+    width: 128em !important;
+}
+
+.status,
+.priority {
+    width: 8em;
 }
 
 .project,
@@ -32,4 +37,56 @@ table {
 .created,
 .updatedAt {
     width: 10em;
+}
+
+.status__color,
+.priority__color {
+    text-align: center;
+}
+
+.project-active,
+.active {
+    background-color: #cccccc;
+}
+
+.project-inprocessing,
+.inprocessing {
+    background-color: #74ff95;
+}
+
+.suspend {
+    background-color: #7a7aee;
+}
+
+.done {
+    background-color: #ed9ee3;
+}
+
+.waiting {
+    background-color: burlywood;
+}
+
+.not-important {
+    background-color: #cccccc;
+}
+
+.in-planning {
+    background-color: #cccc33;
+}
+
+.very-high {
+    background-color: darkred;
+    color: goldenrod;
+}
+
+.high {
+    background-color: red;
+}
+
+.normal {
+    background-color: lightgreen;
+}
+
+.low {
+    background-color: lightblue;
 }
