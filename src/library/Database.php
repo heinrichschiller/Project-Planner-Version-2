@@ -141,7 +141,7 @@ class Database
 
     public function prepare(string $query)
     {
-        $this->_stmt = $this->_pdo->prepare($query);
+        return $this->_stmt = $this->_pdo->prepare($query);
     }
 
     public function bindValue()
