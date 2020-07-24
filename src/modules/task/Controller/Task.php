@@ -74,4 +74,11 @@ class Task extends Controller{
     {
         echo $this->render('/task/new');
     }
+
+    public function edit($id): void
+    {
+        $task = $this->_model->read($id);
+
+        echo $this->render('/task/edit', $task);
+    }
 }
