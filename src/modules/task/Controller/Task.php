@@ -28,7 +28,10 @@
 
 namespace App\Modules\Task\Controller;
 
+use App\Library;
+use App\Library\Application;
 use App\Library\Controller;
+
 
 class Task extends Controller{
     private $_model = null;
@@ -45,40 +48,42 @@ class Task extends Controller{
     {
         $tasks = $this->_model->getAllActiveTasks();
 
-        echo $this->render('task/index', ['tasks' => $tasks->toArray()]);
+        $this->render('task/index', ['tasks' => $tasks->toArray()]);
     }
 
     public function create(): void
     {
-        echo $this->render('/task/create');
+        $this->render('/task/create');
     }
 
     public function read($id): void
     {
         $task = $this->_model->read($id);
 
-        echo $this->render('/task/read', $task);
+        $this->render('/task/read', $task);
     }
 
     public function update(): void
     {
-        echo $this->render('/task/update');
+        $this->_model->update($_POST);
+
+        Application::redirect('tasks');
     }
 
     public function deleten(): void
     {
-        echo $this->render('/task/delete');
+        $this->render('/task/delete');
     }
 
     public function new(): void
     {
-        echo $this->render('/task/new');
+        $this->render('/task/new');
     }
 
     public function edit($id): void
     {
         $task = $this->_model->read($id);
 
-        echo $this->render('/task/edit', $task);
+        $this->render('/task/edit', $task);
     }
 }

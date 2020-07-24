@@ -66,7 +66,7 @@ class TaskModel extends Model implements ModelInterface
         $row = $stmt->fetch(\PDO::FETCH_OBJ);
 
         $task = new Task;
-
+        
         $task->setId( (int) $row->id );
         $task->setTitle( $row->title );
         $task->setDesc( $row->desc );
@@ -98,7 +98,22 @@ class TaskModel extends Model implements ModelInterface
         return $arr;
     }
 
-    public function update() {}
+    public function update($data)
+    {
+        $sql = <<<SQL
+        UPDATE `tasks` SET `title`=:title
+            ,`desc`=:desc
+            WHERE `id` = :id
+        SQL;
+
+        $stmt = $this->getDatabaseConnection()->prepare($sql);
+
+        $stmt->bindParam(':title', $data['title']);
+        $stmt->bindParam(':desc', $data['desc']);
+        $stmt->bindParam(':id', $data['id']);
+
+        $stmt->execute();
+    }
 
     public function delete() {}
 

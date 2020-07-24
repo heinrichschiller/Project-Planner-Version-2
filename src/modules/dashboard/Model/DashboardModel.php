@@ -39,7 +39,7 @@ class DashboardModel extends Model implements ModelInterface
 
     public function readAll() {}
 
-    public function update() {}
+    public function update($data) {}
 
     public function delete() {}
 }
