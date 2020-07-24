@@ -51,6 +51,6 @@ abstract class Controller
             'loader' => new \Mustache_Loader_FilesystemLoader($viewPath, $options),
         ]);
 
-        return $view->render($template, $data);
+        echo $view->render($template, $data);
     }
 }
