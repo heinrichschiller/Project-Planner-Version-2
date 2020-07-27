@@ -28,6 +28,8 @@
 
 namespace App\Modules\Task\Controller;
 
+use App\Helper\PriorityListHelper;
+use App\Helper\StatusListHelper;
 use App\Library;
 use App\Library\Application;
 use App\Library\Controller;
@@ -84,6 +86,12 @@ class Task extends Controller{
     {
         $task = $this->_model->read($id);
 
-        $this->render('/task/edit', $task);
+        $data = [
+            'task' => $task,
+            'statusList' => StatusListHelper::get(),
+            'priorityList' => PriorityListHelper::get()
+        ];
+
+        $this->render('/task/edit', $data);
     }
 }
