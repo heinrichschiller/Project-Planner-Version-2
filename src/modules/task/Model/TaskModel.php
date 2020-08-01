@@ -28,10 +28,11 @@
 
 namespace App\Modules\Task\Model;
 
-use App\Modules\Task\Entities\Task as Task;
+use Entities\Task as Task;
 use App\Library\Model;
 use App\Interfaces\ModelInterface;
 use App\Utils\Collection;
+use Helper\DateTimeHelper;
 
 class TaskModel extends Model implements ModelInterface 
 {
@@ -70,14 +71,14 @@ class TaskModel extends Model implements ModelInterface
         $task->setId( (int) $row->id );
         $task->setTitle( $row->title );
         $task->setDesc( $row->desc );
-        $task->setBeginAt( $row->begin_at );
-        $task->setEndAt( $row->end_at );
+        $task->setBeginAt( DateTimeHelper::formatDateTimeLocal($row->begin_at) );
+        $task->setEndAt( DateTimeHelper::formatDateTimeLocal($row->end_at) );
         $task->setPriority( $row->priority );
         $task->setStatus( $row->status );
         $task->setContact( $row->contact );
         $task->setProjectId( (int) $row->project_id );
-        $task->setCreatedAt( $row->created_at );
-        $task->setUpdatedAt( $row->updated_at );
+        $task->setCreatedAt( DateTimeHelper::formatDateTime($row->created_at) );
+        $task->setUpdatedAt( DateTimeHelper::formatDateTime($row->updated_at) );
         $task->setProject( $row->project );
 
         $arr = [
@@ -102,7 +103,10 @@ class TaskModel extends Model implements ModelInterface
     {
         $sql = <<<SQL
         UPDATE `tasks` SET `title`=:title
-            ,`desc`=:desc
+            , `desc`= :desc
+            , `begin_at`= :beginAt
+            , `end_at`= :endAt
+            , `status_id`= :statusId
             WHERE `id` = :id
         SQL;
 
@@ -110,6 +114,9 @@ class TaskModel extends Model implements ModelInterface
 
         $stmt->bindParam(':title', $data['title']);
         $stmt->bindParam(':desc', $data['desc']);
+        $stmt->bindParam(':beginAt', $data['beginAt']);
+        $stmt->bindParam(':endAt', $data['endAt']);
+        $stmt->bindParam(':statusId', $data['statusId']);
         $stmt->bindParam(':id', $data['id']);
 
         $stmt->execute();
@@ -155,16 +162,16 @@ class TaskModel extends Model implements ModelInterface
             $task->setId( (int) $row->id );
             $task->setTitle( $row->title );
             $task->setDesc( $row->desc );
-            $task->setBeginAt( $row->begin_at );
-            $task->setEndAt( $row->end_at );
+            $task->setBeginAt( DateTimeHelper::formatDateTime($row->begin_at) );
+            $task->setEndAt( DateTimeHelper::formatDateTime($row->end_at) );
             $task->setPriority( $row->priority );
             $task->setPriorityId( (int) $row->priority_id );
             $task->setStatus( $row->status );
             $task->setStatusId( (int) $row->status_id );
             $task->setContact( $row->contact );
             $task->setProjectId( (int) $row->project_id );
-            $task->setCreatedAt( $row->created_at );
-            $task->setUpdatedAt( $row->updated_at );
+            $task->setCreatedAt( DateTimeHelper::formatDateTime($row->created_at) );
+            $task->setUpdatedAt( DateTimeHelper::formatDateTime($row->updated_at) );
             $task->setProject( $row->project );
 
             $tasks->add($task);
