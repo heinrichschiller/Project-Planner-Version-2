@@ -52,16 +52,6 @@ return [
 
     /*
     |----------------------------------------------------------------------------
-    | Charset of mysql/mariadb database
-    |----------------------------------------------------------------------------
-    |
-    | 
-    |
-    */
-    'charset' => 'utf8mb4',
-
-    /*
-    |----------------------------------------------------------------------------
     | IP-Address of the Host-Server
     |----------------------------------------------------------------------------
     |
@@ -80,7 +70,7 @@ return [
     | instead. See above, IP-Address-Configuration.
     |
     */
-    'hostname' => 'localhost',
+    'hostname' => '',
 
     /*
     |----------------------------------------------------------------------------
@@ -91,7 +81,7 @@ return [
     | write etc. in this database.
     |
     */
-    'username' => 'root',
+    'username' => '',
 
     /*
     |----------------------------------------------------------------------------
@@ -111,18 +101,5 @@ return [
     | The fullname of the database that you want to use.
     |
     */
-    'database' => 'projectplanner',
-
-    /*
-    |----------------------------------------------------------------------------
-    | PDO options
-    |----------------------------------------------------------------------------
-    |
-    | Sets an attribute on the database handle. See:
-    | https://www.php.net/manual/de/pdo.setattribute.php
-    |
-    */
-    'options' => [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    ]
+    'database' => ''
 ];

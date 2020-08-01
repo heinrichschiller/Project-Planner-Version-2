@@ -19,9 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/",
-            "Entities\\": "src/Entities/",
-            "Helper\\": "src/Helper/"
+            "App\\": "src/"
         }
     },
     "require-dev": {
