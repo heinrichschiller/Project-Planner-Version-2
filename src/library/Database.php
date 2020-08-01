@@ -35,6 +35,7 @@ class Database
 {
     private string $_type     = '';
     private int    $_port     = 0;
+    private string $_charset  = '';
     private string $_host     = '';
     private string $_hostname = '';
     private string $_username = '';
@@ -53,7 +54,8 @@ class Database
 
     private function _init()
     {
-        $dsn = $this->_getType() . ':host=' . $this->_getHostname() . ';dbname=' . $this->_getDatabase();
+        $dsn = $this->_getDsn();
+
         $options = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
         
         try {
@@ -64,6 +66,17 @@ class Database
         }
     }
 
+    private function _getDsn(): string
+    {
+        $str = '%s:hosts=%s;dbname=%s;port=3306;charset=utf8mb4';
+
+        return sprintf($str,
+            $this->_getType(),
+            $this->_getHostname(),
+            $this->_getDatabase()
+        );
+    }
+    
     private function _loadConfig()
     {
         $config = include ROOT_DIR . 'configs/database.config.php';

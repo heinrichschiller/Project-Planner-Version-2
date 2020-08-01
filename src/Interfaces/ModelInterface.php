@@ -32,6 +32,6 @@ interface ModelInterface
 {
     public function create();
     public function read(int $id);
-    public function update();
+    public function update(array $data);
     public function delete();
 }
