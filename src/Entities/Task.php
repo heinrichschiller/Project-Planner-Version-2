@@ -26,7 +26,7 @@
  *
  */
 
-namespace App\Modules\Task\Entities;
+namespace Entities;
 
 class Task 
 {
@@ -206,8 +206,6 @@ class Task
 
     /**
      * Get the value of _title
-     * 
-     * @return self
      */
     public function getTitle(): string
     {
