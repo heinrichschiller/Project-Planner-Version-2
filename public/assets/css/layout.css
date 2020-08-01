@@ -10,11 +10,10 @@ label {
 .title-bar {
     font-family: 'Open Sans Condensed', sans-serif;
     display: flex;
-    align-items: center;
 }
 
 .title-bar input[type=text] {
-    font-size: 3rem;
+    font-size: 3.5rem;
     padding: 0px 8px;
     height: 70px;
     border-radius: unset;
@@ -35,19 +34,8 @@ label {
     box-shadow: inset 0 -1px 0 #ddd;
 }
 
-.header {
-    margin: 2vh 0vh;
-}
-
 .header-title {
     width: 60%;
-}
-
-.header-button {
-    font-size: 2em;
-    margin-left: 2em;
-    color: lightgrey;
-    text-decoration: none;
 }
 
 .table-scrollable {
