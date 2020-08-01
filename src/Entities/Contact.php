@@ -26,7 +26,7 @@
  *
  */
 
-namespace App\Modules\Contact\Entities;
+namespace Entities;
 
 class Contact
 {
@@ -35,35 +35,35 @@ class Contact
      * 
      * @var int
      */
-    private int $_id = 0;
+    private int $id = 0;
 
     /**
      * Display name
      * 
      * @var string
      */
-    private string $_displayName = '';
+    private string $displayName = '';
 
     /**
      * Creator id
      * 
      * @var int
      */
-    private int $_creatorId = 0;
+    private int $creatorId = 0;
 
     /**
      * Created at
      * 
      * @var string
      */
-    private string $_createdAt = '';
+    private string $createdAt = '';
 
     /**
      * Updated at
      * 
      * @var string
      */
-    private string $_updatedAt = '';
+    private string $updatedAt = '';
 
     /**
      * Get id
@@ -72,7 +72,7 @@ class Contact
      */ 
     public function getId(): int
     {
-        return $this->_id;
+        return $this->id;
     }
 
     /**
@@ -82,7 +82,7 @@ class Contact
      */ 
     public function setId(int $id)
     {
-        $this->_id = $id;
+        $this->id = $id;
     }
 
     /**
@@ -92,17 +92,17 @@ class Contact
      */ 
     public function getDisplayName(): string
     {
-        return $this->_displayName;
+        return $this->displayName;
     }
 
     /**
      * Set display name
      *
-     * @param string $_displayName Display name
+     * @param string $displayName Display name
      */ 
     public function setDisplayName(string $displayName)
     {
-        $this->_displayName = $displayName;
+        $this->displayName = $displayName;
     }
 
     /**
@@ -112,7 +112,7 @@ class Contact
      */
     public function getCreatorId(): int
     {
-        return $this->_creatorId;
+        return $this->creatorId;
     }
 
     /**
@@ -122,7 +122,7 @@ class Contact
      */
     public function setCreatorId(int $id)
     {
-        $this->_creatorId = $id;
+        $this->creatorId = $id;
     }
 
     /**
@@ -132,7 +132,7 @@ class Contact
      */
     public function getCreatedAt(): string
     {
-        return $this->_createdAt;
+        return $this->createdAt;
     }
 
     /**
@@ -142,6 +142,6 @@ class Contact
      */
     public function setCreatedAt(string $date)
     {
-        $this->_createdAt = $date;
+        $this->createdAt = $date;
     }
 }
