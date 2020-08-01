@@ -26,29 +26,23 @@
  *
  */
 
-namespace App\Helper;
+namespace Helper;
 
 use DateTime;
 
 class DateTimeHelper
 {
-    private string $_formatDateTime = 'd.m.Y H:i:s';
-    private string $_formatDateTimeLocal = 'Y-m-d\TH:i:s';
-    
-    private DateTime $_dateTime;
-
-    public function __construct(string $date)
+    public static function formatDateTime(string $date)
     {
-        $this->_dateTime = new DateTime($date);
+        $dateTime = new DateTime($date);
+
+        return $dateTime->format('d.m.Y H:i');
     }
 
-    public function formatDateTime()
+    public static function formatDateTimeLocal($date)
     {
-        return $this->_dateTime->format($this->_formatDateTime);
-    }
+        $dateTime = new DateTime($date);
 
-    public function formatDateTimeLocal()
-    {
-        return $this->_dateTime->format($this->_formatDateTimeLocal);
+        return $dateTime->format('Y-m-d\TH:i');
     }
 }
