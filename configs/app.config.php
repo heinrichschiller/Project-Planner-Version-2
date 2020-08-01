@@ -66,5 +66,8 @@ return [
     | Path to the configuration directory of this application
     |
     */
-    'configPath' => ROOT_DIR . 'configs/'
+    'configPath' => ROOT_DIR . 'configs/',
+
+    'datetime' => 'd.m.Y H:i',
+    'datetime-local' => 'Y-m-d\TH:i'
 ];
