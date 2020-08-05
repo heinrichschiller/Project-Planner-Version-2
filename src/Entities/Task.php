@@ -28,404 +28,132 @@
 
 namespace Entities;
 
+use DateTime;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="tasks")
+ */
 class Task 
 {
-    /**
-     * Id
-     * 
-     * @var integer
-     */
-    private int $_id = 0;
-    
-    /**
-     * Title
-     * 
-     * @var string
-     */
-    private string $_title = '';
-    
-    /**
-     * Description
-     * 
-     * @var string
-     */
-    private string $_desc = '';
-    
-    /**
-     * Begin
-     * 
-     * @var string
-     */
-    private string $_beginAt = '';
-    
-    /**
-     * End
-     * 
-     * @var string
-     */
-    private string $_endAt = '';
-    
-    /**
-     * Creator Id
-     * 
-     * @var integer
-     */
-    private int $_creatorId = 0;
+    use \Traits\IdentifiableTrait;
+    use \Traits\PropertiesableTrait;
+    use \Traits\TimestampableTrait;
 
-    /**
-     * Creator
-     * 
-     * @var string
-     */
-    private string $_creator = '';
-    
-    /**
-     * Priority Id
-     * 
-     * @var integer
-     */
-    private int $_priorityId = 0;
-
-    /**
-     * Priority
-     * 
-     * @var string
-     */
-    private $_priority;
-
-    /**
-     * Status Id
-     * 
-     * @var integer
-     */
-    private int $_statusId = 0;
-    
-    /**
-     * Status
-     * 
-     * @var string
-     */
-    private string $_status = '';
-    
     /**
      * Contact Id
      * 
+     * @ORM\Column(type="integer", name="contact_id", nullable=true)
+     * 
      * @var integer
      */
-    private int $_contactId = 0;
-    
-    /**
-     * Contact
-     * 
-     * @var string
-     */
-    private string $_contact = '';
+    protected int $contactId = 0;
 
     /**
      * Project Id
      * 
+     * @ORM\Column(type="integer", name="project_id", nullable=true)
+     * 
      * @var integer
      */
-    private int $_projectId = 0;
-    
-    /**
-     * Project
-     * 
-     * @var string
-     */
-    private string $_project = '';
-
-    /**
-     * Employee id
-     * 
-     * @var int
-     */
-    private int $_employeeId = 0;
-
-    /**
-     * Employee
-     * 
-     * @var string
-     */
-    private $_employee = '';
+    protected int $projectId = 0;
 
     /**
      * Tested
      * 
+     * @ORM\Column(type="integer", name="test_id")
+     * 
      * @var int
      */
-    private int $_testId = 0;
+    protected int $testId = 0;
 
     /**
-     * Deployment
+     * Deployed
+     * 
+     * @ORM\Column(type="boolean", options={"defaul": false})
      * 
      * @var boolean
      */
-    private bool $_deployment = false;
+    protected bool $deployed = false;
     
     /**
      * Deployed at
      * 
-     * @var string
+     * @ORM\Column(type="datetime", name="deployed_at")
+     * @var DateTime
      */
-    private string $_deployedAt = '';
+    protected DateTime $deployedAt;
 
-    /**
-     * Created at
-     * 
-     * @var string
-     */
-    private string $_createdAt = '';
-    
-    /**
-     * Updated At
-     * 
-     * @var string
-     */
-    private string $_updatedAt = '';
-
-    /**
-     * Get the value of _id
-     * 
-     * @return self
-     */
-    public function getId(): int
+    public function __toString()
     {
-        return (int) $this->_id;
-    }
-
-    /**
-     * Set the value of _id
-     * 
-     * @param int $id - The id of a task.
-     */
-    public function setId(int $id)
-    {
-        $this->_id = $id;
-    }
-
-    /**
-     * Get the value of _title
-     */
-    public function getTitle(): string
-    {
-        return $this->_title;
-    }
-
-    /**
-     * Set the value of _title
-     * 
-     * @param string $title - The title of a task.
-     */
-    public function setTitle(string $title)
-    {
-        $this->_title = $title;
-    }
-
-    /**
-     * Get the value of _desc
-     * 
-     * @return self
-     */ 
-    public function getDesc(): string
-    {
-        return $this->_desc;
-    }
-
-    /**
-     * Set the value of _desc
-     *
-     * @param string $desc - The description of a task.
-     */ 
-    public function setDesc(string $desc)
-    {
-        $this->_desc = $desc;
-    }
-
-    /**
-     * Get the value of _beginAt
-     */
-    public function getBeginAt(): string
-    {
-        return $this->_beginAt;
-    }
-
-    /**
-     * Set the value of _beginAt
-     * 
-     * @param string $date - The begining of a task.
-     */
-    public function setBeginAt(string $date)
-    {
-        $this->_beginAt = $date;
-    }
-
-    /**
-     * Get the value of _endAt
-     */
-    public function getEndAt()
-    {
-        return $this->_endAt;
-    }
-
-    /**
-     * Set the value of _endAt
-     * 
-     * @param string $date - The begining of a task.
-     */
-    public function setEndAt(string $date)
-    {
-        $this->_endAt = $date;
-    }
-
-    /**
-     * Get the value of _creatorId
-     */
-    public function getCreatorId(): int
-    {
-        return $this->_creatorId;
-    }
-
-    /**
-     * Set the value of _creatorId
-     * 
-     * @param int $id - The id of a creator.
-     */
-    public function setCreatorId(int $id)
-    {
-        $this->_creatorId = $id;
-    }
-
-    /**
-     * Get the value of _priorityId
-     */
-    public function getPriorityId(): int
-    {
-        return $this->_priorityId;
-    }
-
-    /**
-     * Set the value of _priorityId
-     * 
-     * @param int $id - Set _priorityId of a task
-     */
-    public function setPriorityId(int $id)
-    {
-        $this->_priorityId = $id;
-    }
-
-    /**
-     * Get the value of _priority
-     * 
-     * @return string 
-     */
-    public function getPriority(): string
-    {
-        return $this->_priority;
-    }
-
-    public function setPriority(string $priority)
-    {
-        $this->_priority = $priority;
-    }
-
-    public function getStatusId(): int
-    {
-        return $this->_statusId;
-    }
-
-    public function setStatusId(int $id)
-    {
-        $this->_statusId = $id;
-    }
-
-    public function getStatus(): string
-    {
-        return $this->_status;
-    }
-
-    public function setStatus(string $status)
-    {
-        $this->_status = $status;
+        return $this->getTitle();
     }
 
     public function getContactId(): int
     {
-        return $this->_contactId;
+        return $this->contactId;
     }
 
     public function setContactId(int $id)
     {
-        $this->_contactId = $id;
-    }
-
-    public function getContact(): string
-    {
-        return $this->_contact;
-    }
-
-    public function setContact(string $contact)
-    {
-        $this->_contact = $contact;
+        $this->contactId = $id;
     }
 
     public function getProjectId(): int
     {
-        return $this->_projectId;
+        return $this->projectId;
     }
 
     public function setProjectId(int $id)
     {
-        $this->_projectId = $id;
+        $this->projectId = $id;
     }
 
     public function getTestId(): int
     {
-        return $this->_testId;
+        return $this->testId;
     }
 
     public function setTestId(int $id)
     {
-        $this->_testId = $id;
+        $this->testId = $id;
     }
 
-    public function getDeploymentAt(): string
+    /**
+     * Get deployed
+     *
+     * @return  boolean
+     */ 
+    public function getDeployed()
     {
-        return $this->_deployedAt;
+        return $this->deployed;
     }
 
-    public function setDeploymentAt(string $date)
+    /**
+     * Set deployed
+     *
+     * @param  boolean  $deployed  Deployed
+     *
+     * @return  self
+     */ 
+    public function setDeployed(bool $deployed)
     {
-        $this->_deployedAt = $date;
+        $this->deployed = $deployed;
+
+        return $this;
     }
 
-    public function getCreatedAt()
+    public function getDeployedAt(): string
     {
-        return $this->_createdAt;
+        return $this->deployedAt->format('d.m.Y H:i');
     }
 
-    public function setCreatedAt($date)
+    public function setDeployedAt(string $date)
     {
-        $this->_createdAt = $date;
+        $dateTime = DateTime::createFromFormat('Y-m-d\TH:i', $date);
+
+        $this->deployedAt = $dateTime;
     }
 
-    public function getUpdatedAt()
-    {
-        return $this->_updatedAt;
-    }
-
-    public function setUpdatedAt($date)
-    {
-        $this->_updatedAt = $date;
-    }
-
-    public function getProject(): string
-    {
-        return $this->_project;
-    }
-
-    public function setProject(string $title)
-    {
-        $this->_project = $title;
-    }
 }
