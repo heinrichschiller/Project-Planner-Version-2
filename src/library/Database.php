@@ -66,7 +66,7 @@ class Database
 
     private function _loadConfig()
     {
-        $config = include ROOT_DIR . 'configs/database.config.php';
+        $config = include ROOT_DIR . 'config/database.config.php';
 
         $this->_setType($config['type']);
         $this->_setHostname($config['hostname']);
