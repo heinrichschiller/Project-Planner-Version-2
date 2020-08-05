@@ -26,19 +26,33 @@
  *
  */
 
+
 namespace Entities;
 
+use DateTime;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="contacts")
+ */
 class Contact
 {
     /**
      * Id
      * 
-     * @var int
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     * 
+     * @var integer
      */
     private int $id = 0;
 
     /**
-     * Display name
+     * Title
+     * 
+     * @ORM\Column(type="string", length=255, name="display_name")
      * 
      * @var string
      */
@@ -47,6 +61,8 @@ class Contact
     /**
      * Creator id
      * 
+     * @ORM\Column(type="integer")
+     * 
      * @var int
      */
     private int $creatorId = 0;
@@ -54,16 +70,20 @@ class Contact
     /**
      * Created at
      * 
-     * @var string
+     * @ORM\Column(type="datetime", name="created_at")
+     * 
+     * @var DateTime
      */
-    private string $createdAt = '';
+    private DateTime $createdAt;
 
     /**
      * Updated at
      * 
-     * @var string
+     * @ORM\Column(type="datetime", name="updated_at", options={"default": "CURRENT_TIMESTAMP"})
+     * 
+     * @var DateTime
      */
-    private string $updatedAt = '';
+    private DateTime $updatedAt;
 
     /**
      * Get id
@@ -73,16 +93,6 @@ class Contact
     public function getId(): int
     {
         return $this->id;
-    }
-
-    /**
-     * Set id
-     *
-     * @param int $id Id
-     */ 
-    public function setId(int $id)
-    {
-        $this->id = $id;
     }
 
     /**
@@ -126,22 +136,30 @@ class Contact
     }
 
     /**
-     * Get created at
+     * Createt at
      * 
      * @return string
      */
     public function getCreatedAt(): string
     {
-        return $this->createdAt;
+        return $this->createdAt->format('d.m.Y H:i');
     }
 
-    /**
-     * Set created at
-     * 
-     * @param string $date Date
-     */
-    public function setCreatedAt(string $date)
+    public function setCreatedAt($date)
     {
-        $this->createdAt = $date;
+        $dateTime = DateTime::createFromFormat('Y-m-d\TH:i', $date);
+
+        $this->createdAt = $dateTime;
     }
+
+    public function getUpdatedAt(): string
+    {
+        return $this->updatedAt->format('d.m.Y H:i');
+    }
+
+    public function setUpdatedAt()
+    {        
+        $this->updatedAt = new DateTime;
+    }
+
 }
