@@ -26,7 +26,9 @@
  *
  */
 
-namespace ProjectPlanner\Model;
+namespace App\Modules\User\Model;
+
+use App\Library\Model;
 
 class Test extends Model
 {
