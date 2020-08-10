@@ -14,7 +14,7 @@
         
         <div class="header">
             <div class="container-fluid title-bar">
-                <h1>Aufgabe - {{title}}</h1>
+                <h1>Aufgabe - {{ getTitle }}</h1>
             </div>
         </div>
 
@@ -25,7 +25,7 @@
 
                     <div>
                         <label for="desc">Beschreibung:</label>
-                        <div>{{desc}}</div>
+                        <div>{{ getDescription }}</div>
                     </div>
 
                 </div>
@@ -34,21 +34,21 @@
 
                     <div>
                         <div class="form-group">
-                            <div>#: {{id}}</div>
+                            <div>#: {{ getId }}</div>
                         </div>
     
                         <div>
-                            <div>Begin: {{beginAt}}</div>
+                            <div>Begin: {{ getBeginAt }}</div>
                         </div>
                         <div>
-                            <div>Ende: {{endAt}}</div>
+                            <div>Ende: {{ getEndAt }}</div>
                         </div>
     
                         <div>
-                            <div>Erstellt: {{createdAt}}</div>
+                            <div>Erstellt: {{ getCreatedAt }}</div>
                         </div>
                         <div>
-                            <div>Aktualisiert: {{updatedAt}}</div>
+                            <div>Aktualisiert: {{ getUpdatedAt }}</div>
                         </div> 
                     </div>
                     
@@ -76,7 +76,7 @@
 
         <div class="buttons fixed-bottom">
             <div class="container-fluid">
-                <button id="edit__btn" role="button" class="btn btn-primary" data-id="{{id}}">Bearbeiten</button>
+                <button id="edit__btn" role="button" class="btn btn-primary" data-id="{{ getId }}">Bearbeiten</button>
             </div>
         </div>
 
