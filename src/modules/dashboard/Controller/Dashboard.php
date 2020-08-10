@@ -32,15 +32,15 @@ use App\Library\Controller;
 
 class Dashboard extends Controller
 {
-    private $_model = null;
+    private $model = null;
 
     public function __construct()
     {
-        $this->_model = $this->model(new \App\Modules\Dashboard\Model\DashboardModel);
+        $this->model = $this->model(new \App\Modules\Dashboard\Model\DashboardModel);
     }
 
-    public function index()
+    public function index(): void
     {
-        echo $this->render('dashboard/index.html');
+        $this->render('dashboard/index');
     }
 }
