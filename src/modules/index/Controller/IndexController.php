@@ -28,14 +28,13 @@
 
 namespace App\Modules\Index\Controller;
 
-use App\Interfaces\ControllerInterface;
 use App\Library\Controller;
 
-class IndexController extends Controller implements ControllerInterface
+class IndexController extends Controller 
 {
-    public function indexAction(): string
+    public function indexAction(): void
     {
-        return $this->render('index/index');
+        $this->render('index/index');
     }
 
     public function createAction(): string {

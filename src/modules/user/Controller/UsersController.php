@@ -26,14 +26,14 @@
  *
  */
 
-namespace ProjectPlanner\Controller;
+namespace App\Modules\User\Controller;
 
-use ProjectPlanner\Libraries\Base;
+use App\Library\Controller;
 
-class UsersController extends Base
+class UsersController extends Controller
 {
-    public function indexAction()
+    public function indexAction(): void
     {
-        return $this->render('/user/index.phtml');
+        $this->render('/user/index.phtml');
     }
 }

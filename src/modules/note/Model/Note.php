@@ -26,7 +26,9 @@
  *
  */
 
-namespace ProjectPlanner\Model;
+namespace App\Model;
+
+use App\Library\Model;
 
 class Note extends Model
 {
