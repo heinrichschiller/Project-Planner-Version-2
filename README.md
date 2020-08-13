@@ -1,4 +1,4 @@
-# Project-Planner-Version-2
+# Workflow
 Rewrite code from Project-Planner version 1
 
 ## Installation
