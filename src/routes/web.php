@@ -59,6 +59,7 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/task/read/{id:\d+}', 'App\Modules\Task\Controller\Task/read');
     $r->addRoute('GET', '/task/edit/{id:\d+}', 'App\Modules\Task\Controller\Task/edit');
     $r->addRoute('POST', '/task/update', 'App\Modules\Task\Controller\Task/update');
+    $r->addRoute('POST', '/task/create', 'App\Modules\Task\Controller\Task/create');
 
     /*
     |----------------------------------------------------------------------------
