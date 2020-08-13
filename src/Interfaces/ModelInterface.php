@@ -30,7 +30,7 @@ namespace App\Interfaces;
 
 interface ModelInterface
 {
-    public function create();
+    public function create(array $data);
     public function read(int $id);
     public function update(array $data);
     public function delete();
