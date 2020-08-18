@@ -58,14 +58,14 @@ class Contact
      * 
      * @var DateTime
      */
-    protected DateTime $createdAt;
+    protected ?DateTime $createdAt = null;
 
     /**
      * @ORM\Column(type="datetime", name="updated_at", nullable=true, options={"default": "CURRENT_TIMESTAMP"})
      * 
      * @var DateTime
      */
-    protected DateTime $updatedAt;
+    protected ?DateTime $updatedAt = null;
 
     /**
      * Get the value of id
@@ -100,11 +100,11 @@ class Contact
     /**
      * Get the value of createdAt
      *
-     * @return  DateTime
+     * @return  string
      */ 
-    public function getCreatedAt(): DateTime
+    public function getCreatedAt(): string
     {
-        return $this->createdAt;
+        return $this->createdAt->format('d.m.Y H:i');
     }
 
     /**
@@ -112,7 +112,7 @@ class Contact
      *
      * @param  DateTime  $createdAt
      */ 
-    public function setCreatedAt(DateTime $createdAt)
+    public function setCreatedAt(?DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
     }
@@ -120,11 +120,17 @@ class Contact
     /**
      * Get the value of updatedAt
      *
-     * @return  DateTime
+     * @return  
      */ 
-    public function getUpdatedAt(): DateTime
+    public function getUpdatedAt(): string
     {
-        return $this->updatedAt;
+        $str = '';
+
+        if ( $this->updatedAt !== null ) {
+            $str = $this->updatedAt->format('d.m.Y H:i');
+        }
+        
+        return $str;
     }
 
     /**
@@ -132,10 +138,8 @@ class Contact
      *
      * @param  DateTime  $updatedAt
      */ 
-    public function setUpdatedAt(DateTime $updatedAt)
+    public function setUpdatedAt(?DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 }
