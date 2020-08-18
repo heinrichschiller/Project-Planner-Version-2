@@ -58,7 +58,18 @@ class ContactModel extends Model implements ModelInterface
         $this->entityManager->flush();
     }
 
-    public function read($data) {}
+    /**
+     * Read a contact by id.
+     * 
+     * @param int $id
+     * 
+     * @return []
+     */
+    public function read($id) {
+        $contactRepository = $this->entityManager->getRepository('Entities\Contact');
+
+        return $contactRepository->find($id);
+    }
 
     public function update($data) {}
 

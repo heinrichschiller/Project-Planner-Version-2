@@ -57,9 +57,11 @@ class Contact extends Controller
         Application::redirect('contacts');
     }
 
-    public function read(): void
+    public function read(int $id): void
     {
-        
+        $contact = $this->model->read($id);
+
+        $this->render('contact/read', $contact);
     }
 
     public function update(): void
