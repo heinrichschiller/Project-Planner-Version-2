@@ -43,6 +43,7 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/contacts', 'App\Modules\Contact\Controller\Contact/index');
     $r->addRoute('GET', '/contact/new', 'App\Modules\Contact\Controller\Contact/new');
     $r->addRoute('POST', '/contact/create', 'App\Modules\Contact\Controller\Contact/create');
+    $r->addRoute('GET', '/contact/read/{id:\d+}', 'App\Modules\Contact\Controller\Contact/read');
 
     /*
     |----------------------------------------------------------------------------
