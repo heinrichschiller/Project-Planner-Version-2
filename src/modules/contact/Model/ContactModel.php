@@ -65,13 +65,29 @@ class ContactModel extends Model implements ModelInterface
      * 
      * @return []
      */
-    public function read($id) {
+    public function read(int $id) 
+    {
         $contactRepository = $this->entityManager->getRepository('Entities\Contact');
 
         return $contactRepository->find($id);
     }
 
-    public function update($data) {}
+    public function update(array $data) {
+        $contactRepository = $this->entityManager->getRepository('Entities\Contact');
+
+        $contact = $contactRepository->find($data['id']);
+        
+        if ( $contact === null ) {
+            echo "No contact found for the given id: {$data['id']}";
+            exit(1);
+        }
+
+        $contact->setDisplayName($data['name']);
+        $contact->setUpdatedAt(new DateTime('now'));
+        
+        $this->entityManager->persist($contact);
+        $this->entityManager->flush();
+    }
 
     public function delete() {}
 
