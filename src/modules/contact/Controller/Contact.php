@@ -34,32 +34,42 @@ use App\Library\Controller;
 
 class Contact extends Controller
 {
+    protected $model = null;
+
+    public function __construct()
+    {
+        $this->model = $this->model(new \App\Modules\Contact\Model\ContactModel);
+    }
+
     public function index(): void
     {
-        //$contactRepository = new ContactRepository;
+        $contacts = $this->model->findAllContacts();
 
-        //echo $contactRepository->read();
-
-        echo $this->render('contact/index');
+        $this->render('contact/index', ['contacts' => $contacts]);
     }
 
     public function create(): void
     {
-        echo '';
+        
     }
 
     public function read(): void
     {
-        echo '';
+        
     }
 
     public function update(): void
     {
-        echo '';
+        
     }
 
     public function delete(): void
     {
-        echo '';
+        
+    }
+
+    public function new()
+    {
+        $this->render('contact/new');
     }
 }
