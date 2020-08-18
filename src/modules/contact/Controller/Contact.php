@@ -30,7 +30,9 @@ declare( strict_types = 1 );
 
 namespace App\Modules\Contact\Controller;
 
+use App\Library\Application;
 use App\Library\Controller;
+use Entities\Contact as EntitiesContact;
 
 class Contact extends Controller
 {
@@ -50,7 +52,9 @@ class Contact extends Controller
 
     public function create(): void
     {
-        
+        $this->model->create($_POST);
+
+        Application::redirect('contacts');
     }
 
     public function read(): void

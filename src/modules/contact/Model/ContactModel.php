@@ -32,7 +32,9 @@ namespace App\Modules\Contact\Model;
 
 use App\Interfaces\ModelInterface;
 use App\Library\Model;
+use DateTime;
 use Doctrine\ORM\EntityManager;
+use Entities\Contact;
 
 class ContactModel extends Model implements ModelInterface
 {
@@ -43,7 +45,18 @@ class ContactModel extends Model implements ModelInterface
         $this->entityManager = $this->entityManager();
     }
 
-    public function create($data) {}
+    /**
+     * Create a new contact.
+     */
+    public function create($data) {
+        $newContact = new Contact;
+
+        $newContact->setDisplayName($data['name']);
+        $newContact->setCreatedAt(new DateTime('now'));
+
+        $this->entityManager->persist($newContact);
+        $this->entityManager->flush();
+    }
 
     public function read($data) {}
 
