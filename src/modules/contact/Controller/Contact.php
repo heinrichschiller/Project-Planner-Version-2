@@ -66,7 +66,9 @@ class Contact extends Controller
 
     public function update(): void
     {
-        
+        $this->model->update($_POST);
+
+        Application::redirect('contact/read', (int) $_POST['id']);
     }
 
     public function delete(): void
@@ -74,8 +76,18 @@ class Contact extends Controller
         
     }
 
+    /**
+     * Call the contact/new-Template
+     */
     public function new()
     {
         $this->render('contact/new');
+    }
+
+    public function edit($id)
+    {
+        $contact = $this->model->read((int) $id);
+
+        $this->render('contact/edit', $contact);
     }
 }
