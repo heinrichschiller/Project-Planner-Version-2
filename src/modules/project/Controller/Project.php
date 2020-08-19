@@ -30,6 +30,7 @@ declare( strict_types = 1 );
 
 namespace App\Modules\Project\Controller;
 
+use App\Library\Application;
 use App\Library\Controller;
 
 class Project extends Controller
@@ -50,7 +51,9 @@ class Project extends Controller
 
     public function create(): void
     {
-        dd($_POST);
+        $this->model->create($_POST);
+
+        Application::redirect('projects');
     }
 
     public function read(): void
@@ -76,6 +79,6 @@ class Project extends Controller
             'statusList' => $this->model->getStatusList()
         ];
 
-        $this->render('project\new', $data);
+        $this->render('project/new', $data);
     }
 }
