@@ -29,6 +29,7 @@
 namespace Entities;
 
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -67,6 +68,18 @@ class Contact
      */
     protected ?DateTime $updatedAt = null;
 
+    /**
+     * Assigned projects
+     * 
+     * @ORM\OneToMany(targetEntity="Project", mappedBy="Contact")
+     */
+    protected $assignedProjects;
+
+    public function __construct()
+    {
+        $this->assignedProjects = new ArrayCollection;
+    }
+    
     /**
      * Get the value of id
      *
@@ -141,5 +154,10 @@ class Contact
     public function setUpdatedAt(?DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    public function assignedToProject(Project $project)
+    {
+        $this->assignedProjects[] = $project;
     }
 }
