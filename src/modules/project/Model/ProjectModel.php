@@ -32,6 +32,7 @@ use App\Interfaces\ModelInterface;
 use App\Library\Model;
 use DateTime;
 use Doctrine\ORM\EntityManager;
+use Entities\Project;
 
 class ProjectModel extends Model implements ModelInterface
 {
@@ -42,7 +43,26 @@ class ProjectModel extends Model implements ModelInterface
         $this->entityManager = $this->entityManager();
     }
 
-    public function create(array $data) {}
+    public function create(array $data) {
+        
+        $newProject = new Project;
+
+        $newProject->setTitle($data['title']);
+        $newProject->setDescription($data['desc']);
+        $newProject->setBeginAt($data['beginAt']);
+        $newProject->setEndAt($data['endAt']);
+        $newProject->setStatusId($data['statusId']);
+        $newProject->setPriorityId($data['priorityId']);
+        $newProject->setCreatedAt(new DateTime('now'));
+
+        $contactRepository = $this->entityManager->getRepository('Entities\Contact');
+        $contact = $contactRepository->find($data['contactId']);
+
+        $newProject->setContact($contact);
+
+        $this->entityManager->persist($newProject);
+        $this->entityManager->flush();
+    }
 
     public function read(int $id) {}
 
@@ -79,7 +99,7 @@ class ProjectModel extends Model implements ModelInterface
     public function getContactList()
     {
         $contactRepository = $this->entityManager->getRepository(('Entities\Contact'));
-        
+
         return $contactRepository->findAll();
     }
 }
