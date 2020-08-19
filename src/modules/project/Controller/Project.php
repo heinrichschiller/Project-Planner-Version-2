@@ -83,4 +83,16 @@ class Project extends Controller
 
         $this->render('project/new', $data);
     }
+
+    public function edit(int $id)
+    {
+        $data = [
+            'project' => $this->model->read($id),
+            'contactList' => $this->model->getContactList(),
+            'priorityList' => $this->model->getPriorityList(),
+            'statusList' => $this->model->getStatusList()
+        ];
+
+        $this->render('project/edit', $data);
+    }
 }
