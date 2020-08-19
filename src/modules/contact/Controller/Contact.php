@@ -32,7 +32,6 @@ namespace App\Modules\Contact\Controller;
 
 use App\Library\Application;
 use App\Library\Controller;
-use Entities\Contact as EntitiesContact;
 
 class Contact extends Controller
 {
