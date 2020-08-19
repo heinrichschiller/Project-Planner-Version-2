@@ -26,56 +26,60 @@
  *
  */
 
-declare( strict_types = 1 );
+namespace App\Modules\Project\Model;
 
-namespace App\Modules\Project\Controller;
+use App\Interfaces\ModelInterface;
+use App\Library\Model;
+use DateTime;
+use Doctrine\ORM\EntityManager;
 
-use App\Library\Controller;
-
-class Project extends Controller
+class ProjectModel extends Model implements ModelInterface
 {
-    protected $model = null;
+    protected ?EntityManager $entityMananger = null;
 
     public function __construct()
     {
-        $this->model = $this->model(new \App\Modules\Project\Model\ProjectModel);
+        $this->entityManager = $this->entityManager();
     }
 
-    public function index(): void
-    {
-        $projects = $this->model->findAllProjects();
+    public function create(array $data) {}
 
-        $this->render('project/index', ['projects' => $projects]);
+    public function read(int $id) {}
+
+    public function update(array $data) {}
+
+    public function delete() {}
+
+    /**
+     * Get all projects
+     * 
+     * @return []
+     */
+    public function findAllProjects()
+    {
+        $projectRepository = $this->entityManager->getRepository('Entities\Project');
+
+        return $projectRepository->findAll();
     }
 
-    public function create(): void
+    public function getPriorityList()
     {
-        dd($_POST);
+        $priorityRepository = $this->entityManager->getRepository('Entities\Priority');
+
+        return $priorityRepository->findAll();
     }
 
-    public function read(): void
+    public function getStatusList()
     {
+        $statusRepository = $this->entityManager->getRepository(('Entities\Status'));
+
+        return $statusRepository->findAll();
+    }
+
+    public function getContactList()
+    {
+        $contactRepository = $this->entityManager->getRepository(('Entities\Contact'));
         
-    }
-
-    public function update(): void
-    {
-        
-    }
-
-    public function delete(): void
-    {
-        
-    }
-
-    public function new()
-    {
-        $data = [
-            'contactList' => $this->model->getContactList(),
-            'priorityList' => $this->model->getPriorityList(),
-            'statusList' => $this->model->getStatusList()
-        ];
-
-        $this->render('project\new', $data);
+        return $contactRepository->findAll();
     }
 }
