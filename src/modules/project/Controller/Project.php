@@ -56,9 +56,11 @@ class Project extends Controller
         Application::redirect('projects');
     }
 
-    public function read(): void
+    public function read(int $id): void
     {
-        
+        $project = $this->model->read($id);
+
+        $this->render('project/read', $project);
     }
 
     public function update(): void

@@ -64,7 +64,11 @@ class ProjectModel extends Model implements ModelInterface
         $this->entityManager->flush();
     }
 
-    public function read(int $id) {}
+    public function read(int $id) {
+        $projectRepository = $this->entityManager->getRepository('Entities\Project');
+
+        return $projectRepository->find($id);
+    }
 
     public function update(array $data) {}
 
