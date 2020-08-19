@@ -85,9 +85,18 @@ class Project
     protected DateTime $endAt;
 
     /**
+     * Contact id
+     * 
+     * @ORM\Column(type="integer", name="contact_id")
+     * 
+     * @var int
+     */
+    protected int $contactId;
+    
+    /**
      * Status id
      * 
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", name="status_id")
      * 
      * @var int
      */
@@ -96,7 +105,7 @@ class Project
     /**
      * Priority Id
      * 
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", name="priority_id")
      * 
      * @var int
      */
@@ -114,11 +123,11 @@ class Project
     /**
      * Updated at
      * 
-     * @ORM\Column(type="datetime", name="updated_at")
+     * @ORM\Column(type="datetime", name="updated_at", nullable=true, options={"default": "CURRENT_TIMESTAMP"})
      * 
-     * @var DataTime
+     * @var null|DataTime
      */
-    protected DateTime $updatedAt;
+    protected ?DateTime $updatedAt;
 
     /**
      * Contact
@@ -184,41 +193,61 @@ class Project
     /**
      * Get begin at
      *
-     * @return  DateTime
+     * @return  string
      */ 
-    public function getBeginAt(): DateTime
+    public function getBeginAt(): string
     {
-        return $this->beginAt;
+        return $this->beginAt->format('d.m.Y H:i');
+    }
+
+    /**
+     * Get the value of beginAt with DateTimeLocal-Format
+     */
+    public function getBeginAtDateTimeLocal(): string
+    {
+        return $this->beginAt->format('Y-m-d\TH:i');
     }
 
     /**
      * Set begin at
      *
-     * @param  DateTime  $beginAt  Begin at
+     * @param  string  $date  Begin at
      */ 
-    public function setBeginAt(DateTime $beginAt)
+    public function setBeginAt(string $date)
     {
-        $this->beginAt = $beginAt;
+        $dateTime = DateTime::createFromFormat('Y-m-d\TH:i', $date);
+        
+        $this->beginAt = $dateTime;
     }
 
     /**
      * Get end at
      *
-     * @return  Datetime
+     * @return  string
      */ 
-    public function getEndAt(): DateTime
+    public function getEndAt(): string
     {
-        return $this->endAt;
+        return $this->endAt->format('d.m.Y H:i');;
+    }
+
+    /**
+     * Get the value of beginAt with DateTimeLocal-Format
+     */
+    public function getEndAtDateTimeLocal(): string
+    {
+        return $this->endAt->format('Y-m-d\TH:i');
     }
 
     /**
      * Set end at
      *
-     * @param  Datetime  $endAt  End at
+     * @param  string  $date  End at
      */ 
-    public function setEndAt(Datetime $endAt)
+    public function setEndAt(string $date)
     {
-        $this->endAt = $endAt;
+        $dateTime = DateTime::createFromFormat('Y-m-d\TH:i', $date);
+
+        $this->endAt = $dateTime;
     }
 
     /**
@@ -231,6 +260,26 @@ class Project
         return $this->statusId;
     }
 
+    /**
+     * Get contact id
+     *
+     * @return  int
+     */ 
+    public function getContactId()
+    {
+        return $this->contactId;
+    }
+
+    /**
+     * Set contact id
+     *
+     * @param  int  $contactId  Contact id
+     */ 
+    public function setContactId(int $contactId)
+    {
+        $this->contactId = $contactId;
+    }
+    
     /**
      * Set status id
      *
@@ -266,9 +315,9 @@ class Project
      *
      * @return  DateTime
      */ 
-    public function getCreatedAt(): DateTime
+    public function getCreatedAt(): string
     {
-        return $this->createdAt;
+        return $this->createdAt->format("d:m:Y H:i");
     }
 
     /**
@@ -286,17 +335,23 @@ class Project
      *
      * @return  DataTime
      */ 
-    public function getUpdatedAt(): DateTime
+    public function getUpdatedAt(): string 
     {
-        return $this->updatedAt;
+        $str = '';
+
+        if ( $this->updatedAt !== null ) {
+            $str = $this->updatedAt->format('d.m.Y H:i');
+        }
+        
+        return $str;
     }
 
     /**
      * Set updated at
      *
-     * @param  DataTime  $updatedAt  Updated at
+     * @param  null|DataTime  $updatedAt  Updated at
      */ 
-    public function setUpdatedAt(DateTime $updatedAt)
+    public function setUpdatedAt(?DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
     }
@@ -322,4 +377,5 @@ class Project
 
         $this->contact = $contact;
     }
+
 }
