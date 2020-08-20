@@ -65,9 +65,17 @@ class ProjectModel extends Model implements ModelInterface
     }
 
     public function read(int $id) {
-        $projectRepository = $this->entityManager->getRepository('Entities\Project');
+        $query = $this->entityManager->createQueryBuilder()
+            ->select('p, c')
+            ->from('Entities\Project', 'p')
+            ->leftJoin('p.contact', 'c')
+            ->where('p.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery();
 
-        return $projectRepository->find($id);
+        $project = $query->getResult();
+        
+        return $project[0];
     }
 
     public function update(array $data) {
@@ -100,9 +108,13 @@ class ProjectModel extends Model implements ModelInterface
      */
     public function findAllProjects()
     {
-        $projectRepository = $this->entityManager->getRepository('Entities\Project');
+        $query = $this->entityManager->createQueryBuilder()
+            ->select('p, c')
+            ->from('Entities\Project', 'p')
+            ->leftJoin('p.contact', 'c')
+            ->getQuery();
 
-        return $projectRepository->findAll();
+        return $query->getResult();
     }
 
     public function getPriorityList()
