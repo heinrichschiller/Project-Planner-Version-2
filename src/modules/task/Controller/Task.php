@@ -28,19 +28,16 @@
 
 namespace App\Modules\Task\Controller;
 
-use App\Helper\PriorityListHelper;
-use App\Helper\StatusListHelper;
-use App\Library;
 use App\Library\Application;
 use App\Library\Controller;
 
-
 class Task extends Controller{
-    private $_model = null;
+
+    protected $model = null;
 
     public function __construct()
     {
-        $this->_model = $this->model(new \App\Modules\Task\Model\TaskModel);
+        $this->model = $this->model(new \App\Modules\Task\Model\TaskModel);
     }
 
     /**
@@ -48,48 +45,59 @@ class Task extends Controller{
      */
     public function index(): void
     {
-        $tasks = $this->_model->getAllActiveTasks();
+        $tasks = $this->model->findAllTasks();
 
-        $this->render('task/index', ['tasks' => $tasks->toArray()]);
+        $this->render('task/index', ['tasks' => $tasks]);
     }
 
+    /**
+     * Create a new task
+     */
     public function create(): void
     {
-        $this->render('/task/create');
+        $this->model->create($_POST);
+
+        Application::redirect('tasks');
     }
 
     public function read($id): void
     {
-        $task = $this->_model->read($id);
+        $task = $this->model->read($id);
 
         $this->render('/task/read', $task);
     }
 
     public function update(): void
     {
-        $this->_model->update($_POST);
+        $this->model->update($_POST);
 
         Application::redirect('tasks');
     }
 
-    public function deleten(): void
+    public function delete(): void
     {
         $this->render('/task/delete');
     }
 
     public function new(): void
     {
-        $this->render('/task/new');
+        $data = [
+            'contactList' => $this->model->getContactList(),
+            'priorityList' => $this->model->getPriorityList(),
+            'statusList' => $this->model->getStatusList(),
+            'projectList' => $this->model->getProjectList()
+        ];
+
+        $this->render('/task/new', $data);
     }
 
     public function edit($id): void
     {
-        $task = $this->_model->read($id);
-
         $data = [
-            'task' => $task,
-            'statusList' => StatusListHelper::get(),
-            'priorityList' => PriorityListHelper::get()
+            'task' => $this->model->read($id),
+            'contactList' => $this->model->getContactList(),
+            'priorityList' => $this->model->getPriorityList(),
+            'statusList' => $this->model->getStatusList()
         ];
 
         $this->render('/task/edit', $data);

@@ -28,75 +28,62 @@
 
 namespace App\Modules\Task\Model;
 
-use Entities\Task as Task;
 use App\Library\Model;
 use App\Interfaces\ModelInterface;
-use App\Utils\Collection;
-use Helper\DateTimeHelper;
+use DateTime;
+use Doctrine\ORM\EntityManager;
+use Entities\Task;
 
 class TaskModel extends Model implements ModelInterface 
 {
-    public function create() {}
+    private ?EntityManager $entityManager = null;
+
+    public function __construct()
+    {
+        $this->entityManager = $this->entityManager();
+    }
+
+    public function create($data) {
+
+        $task = new Task;
+
+        $task->setTitle($data['title']);
+        $task->setDescription($data['desc']);
+        $task->setBeginAt($data['beginAt']);
+        $task->setEndAt($data['endAt']);
+        $task->setStatusId($data['statusId']);
+        $task->setPriotityId($data['priorityId']);
+        $task->setCreatedAt(new DateTime('now'));
+
+        $contactRepository = $this->entityManager->getRepository('Entities\Contact');
+        $contact = $contactRepository->find($data['contactId']);
+
+        if ($contact === null) {
+            echo "No contact found for the given id: {$data['id']}";
+            exit(1);
+        }
+
+        $task->setContact($contact);
+
+        $projectRepository = $this->entityManager->getRepository('Entities\Project');
+        $project = $projectRepository->find($data['projectId']);
+
+        if ($contact === null) {
+            echo "No project found for the given id: {$data['id']}";
+            exit(1);
+        }
+
+        $task->setProject($project);
+
+        $this->entityManager->persist($task);
+        $this->entityManager->flush();
+    }
 
     public function read(int $id) 
     {
-        $sql = <<<SQL
-        SELECT `tasks`.`id`,
-        	`tasks`.`title`,
-            `tasks`.`desc`,
-            `tasks`.`begin_at` as begin_at,
-            `tasks`.`end_at` as end_at,
-            `priority`.`desc` as priority,
-            `status`.`desc` as status,
-            `contacts`.`display_name` as contact,
-            `tasks`.`project_id`,
-            `tasks`.`created_at` as created_at,
-            `tasks`.`updated_at`,
-            `projects`.`title` as project
-            FROM `tasks`
-            LEFT JOIN `priority` ON `priority`.`id` = `tasks`.`priority_id`
-            LEFT JOIN `status` ON `status`.`id` = `tasks`.`status_id`
-            LEFT JOIN `projects` ON `projects`.`id` = `tasks`.`project_id`
-            LEFT JOIN `contacts`ON `contacts`.`id`= `tasks`.`contact_id`
-            WHERE `tasks`.`status_id` != 4 
-                AND `tasks`.`status_id` != 5
-                AND `tasks`.`id` = $id
-        SQL;
+        $taskRepository = $this->entityManager->getRepository('Entities\Task');
 
-        $stmt = $this->getDatabaseConnection()->query($sql);
-        $row = $stmt->fetch(\PDO::FETCH_OBJ);
-
-        $task = new Task;
-        
-        $task->setId( (int) $row->id );
-        $task->setTitle( $row->title );
-        $task->setDesc( $row->desc );
-        $task->setBeginAt( DateTimeHelper::formatDateTimeLocal($row->begin_at) );
-        $task->setEndAt( DateTimeHelper::formatDateTimeLocal($row->end_at) );
-        $task->setPriority( $row->priority );
-        $task->setStatus( $row->status );
-        $task->setContact( $row->contact );
-        $task->setProjectId( (int) $row->project_id );
-        $task->setCreatedAt( DateTimeHelper::formatDateTime($row->created_at) );
-        $task->setUpdatedAt( DateTimeHelper::formatDateTime($row->updated_at) );
-        $task->setProject( $row->project );
-
-        $arr = [
-            'id' => $task->getId(),
-            'title' => $task->getTitle(),
-            'desc' => $task->getDesc(),
-            'beginAt' => $task->getBeginAt(),
-            'endAt' => $task->getEndAt(),
-            'priority' => $task->getPriority(),
-            'status' => $task->getStatus(),
-            'contact' => $task->getContact(),
-            'projectId' => $task->getProjectId(),
-            'createdAt' => $task->getCreatedAt(),
-            'updatedAt' => $task->getUpdatedAt(),
-            'project' => $task->getProject()
-        ];
-
-        return $arr;
+        return $taskRepository->find($id);
     }
 
     public function update($data)
@@ -124,59 +111,38 @@ class TaskModel extends Model implements ModelInterface
 
     public function delete() {}
 
-    /**
-     * 
-     */
-    public function getAllActiveTasks()
+    public function findAllTasks()
     {
-        $sql = <<<SQL
-        SELECT `tasks`.`id`,
-        	`tasks`.`title`,
-            `tasks`.`desc`,
-            `tasks`.`begin_at` as begin_at,
-            `tasks`.`end_at` as end_at,
-            `priority`.`desc` as priority,
-            `tasks`.`priority_id` as priority_id,
-            `status`.`desc` as status,
-            `tasks`.`status_id` as status_id,
-            `contacts`.`display_name` as contact,
-            `tasks`.`project_id`,
-            `tasks`.`created_at` as created_at,
-            `tasks`.`updated_at`,
-            `projects`.`title` as project
-            FROM `tasks`
-            LEFT JOIN `priority` ON `priority`.`id` = `tasks`.`priority_id`
-            LEFT JOIN `status` ON `status`.`id` = `tasks`.`status_id`
-            LEFT JOIN `projects` ON `projects`.`id` = `tasks`.`project_id`
-            LEFT JOIN `contacts`ON `contacts`.`id`= `tasks`.`contact_id`
-            WHERE `tasks`.`status_id` != 4 
-                AND `tasks`.`status_id` != 5
-        SQL;
+        $taskRepository = $this->entityManager->getRepository('Entities\Task');
 
-        $stmt = $this->getDatabaseConnection()->query($sql);
+        return $taskRepository->findAll();
+    }
 
-        $tasks = new Collection;
-        while ($row = $stmt->fetch(\PDO::FETCH_OBJ)) {
-            $task = new Task;
+    public function getPriorityList()
+    {
+        $priorityRepository = $this->entityManager->getRepository('Entities\Priority');
 
-            $task->setId( (int) $row->id );
-            $task->setTitle( $row->title );
-            $task->setDesc( $row->desc );
-            $task->setBeginAt( DateTimeHelper::formatDateTime($row->begin_at) );
-            $task->setEndAt( DateTimeHelper::formatDateTime($row->end_at) );
-            $task->setPriority( $row->priority );
-            $task->setPriorityId( (int) $row->priority_id );
-            $task->setStatus( $row->status );
-            $task->setStatusId( (int) $row->status_id );
-            $task->setContact( $row->contact );
-            $task->setProjectId( (int) $row->project_id );
-            $task->setCreatedAt( DateTimeHelper::formatDateTime($row->created_at) );
-            $task->setUpdatedAt( DateTimeHelper::formatDateTime($row->updated_at) );
-            $task->setProject( $row->project );
+        return $priorityRepository->findAll();
+    }
 
-            $tasks->add($task);
-        }
+    public function getStatusList()
+    {
+        $statusRepository = $this->entityManager->getRepository(('Entities\Status'));
 
-        return $tasks;
+        return $statusRepository->findAll();
+    }
+
+    public function getContactList()
+    {
+        $contactRepository = $this->entityManager->getRepository(('Entities\Contact'));
+
+        return $contactRepository->findAll();
+    }
+
+    public function getProjectList()
+    {
+        $projectRepository = $this->entityManager->getRepository(('Entities\Project'));
+        
+        return $projectRepository->findAll();
     }
 }
