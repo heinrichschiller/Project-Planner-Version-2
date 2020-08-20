@@ -139,6 +139,21 @@ class Project
     protected Contact $contact;
 
     /**
+     * Assigned tasks
+     * 
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="Project")
+     * 
+     * @var mixed
+     */
+    protected $assignedTasks;
+
+    /*
+    |----------------------------------------------------------------------------
+    | Getter && Setter
+    |----------------------------------------------------------------------------
+    */
+
+    /**
      * Get id
      *
      * @return  int
@@ -317,7 +332,7 @@ class Project
      */ 
     public function getCreatedAt(): string
     {
-        return $this->createdAt->format("d:m:Y H:i");
+        return $this->createdAt->format("d.m.Y H:i");
     }
 
     /**
@@ -378,4 +393,13 @@ class Project
         $this->contact = $contact;
     }
 
+    /**
+     * Assigned to task
+     * 
+     * @param Task $task
+     */
+    public function assignedToTask(Task $task)
+    {
+        $this->assignedTasks[] = $task;
+    }
 }
