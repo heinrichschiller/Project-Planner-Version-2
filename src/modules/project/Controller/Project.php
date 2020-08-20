@@ -65,7 +65,9 @@ class Project extends Controller
 
     public function update(): void
     {
-        
+        $this->model->update($_POST);
+
+        Application::redirect('project/read', (int) $_POST['id']);
     }
 
     public function delete(): void

@@ -70,7 +70,26 @@ class ProjectModel extends Model implements ModelInterface
         return $projectRepository->find($id);
     }
 
-    public function update(array $data) {}
+    public function update(array $data) {
+        $projectRepository = $this->entityManager->getRepository('Entities\Project');
+        $project = $projectRepository->find($data['id']);
+
+        if ( $project === null ) {
+            echo "No project found for the given id: {$data['id']}";
+            exit(1);
+        }
+
+        $project->setTitle($data['title']);
+        $project->setDescription($data['desc']);
+        $project->setBeginAt($data['beginAt']);
+        $project->setEndAt($data['endAt']);
+        $project->setStatusId($data['statusId']);
+        $project->setPriorityId($data['priorityId']);
+        $project->setUpdatedAt(new DateTime('now'));
+
+        $this->entityManager->persist($project);
+        $this->entityManager->flush();
+    }
 
     public function delete() {}
 
