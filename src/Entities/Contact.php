@@ -72,14 +72,32 @@ class Contact
      * Assigned projects
      * 
      * @ORM\OneToMany(targetEntity="Project", mappedBy="Contact")
+     * 
+     * @var mixed
      */
     protected $assignedProjects;
+
+    /**
+     * Assigned tasks
+     * 
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="Contact")
+     * 
+     * @var mixed
+     */
+    protected $assignedTasks;
 
     public function __construct()
     {
         $this->assignedProjects = new ArrayCollection;
+        $this->assignedTasks = new ArrayCollection;
     }
     
+    /*
+    |----------------------------------------------------------------------------
+    | Getter && Setter
+    |----------------------------------------------------------------------------
+    */
+
     /**
      * Get the value of id
      *
@@ -156,8 +174,23 @@ class Contact
         $this->updatedAt = $updatedAt;
     }
 
+    /**
+     * Assigned to project
+     * 
+     * @param Project $project
+     */
     public function assignedToProject(Project $project)
     {
         $this->assignedProjects[] = $project;
+    }
+
+    /**
+     * Assigned to task
+     * 
+     * @param Task $task
+     */
+    public function assignedToTask(Task $task)
+    {
+        $this->assignedTasks[] = $task;
     }
 }
