@@ -70,12 +70,10 @@ class ProjectModel extends Model implements ModelInterface
             ->from('Entities\Project', 'p')
             ->leftJoin('p.contact', 'c')
             ->where('p.id = :id')
-            ->setParameter('id', $id)
+            ->setParameter(':id', $id)
             ->getQuery();
 
-        $project = $query->getResult();
-        
-        return $project[0];
+        return $query->getSingleResult();
     }
 
     public function update(array $data) {
