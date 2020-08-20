@@ -57,6 +57,7 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->addRoute('POST', '/project/create', 'App\Modules\Project\Controller\Project/create');
     $r->addRoute('GET', '/project/read/{id:\d+}', 'App\Modules\Project\Controller\Project/read');
     $r->addRoute('GET', '/project/edit/{id:\d+}', 'App\Modules\Project\Controller\Project/edit');
+    $r->addRoute('POST', '/project/update', 'App\Modules\Project\Controller\Project/update');
 
     /*
     |----------------------------------------------------------------------------
