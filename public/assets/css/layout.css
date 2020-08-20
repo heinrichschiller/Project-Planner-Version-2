@@ -77,8 +77,11 @@ table {
     width: 8em;
 }
 
+.contact {
+    width: 12em;
+}
+
 .project,
-.contact,
 .begin,
 .end,
 .created,
