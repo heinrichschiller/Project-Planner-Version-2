@@ -97,7 +97,8 @@ class Task extends Controller{
             'task' => $this->model->read($id),
             'contactList' => $this->model->getContactList(),
             'priorityList' => $this->model->getPriorityList(),
-            'statusList' => $this->model->getStatusList()
+            'statusList' => $this->model->getStatusList(),
+            'projectList' => $this->model->getProjectList()
         ];
 
         $this->render('/task/edit', $data);
