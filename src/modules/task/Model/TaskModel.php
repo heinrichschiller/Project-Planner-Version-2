@@ -113,9 +113,14 @@ class TaskModel extends Model implements ModelInterface
 
     public function findAllTasks()
     {
-        $taskRepository = $this->entityManager->getRepository('Entities\Task');
+        $query = $this->entityManager->createQueryBuilder()
+            ->select('t, c, p')
+            ->from('Entities\Task', 't')
+            ->leftJoin('t.contact', 'c')
+            ->leftJoin('t.project', 'p')
+            ->getQuery();
 
-        return $taskRepository->findAll();
+        return $query->getResult();
     }
 
     public function getPriorityList()
