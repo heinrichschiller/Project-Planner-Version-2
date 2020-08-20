@@ -35,29 +35,25 @@
                                 <th class="status">Status</th>
                                 <th class="priority">Priorität</th>
                                 <th>Fortschritt</th>
-                                <th>Getestet</th>
-                                <th>Veröffentlicht</th>
                                 <th class="created">Erstellt</th>
                                 <th class="updatedAt">Aktualisiert</th>
                             </tr>
                         </thead>
                         <tbody>
                             {{#tasks}}
-                            <tr class="clickable__row" data-href="/task/read/{{id}}">
+                            <tr class="clickable__row" data-href="/task/read/{{ getId }}">
                                 <td>-</td>
-                                <td>{{id}}</td>
-                                <td>{{title}}</td>
-                                <td>{{project}}</td>
-                                <td>{{contact}}</td>
-                                <td>{{beginAt}}</td>
-                                <td>{{endAt}}</td>
-                                <td class="status__color" data-status_id="{{statusId}}">{{status}}</td>
-                                <td class="priority__color" data-priority_id="{{priorityId}}">{{priority}}</td>
+                                <td>{{ getId }}</td>
+                                <td>{{ getTitle}}</td>
+                                <td>{{ getProject.getTitle }}</td>
+                                <td>{{ getContact.getDisplayName }}</td>
+                                <td>{{ getBeginAt }}</td>
+                                <td>{{ getEndAt }}</td>
+                                <td class="status__color" data-status_id="{{ getStatusId}} ">{{ getStatusId }}</td>
+                                <td class="priority__color" data-priority_id="{{ getPriorityId }}">{{ getPriorityId }}</td>
                                 <td>-</td>
-                                <td>{{testId}}</td>
-                                <td>{{deployedAt}}</td>
-                                <td>{{createdAt}}</td>
-                                <td>{{updatedAt}}</td>
+                                <td>{{ getCreatedAt }}</td>
+                                <td>{{ getUpdatedAt }}</td>
                             </tr>
                             {{/tasks}}
                         </tbody>
