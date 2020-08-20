@@ -33,7 +33,7 @@ use App\Interfaces\ModelInterface;
 
 class DashboardModel extends Model implements ModelInterface
 {
-    public function create() {}
+    public function create($data) {}
 
     public function read($id) {}
 
