@@ -52,7 +52,7 @@ class TaskModel extends Model implements ModelInterface
         $task->setBeginAt($data['beginAt']);
         $task->setEndAt($data['endAt']);
         $task->setStatusId($data['statusId']);
-        $task->setPriotityId($data['priorityId']);
+        $task->setPriorityId($data['priorityId']);
         $task->setCreatedAt(new DateTime('now'));
 
         $contactRepository = $this->entityManager->getRepository('Entities\Contact');
@@ -95,25 +95,24 @@ class TaskModel extends Model implements ModelInterface
 
     public function update($data)
     {
-        $sql = <<<SQL
-        UPDATE `tasks` SET `title`=:title
-            , `desc`= :desc
-            , `begin_at`= :beginAt
-            , `end_at`= :endAt
-            , `status_id`= :statusId
-            WHERE `id` = :id
-        SQL;
+        $taskRepository = $this->entityManager->getRepository('Entities\Task');
+        $task = $taskRepository->find($data['id']);
 
-        $stmt = $this->getDatabaseConnection()->prepare($sql);
+        if ( $task === null ) {
+            echo "No task found for the given id: {$data['id']}";
+            exit(1);
+        }
 
-        $stmt->bindParam(':title', $data['title']);
-        $stmt->bindParam(':desc', $data['desc']);
-        $stmt->bindParam(':beginAt', $data['beginAt']);
-        $stmt->bindParam(':endAt', $data['endAt']);
-        $stmt->bindParam(':statusId', $data['statusId']);
-        $stmt->bindParam(':id', $data['id']);
+        $task->setTitle($data['title']);
+        $task->setDescription($data['desc']);
+        $task->setBeginAt($data['beginAt']);
+        $task->setEndAt($data['endAt']);
+        $task->setStatusId($data['statusId']);
+        $task->setPriorityId($data['priorityId']);
+        $task->setUpdatedAt(new DateTime('now'));
 
-        $stmt->execute();
+        $this->entityManager->persist($task);
+        $this->entityManager->flush();
     }
 
     public function delete() {}
