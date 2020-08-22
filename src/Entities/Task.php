@@ -60,7 +60,7 @@ class Task
     /**
      * Description
      * 
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=2000)
      * 
      * @var string
      */
