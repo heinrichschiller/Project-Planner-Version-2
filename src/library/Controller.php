@@ -39,7 +39,13 @@ abstract class Controller
         return $model;
     }
 
-    public function render(string $template, array $data = [])
+    /**
+     * Render templates with data
+     * 
+     * @param string $template Name of a template
+     * @param mixed $data Data
+     */
+    public function render(string $template, $data = null): void
     {
         $options = [
             'extension' => '.html'
