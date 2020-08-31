@@ -28,29 +28,39 @@
 
 namespace App\Library;
 
-use App\Library\Database;
+use Doctrine\ORM\Tools\Setup;
+use Doctrine\ORM\EntityManager;
 
 abstract class Model
 {
-    public function getDatabaseConnection()
+    public function __construct()
     {
-        return new Database;
+        $this->entityManager();
     }
 
-    public function fetchAll($data, $entity)
+    public function entityManager()
     {
-        foreach($data as $key => $value) {
-            if (strpos($key, '_')) {
-                $pieces = explode('_', $key);
+        $isDevMode = true;
+        $proxyDir = null;
+        $cache = null;
+        $useSimpleAnnotationReader = false;
+        $config = Setup::createAnnotationMetadataConfiguration(
+            array(__DIR__."/../src")
+            , $isDevMode
+            , $proxyDir
+            , $cache
+            , $useSimpleAnnotationReader
+        );
 
-                $key = $pieces[0] . \ucfirst($pieces[1]);
-            }
+        $conn = [
+            'driver' => 'pdo_mysql',
+            'host' => 'localhost',
+            'user' => 'root',
+            'password' => '',
+            'dbname' => 'workflow',
+            'charset' => 'utf8mb4'
+        ];
 
-            $setter = 'set' . ucfirst($key);
-
-            if (method_exists($entity, $setter) ) {
-                $entity->{$setter}($value);
-            }
-        } 
+        return EntityManager::create($conn, $config);
     }
 }
