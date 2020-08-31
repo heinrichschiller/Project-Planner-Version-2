@@ -2,6 +2,11 @@ h1 {
     font-size: 3.5rem;
 }
 
+h3 {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 600;
+}
+
 label {
     font-weight: 400;
     font-size: 1.25rem !important;
@@ -68,8 +73,12 @@ label {
     background-color: rgba(0, 0, 0, .3);
 }
 
-table {
+.table__index {
     width: 128em !important;
+}
+
+.table__mini {
+    width: 60em !important;
 }
 
 .status,
@@ -152,4 +161,8 @@ table {
 .form-control.borderless:focus {
     border-bottom: 1px solid lightgray;
     outline: none !important;
+}
+
+.description {
+    height: 36vh;
 }
