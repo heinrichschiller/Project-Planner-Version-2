@@ -30,8 +30,16 @@ namespace App\Library;
 
 class Application
 {
-    public static function redirect(string $param)
+    public static function redirect(string $param, ?int $id = null)
     {
-        header('Location:' . $_ENV['APP_URL'] . $param);
+        if ($id === null) {
+            $str = 'Location: %s/%s';
+            $header = sprintf($str, $_ENV['APP_URL'], $param);
+        } else {
+            $str = 'Location: %s/%s/%d';
+            $header = sprintf($str, $_ENV['APP_URL'], $param, $id);
+        }
+        
+        header($header);
     }
 }
