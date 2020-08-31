@@ -47,25 +47,27 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        {{/ project }}
 
                         <div class="form-group">
                             <div class="row">
                                 <div class="col">
-                                    <label for="inputStatus">Status:</label>
-                                    <select name="statusId" id="inputStatus" class="form-control">
+                                    <label for="input__status">Status:</label>
+                                    <select name="statusId" data-status_id="{{ getStatusId}}" id="input__status" class="form-control">
+
                                         {{# statusList }}
                                         <option value="{{ getId }}">{{ getId }} {{ getDescription }}</option>
                                         {{/ statusList }}
+
                                     </select>
                                 </div>
                                 <div class="col">
-                                    <label for="inputPriority">Priorität:</label>
-                                    <select name ="priorityId" id="inputPriority" class="form-control">
+                                    <label for="input__riority">Priorität:</label>
+                                    <select name="priorityId" data-priority_id="{{ getPriorityId }}" id="input__priority" class="form-control">
+
                                         {{# priorityList }}
-                                        <option value="{{ getId }}">{{ getId }} {{ getDescription }}</option>
+                                        <option value="{{ getId }}">{{ getId }}  {{ getDescription }}</option>
                                         {{/ priorityList }}
+
                                     </select>
                                 </div>
                             </div>
@@ -75,7 +77,6 @@
 
                     <div class="col-md-3"></div>
 
-                    {{# project }}
                     <div class="col-md-3">
 
                         <div>
@@ -133,5 +134,7 @@
         </form>
 
         {{ partials/javascript }}
+
+        <script src="/assets/js/modules/project/edit.js"></script>
     </body>
 </html>
