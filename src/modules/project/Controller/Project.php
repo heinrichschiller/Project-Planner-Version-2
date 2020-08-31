@@ -58,9 +58,12 @@ class Project extends Controller
 
     public function read(int $id): void
     {
-        $project = $this->model->read($id);
+        $data = [
+            'project' => $this->model->read($id),
+            'tasks'  => $this->model->findProjectTasks($id)
+        ];
 
-        $this->render('project/read', $project);
+        $this->render('project/read', $data);
     }
 
     public function update(): void

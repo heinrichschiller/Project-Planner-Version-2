@@ -104,12 +104,24 @@ class ProjectModel extends Model implements ModelInterface
      * 
      * @return []
      */
-    public function findAllProjects()
+    public function findAllProjects(): array
     {
         $query = $this->entityManager->createQueryBuilder()
             ->select('p, c')
             ->from('Entities\Project', 'p')
             ->leftJoin('p.contact', 'c')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    public function findProjectTasks($id): array
+    {
+        $query = $this->entityManager->createQueryBuilder()
+            ->select('t')
+            ->from('Entities\Task', 't')
+            ->where('t.projectId = :id')
+            ->setParameter(':id', $id)
             ->getQuery();
 
         return $query->getResult();
