@@ -4,6 +4,7 @@ composer.lock
 composer.phar
 
 /configs/
+/node_modules/
 /public/assets/js/libs/
 /src/configs/
 /vendor/
