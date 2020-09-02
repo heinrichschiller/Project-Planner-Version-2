@@ -93,6 +93,18 @@ class TaskModel extends Model implements ModelInterface
         return $query->getSingleResult();
     }
 
+    public function findProject(int $id) {
+        $query = $this->entityManager->createQueryBuilder()
+            ->select('p, c')
+            ->from('Entities\Project', 'p')
+            ->leftJoin('p.contact', 'c')
+            ->where('p.id = :id')
+            ->setParameter(':id', $id)
+            ->getQuery();
+
+        return $query->getSingleResult();
+    }
+
     public function update($data)
     {
         $taskRepository = $this->entityManager->getRepository('Entities\Task');

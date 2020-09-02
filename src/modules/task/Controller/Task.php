@@ -57,7 +57,11 @@ class Task extends Controller{
     {
         $this->model->create($_POST);
 
-        Application::redirect('tasks');
+        if (isset($_POST['isProject'])) {
+            Application::redirect('project/read', $_POST['projectId']);
+        } else {
+            Application::redirect('tasks');
+        }
     }
 
     public function read($id): void
@@ -89,6 +93,19 @@ class Task extends Controller{
         ];
 
         $this->render('/task/new', $data);
+    }
+
+    public function newProjectTask($id)
+    {
+        $data = [
+            'project' => $this->model->findProject($id),
+            'contactList' => $this->model->getContactList(),
+            'priorityList' => $this->model->getPriorityList(),
+            'statusList' => $this->model->getStatusList(),
+            'projectList' => $this->model->getProjectList()
+        ];
+
+        $this->render('/task/newProjectTask', $data);
     }
 
     public function edit($id): void
