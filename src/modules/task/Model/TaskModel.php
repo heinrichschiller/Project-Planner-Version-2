@@ -136,6 +136,7 @@ class TaskModel extends Model implements ModelInterface
             ->from('Entities\Task', 't')
             ->leftJoin('t.contact', 'c')
             ->leftJoin('t.project', 'p')
+            ->where('t.statusId != 5')
             ->getQuery();
 
         return $query->getResult();
