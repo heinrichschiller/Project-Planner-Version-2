@@ -121,7 +121,9 @@ class ProjectModel extends Model implements ModelInterface
             ->select('t')
             ->from('Entities\Task', 't')
             ->where('t.projectId = :id')
+            ->andWhere('t.statusId != 5 AND t.statusId != 6')
             ->setParameter(':id', $id)
+            ->setMaxResults(5)
             ->getQuery();
 
         return $query->getResult();
