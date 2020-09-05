@@ -177,3 +177,10 @@ label {
 .table-nav {
     display: flex;
 }
+
+.content {
+    width: 100%;
+    height: 30vh;
+    overflow-x: auto;
+    margin: 0 0 1em;
+}
