@@ -60,7 +60,7 @@ class Project
     /**
      * Description
      * 
-     * @ORM\Column(type="string", length=2000)
+     * @ORM\Column(type="string", length=10000)
      * 
      * @var string
      */
