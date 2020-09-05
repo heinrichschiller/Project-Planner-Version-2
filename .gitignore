@@ -6,6 +6,6 @@ composer.phar
 /configs/
 /node_modules/
 /public/assets/svg/
-/public/assets/js/libs/
+/public/assets/js/lib/
 /src/configs/
 /vendor/
