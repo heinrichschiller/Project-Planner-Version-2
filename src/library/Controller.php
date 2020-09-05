@@ -51,7 +51,7 @@ abstract class Controller
             'extension' => '.html'
         ];
 
-        $viewPath = ROOT_DIR . 'ressources/views';
+        $viewPath = ROOT_DIR . 'resources/views';
 
         $view = new \Mustache_Engine([
             'loader' => new \Mustache_Loader_FilesystemLoader($viewPath, $options),
