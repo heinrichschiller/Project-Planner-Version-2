@@ -45,7 +45,11 @@
                                 <td>-</td>
                                 <td>{{ getId }}</td>
                                 <td>{{ getTitle}}</td>
-                                <td>{{ getProject.getTitle }}</td>
+                                <td>
+                                    <div class="ellipsis" title="{{ getProject.getTitle }}">
+                                        {{ getProject.getTitle }}
+                                    </div>
+                                </td>
                                 <td>{{ getContact.getDisplayName }}</td>
                                 <td>{{ getBeginAt }}</td>
                                 <td>{{ getEndAt }}</td>

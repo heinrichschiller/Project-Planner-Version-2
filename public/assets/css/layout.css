@@ -184,3 +184,10 @@ label {
     overflow-x: auto;
     margin: 0 0 1em;
 }
+
+.ellipsis {
+    width: 12em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
