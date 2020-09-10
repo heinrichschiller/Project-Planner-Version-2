@@ -66,9 +66,10 @@ class ProjectModel extends Model implements ModelInterface
 
     public function read(int $id) {
         $query = $this->entityManager->createQueryBuilder()
-            ->select('p, c')
+            ->select('p, c, s')
             ->from('Entities\Project', 'p')
             ->leftJoin('p.contact', 'c')
+            ->leftJoin('p.status', 's')
             ->where('p.id = :id')
             ->setParameter(':id', $id)
             ->getQuery();
@@ -107,9 +108,10 @@ class ProjectModel extends Model implements ModelInterface
     public function findAllProjects(): array
     {
         $query = $this->entityManager->createQueryBuilder()
-            ->select('p, c')
+            ->select('p, c, s')
             ->from('Entities\Project', 'p')
             ->leftJoin('p.contact', 'c')
+            ->leftJoin('p.status', 's')
             ->getQuery();
 
         return $query->getResult();
@@ -118,8 +120,9 @@ class ProjectModel extends Model implements ModelInterface
     public function findProjectTasks($id): array
     {
         $query = $this->entityManager->createQueryBuilder()
-            ->select('t')
+            ->select('t, s')
             ->from('Entities\Task', 't')
+            ->leftJoin('t.status', 's')
             ->where('t.projectId = :id')
             ->andWhere('t.statusId != 5 AND t.statusId != 6')
             ->setParameter(':id', $id)
