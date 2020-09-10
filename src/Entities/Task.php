@@ -165,6 +165,15 @@ class Task
      */
     protected Status $status;
 
+    /**
+     * Priority
+     * 
+     * @ORM\OneToOne(targetEntity="Priority")
+     * 
+     * @var Priority
+     */
+    protected Priority $priority;
+
     /*
     |----------------------------------------------------------------------------
     | Getter && Setter
@@ -449,5 +458,25 @@ class Task
     public function setStatus(Status $status)
     {
         $this->status = $status;
+    }
+
+    /**
+     * Get priority
+     *
+     * @return  Priority
+     */ 
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+
+    /**
+     * Set priority
+     *
+     * @param  Priority  $priority  Priority
+     */ 
+    public function setPriority(Priority $priority)
+    {
+        $this->priority = $priority;
     }
 }
