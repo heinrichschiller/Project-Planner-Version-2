@@ -55,7 +55,7 @@
                                             <td>{{ getId }}</td>
                                             <td>{{ getTitle }}</td>
                                             <td class="status__color" data-status_id="{{ getStatusId}} ">{{ getStatus.getDescription }}</td>
-                                            <td class="priority__color" data-priority_id="{{ getPriorityId }}">{{ getPriorityId }}</td>
+                                            <td class="priority__color" data-priority_id="{{ getPriorityId }}">{{ getPriority.getDescription }}</td>
                                             <td>{{ getBeginAt }}</td>
                                             <td>{{ getEndAt }}</td>
                                         </tr>
@@ -98,7 +98,7 @@
                             <div>Status: {{ getStatus.getDescription }}</div>
                         </div>
                         <div>
-                            <div>Priorität: {{ getPriorityId }}</div>
+                            <div>Priorität: {{ getPriority.getDescription }}</div>
                         </div>
                     </div>
 
