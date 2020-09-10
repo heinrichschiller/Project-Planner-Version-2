@@ -156,6 +156,15 @@ class Task
      */
     protected Project $project;
 
+    /**
+     * Status
+     * 
+     * @ORM\OneToOne(targetEntity="Status")
+     * 
+     * @var Status
+     */
+    protected Status $status;
+
     /*
     |----------------------------------------------------------------------------
     | Getter && Setter
@@ -414,8 +423,6 @@ class Task
      * Set project
      *
      * @param  Project  $project  Project
-     *
-     * @return  self
      */ 
     public function setProject(Project $project)
     {
@@ -424,4 +431,23 @@ class Task
         $this->project = $project;
     }
 
+    /**
+     * Get status
+     *
+     * @return  Status
+     */ 
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set status
+     *
+     * @param  Status  $status  Status
+     */ 
+    public function setStatus(Status $status)
+    {
+        $this->status = $status;
+    }
 }
