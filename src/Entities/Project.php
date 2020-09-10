@@ -147,6 +147,15 @@ class Project
      */
     protected $assignedTasks;
 
+    /**
+     * Status
+     * 
+     * @ORM\OneToOne(targetEntity="Status")
+     * 
+     * @var Status
+     */
+    protected Status $status;
+
     /*
     |----------------------------------------------------------------------------
     | Getter && Setter
@@ -401,5 +410,21 @@ class Project
     public function assignedToTask(Task $task)
     {
         $this->assignedTasks[] = $task;
+    }
+
+    /**
+     * Get the value of status
+     */ 
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set the value of status
+     */ 
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 }
