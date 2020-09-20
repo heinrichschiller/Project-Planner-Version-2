@@ -51,8 +51,6 @@ class TaskModel extends Model implements ModelInterface
         $task->setDescription($data['desc']);
         $task->setBeginAt($data['beginAt']);
         $task->setEndAt($data['endAt']);
-        $task->setStatusId($data['statusId']);
-        $task->setPriorityId($data['priorityId']);
         $task->setCreatedAt(new DateTime('now'));
 
         $contactRepository = $this->entityManager->getRepository('Entities\Contact');
@@ -68,12 +66,32 @@ class TaskModel extends Model implements ModelInterface
         $projectRepository = $this->entityManager->getRepository('Entities\Project');
         $project = $projectRepository->find($data['projectId']);
 
-        if ($contact === null) {
-            echo "No project found for the given id: {$data['id']}";
+        if ($project === null) {
+            echo "No project found for the given id: {$data['projectId']}";
             exit(1);
         }
 
         $task->setProject($project);
+
+        $statusRepository = $this->entityManager->getRepository('Entities\Status');
+        $status = $statusRepository->find($data['statusId']);
+
+        if ($status === null) {
+            echo "No status found for the given id: {$data['statusId']}";
+            exit(1);
+        }
+        
+        $task->setStatus($status);
+
+        $priorityRepository = $this->entityManager->getRepository('Entities\Priority');
+        $priority = $priorityRepository->find($data['priorityId']);
+
+        if ($priority === null) {
+            echo "No priority found for the given id: {$data['priorityId']}";
+            exit(1);
+        }
+
+        $task->setPriority($priority);
 
         $this->entityManager->persist($task);
         $this->entityManager->flush();
@@ -136,7 +154,7 @@ class TaskModel extends Model implements ModelInterface
             ->from('Entities\Task', 't')
             ->leftJoin('t.contact', 'c')
             ->leftJoin('t.project', 'p')
-            ->where('t.statusId != 5')
+            ->where('t.statusId != 5 AND t.statusId != 6')
             ->getQuery();
 
         return $query->getResult();

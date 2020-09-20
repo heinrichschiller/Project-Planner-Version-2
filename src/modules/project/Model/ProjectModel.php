@@ -51,14 +51,37 @@ class ProjectModel extends Model implements ModelInterface
         $newProject->setDescription($data['desc']);
         $newProject->setBeginAt($data['beginAt']);
         $newProject->setEndAt($data['endAt']);
-        $newProject->setStatusId($data['statusId']);
-        $newProject->setPriorityId($data['priorityId']);
         $newProject->setCreatedAt(new DateTime('now'));
 
         $contactRepository = $this->entityManager->getRepository('Entities\Contact');
         $contact = $contactRepository->find($data['contactId']);
 
+        if ($contact === null) {
+            echo "No contact found for the given id: {$data['id']}";
+            exit(1);
+        }
+
         $newProject->setContact($contact);
+
+        $statusRepository = $this->entityManager->getRepository('Entities\Status');
+        $status = $statusRepository->find($data['statusId']);
+
+        if ($status === null) {
+            echo "No status found for the given id: {$data['statusId']}";
+            exit(1);
+        }
+
+        $newProject->setStatus($status);
+
+        $priorityRepository = $this->entityManager->getRepository('Entities\Priority');
+        $priority = $priorityRepository->find($data['priorityId']);
+
+        if ($priority === null) {
+            echo "No priority found for the given id: {$data['priorityId']}";
+            exit(1);
+        }
+        
+        $newProject->setPriority($priority);
 
         $this->entityManager->persist($newProject);
         $this->entityManager->flush();
