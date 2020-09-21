@@ -133,6 +133,7 @@ class ProjectModel extends Model implements ModelInterface
             ->select('p, c')
             ->from('Entities\Project', 'p')
             ->leftJoin('p.contact', 'c')
+            ->where('p.statusId != 5 AND p.statusId != 6')
             ->getQuery();
 
         return $query->getResult();
