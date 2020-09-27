@@ -29,18 +29,26 @@
 namespace App\Modules\Dashboard\Controller;
 
 use App\Library\Controller;
+use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
 
 class Dashboard extends Controller
 {
+    private $ci;
     private $model = null;
 
-    public function __construct()
+    public function __construct(ContainerInterface $ci)
     {
+        $this->ci = $ci;
         $this->model = $this->model(new \App\Modules\Dashboard\Model\DashboardModel);
     }
 
-    public function index(): void
+    public function index(Request $request, Response $response): Response
     {
-        $this->render('dashboard/index');
+        $html = $this->ci->get('view')->render('dashboard/index');
+        $response->getBody()->write($html);
+
+        return $response;
     }
 }
