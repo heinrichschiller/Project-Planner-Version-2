@@ -29,6 +29,7 @@
 declare(strict_types = 1);
 
 use Dotenv\Dotenv;
+use Slim\Factory\AppFactory;
 
 error_reporting(-1);
 ini_set('display_errors', '1');
@@ -59,6 +60,8 @@ require ROOT_DIR . 'vendor/autoload.php';
 $dotenv = Dotenv::createImmutable(ROOT_DIR);
 $dotenv->load();
 
+$app = AppFactory::create();
+
 /*
 |----------------------------------------------------------------------------
 | Routes with nikic/fast-route
@@ -68,4 +71,6 @@ $dotenv->load();
 | router.
 |
 */
-require __DIR__ . '/fast-route.bootstrap.php';
+require __DIR__ . '/../app/routes/web.php';
+
+$app->run();
