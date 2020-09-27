@@ -26,12 +26,39 @@
  *
  */
 
-$container->set('view', function() {
-    $options = [
-        'extension' => '.html'
+use Psr\Container\ContainerInterface;
+use Doctrine\ORM\Tools\Setup;
+use Doctrine\ORM\EntityManager;
+
+$container->set('EntityManager', function(ContainerInterface $ci) {
+    $doctrineSettings = $ci->get('settings')['doctrine'];
+    
+    $config = Setup::createAnnotationMetadataConfiguration(
+        array(__DIR__."/../src")
+        , $doctrineSettings['dev_mode']
+        , $doctrineSettings['prory_dir']
+        , $doctrineSettings['cache_dir']
+        , $doctrineSettings['useSimpleAnnotationReader']
+    );
+
+    $connection = [
+        'driver' => 'pdo_mysql',
+        'host' => 'localhost',
+        'user' => 'root',
+        'password' => '',
+        'dbname' => 'workflow',
+        'charset' => 'utf8mb4'
     ];
 
-    $viewPath = ROOT_DIR . 'resources/views';
+    return EntityManager::create($connection, $config);
+});
+
+$container->set('view', function(ContainerInterface $ci) {
+    $mustacheSettings = $ci->get('settings')['mustache'];
+
+    $options = $mustacheSettings['options'];
+
+    $viewPath = $mustacheSettings['viewPath'];
 
     return new \Mustache_Engine([
         'loader' => new \Mustache_Loader_FilesystemLoader($viewPath, $options),
