@@ -15,7 +15,9 @@
         "mustache/mustache": "2.13.0",
         "components/jquery": "3.5.1",
         "vlucas/phpdotenv": "5.1.0",
-        "doctrine/orm": "2.7.3"
+        "doctrine/orm": "2.7.3",
+        "slim/slim": "4.*",
+        "slim/psr7": "dev-master"
     },
     "autoload": {
         "psr-0": {
