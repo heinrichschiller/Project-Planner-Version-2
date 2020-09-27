@@ -28,6 +28,7 @@
 
 declare(strict_types = 1);
 
+use DI\Container;
 use Dotenv\Dotenv;
 use Slim\Factory\AppFactory;
 
@@ -59,6 +60,12 @@ require ROOT_DIR . 'vendor/autoload.php';
 */
 $dotenv = Dotenv::createImmutable(ROOT_DIR);
 $dotenv->load();
+
+$container = new Container;
+
+require ROOT_DIR . 'app/container.php';
+
+AppFactory::setContainer($container);
 
 $app = AppFactory::create();
 
