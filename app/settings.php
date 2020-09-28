@@ -36,7 +36,7 @@ return function (ContainerBuilder $containerBuilder)
             
             'doctrine' => [
                 'dev_mode' => true,
-                'cache_dir' => ROOT_DIR . 'var/cache/doctrine',
+                'cache_dir' => null,
                 'metadata_dirs' => null,
                 'proxy_dir' => null,
                 'useSimpleAnnotationReader' => false,
