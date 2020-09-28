@@ -23,5 +23,10 @@ abstract class Action
         return $response;
     }
 
+    protected function entityManager()
+    {
+        return $this->ci->get('EntityManager');
+    }
+
     abstract public function __invoke(Request $request, Response $response, $args = []);
 }
