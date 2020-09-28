@@ -35,7 +35,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class NewAction extends Action
 {
     public function __invoke(Request $request, Response $response, $args = []): Response
-    {        
+    {
         return $this->render($response, 'contact/new');
     }
 }

@@ -35,7 +35,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 class ReadAction extends Action
 {
     public function __invoke(Request $request, Response $response, $args = []): Response
-    {        
+    {
         $contact= $this->entityManager()
             ->getRepository('Entities\Contact')
             ->find($args['id']);
