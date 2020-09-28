@@ -36,19 +36,12 @@ $container->set('EntityManager', function(ContainerInterface $ci) {
     $config = Setup::createAnnotationMetadataConfiguration(
         array(__DIR__."/../src")
         , $doctrineSettings['dev_mode']
-        , $doctrineSettings['prory_dir']
+        , $doctrineSettings['proxy_dir']
         , $doctrineSettings['cache_dir']
         , $doctrineSettings['useSimpleAnnotationReader']
     );
 
-    $connection = [
-        'driver' => 'pdo_mysql',
-        'host' => 'localhost',
-        'user' => 'root',
-        'password' => '',
-        'dbname' => 'workflow',
-        'charset' => 'utf8mb4'
-    ];
+    $connection = $doctrineSettings['connection'];
 
     return EntityManager::create($connection, $config);
 });
