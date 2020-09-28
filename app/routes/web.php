@@ -39,7 +39,7 @@ $app->get('/', App\Application\Actions\Dashboard\DashboardAction::class);
 | Contact-Routes
 |----------------------------------------------------------------------------
 */
-$app->get('/contacts', 'App\Modules\Contact\Controller\Contact:index');
+$app->get('/contacts', App\Application\Actions\Contact\ContactAction::class);
 $app->get('/contact/new', 'App\Modules\Contact\Controller\Contact:new');
 $app->get('/contact/read/{id:\d+}', 'App\Modules\Contact\Controller\Contact:read');
 $app->get('/contact/edit/{id:\d+}', 'App\Modules\Contact\Controller\Contact:edit');
