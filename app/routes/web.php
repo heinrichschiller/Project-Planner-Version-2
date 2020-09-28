@@ -32,7 +32,7 @@
 | Index route
 |----------------------------------------------------------------------------
 */
-$app->get('/', 'App\Modules\Dashboard\Controller\Dashboard:index');
+$app->get('/', App\Application\Actions\Dashboard\DashboardAction::class);
 
 /*
 |----------------------------------------------------------------------------
