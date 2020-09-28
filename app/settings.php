@@ -34,6 +34,17 @@ return function (ContainerBuilder $containerBuilder)
         'settings' => [
             'displayErrorDetails' => true,
             
+            /*
+            |----------------------------------------------------------------------------
+            | Doctrine ORM
+            |----------------------------------------------------------------------------
+            |
+            | Doctrine 2 is an object-relational mapper (ORM) for PHP 7.1+ that provides
+            | transparent persistence for PHP objects.
+            |
+            | https://www.doctrine-project.org/
+            |
+            */
             'doctrine' => [
 
                 /*
