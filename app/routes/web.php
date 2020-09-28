@@ -43,7 +43,7 @@ $app->get('/contacts', App\Application\Actions\Contact\ContactAction::class);
 $app->get('/contact/new', App\Application\Actions\Contact\NewAction::class);
 $app->get('/contact/read/{id:\d+}', App\Application\Actions\Contact\ReadAction::class);
 $app->get('/contact/edit/{id:\d+}', App\Application\Actions\Contact\EditAction::class);
-$app->post('/contact/create', 'App\Modules\Contact\Controller\Contact:create');
+$app->post('/contact/create',  App\Application\Actions\Contact\CreateAction::class);
 $app->post('/contact/update', 'App\Modules\Contact\Controller\Contact:update');
 
 /*
