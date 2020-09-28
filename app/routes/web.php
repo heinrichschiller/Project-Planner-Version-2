@@ -41,7 +41,7 @@ $app->get('/', App\Application\Actions\Dashboard\DashboardAction::class);
 */
 $app->get('/contacts', App\Application\Actions\Contact\ContactAction::class);
 $app->get('/contact/new', 'App\Modules\Contact\Controller\Contact:new');
-$app->get('/contact/read/{id:\d+}', 'App\Modules\Contact\Controller\Contact:read');
+$app->get('/contact/read/{id:\d+}', App\Application\Actions\Contact\ReadAction::class);
 $app->get('/contact/edit/{id:\d+}', 'App\Modules\Contact\Controller\Contact:edit');
 $app->post('/contact/create', 'App\Modules\Contact\Controller\Contact:create');
 $app->post('/contact/update', 'App\Modules\Contact\Controller\Contact:update');
