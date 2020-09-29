@@ -51,12 +51,12 @@ $app->post('/contact/update', App\Application\Actions\Contact\UpdateAction::clas
 | Project-Routes
 |----------------------------------------------------------------------------
 */
-$app->get('/projects', 'App\Modules\Project\Controller\Project:index');
-$app->get('/project/new', 'App\Modules\Project\Controller\Project:new');
-$app->get('/project/read/{id:\d+}', 'App\Modules\Project\Controller\Project:read');
-$app->get('/project/edit/{id:\d+}', 'App\Modules\Project\Controller\Project:edit');
-$app->post('/project/create', 'App\Modules\Project\Controller\Project:create');
-$app->post('/project/update', 'App\Modules\Project\Controller\Project:update');
+$app->get('/projects', App\Application\Actions\Project\ProjectAction::class);
+$app->get('/project/new', App\Application\Actions\Project\NewAction::class);
+$app->get('/project/read/{id:\d+}', App\Application\Actions\Project\ReadAction::class);
+$app->get('/project/edit/{id:\d+}', App\Application\Actions\Project\EditAction::class);
+$app->post('/project/create', App\Application\Actions\Project\CreateAction::class);
+$app->post('/project/update',  App\Application\Actions\Project\UpdateAction::class);
 
 /*
 |----------------------------------------------------------------------------
