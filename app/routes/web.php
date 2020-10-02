@@ -63,10 +63,10 @@ $app->post('/project/update',  App\Application\Actions\Project\UpdateAction::cla
 | Task-Routes
 |----------------------------------------------------------------------------
 */
-$app->get('/tasks', 'App\Modules\Task\Controller\Task:index');
-$app->get('/task/new', 'App\Modules\Task\Controller\Task:new');
+$app->get('/tasks',  App\Application\Actions\Task\TaskAction::class);
+$app->get('/task/new', App\Application\Actions\Task\NewAction::class);
 $app->get('/task/newProjectTask/{id:\d+}', 'App\Modules\Task\Controller\Task:newProjectTask');
-$app->get('/task/read/{id:\d+}', 'App\Modules\Task\Controller\Task:read');
+$app->get('/task/read/{id:\d+}', App\Application\Actions\Task\ReadAction::class);
 $app->get('/task/edit/{id:\d+}', 'App\Modules\Task\Controller\Task:edit');
 $app->post('/task/update', 'App\Modules\Task\Controller\Task/update');
 $app->post('/task/create', 'App\Modules\Task\Controller\Task/create');
