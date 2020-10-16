@@ -65,11 +65,11 @@ $app->post('/project/update',  App\Application\Actions\Project\UpdateAction::cla
 */
 $app->get('/tasks',  App\Application\Actions\Task\TaskAction::class);
 $app->get('/task/new', App\Application\Actions\Task\NewAction::class);
-$app->get('/task/newProjectTask/{id:\d+}', 'App\Modules\Task\Controller\Task:newProjectTask');
+$app->get('/task/newProjectTask/{id:\d+}', App\Application\Actions\Task\CreateProjectTaskAction::class);
 $app->get('/task/read/{id:\d+}', App\Application\Actions\Task\ReadAction::class);
-$app->get('/task/edit/{id:\d+}', 'App\Modules\Task\Controller\Task:edit');
-$app->post('/task/update', 'App\Modules\Task\Controller\Task/update');
-$app->post('/task/create', 'App\Modules\Task\Controller\Task/create');
+$app->get('/task/edit/{id:\d+}', App\Application\Actions\Task\EditAction::class);
+$app->post('/task/update', App\Application\Actions\Task\UpdateAction::class);
+$app->post('/task/create', App\Application\Actions\Task\CreateAction::class);
 
 /*
 |----------------------------------------------------------------------------
