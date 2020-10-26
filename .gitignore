@@ -3,9 +3,10 @@
 composer.lock
 composer.phar
 
+package-lock.json
+
 /configs/
 /node_modules/
-/public/assets/svg/
-/public/assets/js/lib/
+/public/assets/
 /src/configs/
 /vendor/
