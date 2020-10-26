@@ -1,0 +1,31 @@
+{
+  "name": "workflow",
+  "version": "1.0.0",
+  "description": "This is a test",
+  "main": "index.js",
+  "dependencies": {
+    "bootstrap-icons": "^1.0.0",
+    "jquery": "^3.5.1",
+    "tinymce": "^5.5.1",
+    "bootstrap": "^4.5.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heinrichschiller/Workflow.git"
+  },
+  "keywords": [
+    "Workflow",
+    "Projects",
+    "Organizer"
+  ],
+  "author": "Heinrich Schiller",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/heinrichschiller/Workflow/issues"
+  },
+  "homepage": "https://github.com/heinrichschiller/Workflow#readme"
+}
