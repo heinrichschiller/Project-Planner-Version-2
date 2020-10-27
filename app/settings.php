@@ -33,6 +33,8 @@ return function (ContainerBuilder $containerBuilder)
     $containerBuilder->addDefinitions([
         'settings' => [
             'displayErrorDetails' => true,
+            'logErrors' => true,
+            'logErrorDetails' => true,
             
             /*
             |----------------------------------------------------------------------------
@@ -116,7 +118,7 @@ return function (ContainerBuilder $containerBuilder)
                     | A MySQL driver that uses the pdo_mysql PDO extension.
                     |
                     */
-                    'driver' => 'pdo_mysql',
+                    'driver' => $_ENV['DB_DRIVER'],
 
                     /*
                     |----------------------------------------------------------------------------
@@ -126,7 +128,7 @@ return function (ContainerBuilder $containerBuilder)
                     | Hostname of the database to connect to.
                     |
                     */
-                    'host' => '',
+                    'host' => $_ENV['DB_HOSTNAME'],
 
                     /*
                     |----------------------------------------------------------------------------
@@ -136,7 +138,7 @@ return function (ContainerBuilder $containerBuilder)
                     | Username to use when connecting to the database.
                     |
                     */
-                    'user' => '',
+                    'user' => $_ENV['DB_USERNAME'],
 
                     /*
                     |----------------------------------------------------------------------------
@@ -146,7 +148,7 @@ return function (ContainerBuilder $containerBuilder)
                     | Password to use when connecting to the database.
                     |
                     */
-                    'password' => '',
+                    'password' => $_ENV['DB_PASSWORD'],
 
                     /*
                     |----------------------------------------------------------------------------
@@ -156,7 +158,7 @@ return function (ContainerBuilder $containerBuilder)
                     | Name of the database/schema to connect to.
                     |
                     */
-                    'dbname' => '',
+                    'dbname' => $_ENV['DB_DATABASE'],
 
                     /*
                     |----------------------------------------------------------------------------
@@ -166,7 +168,7 @@ return function (ContainerBuilder $containerBuilder)
                     | Port of the database to connect to.
                     |
                     */
-                    'port' => 3306,
+                    'port' => $_ENV['DB_PORT'],
 
                     /*
                     |----------------------------------------------------------------------------
