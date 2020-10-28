@@ -28,18 +28,53 @@
 
 namespace App\Application\Actions\Contact;
 
-use App\Application\Actions\Action;
+use App\Domain\Contact\Service\ContactFinder;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class ContactAction extends Action
+class ContactAction
 {
+    /**
+     * @Injection
+     * @var ContactFinder
+     */
+    private ContactFinder $contactFinder;
+
+    /**
+     * @Injection
+     * @var ContainerInterface
+     */
+    private $ci;
+
+    /**
+     * The constructor
+     * 
+     * @param ContactFinder $contactFinder
+     * @param ContainerInterface $ci
+     */
+    public function __construct(ContactFinder $contactFinder, ContainerInterface $ci)
+    {
+        $this->contactFinder = $contactFinder;
+        $this->ci = $ci;
+    }
+    
+    /**
+     * The invoker
+     * 
+     * @param Request $request
+     * @param Response $response
+     * @param array $args
+     * 
+     * @return Response
+     */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $contacts = $this->entityManager()
-            ->getRepository('Entities\Contact')
-            ->findAll();
-        
-        return $this->render($response, 'contact/index', ['contacts' => $contacts]);
+        $contacts = $this->contactFinder->findAll();
+
+        $html = $this->ci->get('view')->render('contact/index', ['contacts' => $contacts]);
+        $response->getBody()->write($html);
+
+        return $response;
     }
 }
