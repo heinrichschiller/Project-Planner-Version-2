@@ -28,25 +28,42 @@
 
 namespace App\Application\Actions\Contact;
 
-use App\Application\Actions\Action;
+use App\Domain\Contact\Service\ContactCreator;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use DateTime;
-use Entities\Contact;
 
-class CreateAction extends Action
+class CreateAction
 {
+    /**
+     * @Injection
+     * @var ContactCreator
+     */
+    private ContactCreator $contactCreator;
+
+    /**
+     * The constructor
+     * 
+     * @param ContactCreator $contactCreator
+     */
+    public function __construct(ContactCreator $contactCreator)
+    {
+        $this->contactCreator = $contactCreator;
+    }
+
+    /**
+     * The invoker
+     * 
+     * @param Request $request
+     * @param Response $response
+     * @param array $args
+     * 
+     * @return Response
+     */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
         $data = $request->getParsedBody();
 
-        $newContact = new Contact;
-
-        $newContact->setDisplayName($data['name']);
-        $newContact->setCreatedAt(new DateTime('now'));
-
-        $this->entityManager()->persist($newContact);
-        $this->entityManager()->flush();
+        $this->contactCreator->createContact($data);
         
         return $response;
     }
