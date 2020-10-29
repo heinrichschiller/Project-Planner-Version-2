@@ -28,14 +28,42 @@
 
 namespace App\Application\Actions\Contact;
 
-use App\Application\Actions\Action;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class NewAction extends Action
+class NewAction
 {
+    /**
+     * @Injection
+     * @var ContainerInterface
+     */
+    private $ci;
+
+    /**
+     * The constructor
+     * 
+     * @param ContainerInterface $ci
+     */
+    public function __construct(ContainerInterface $ci)
+    {
+        $this->ci = $ci;
+    }
+
+    /**
+     * The invoker
+     * 
+     * @param Request $request
+     * @param Response $response
+     * @param array $args
+     * 
+     * @return Response
+     */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        return $this->render($response, 'contact/new');
+        $html = $this->ci->get('view')->render($response, 'contact/new');
+        $response->getBody()->write($html);
+
+        return $response;
     }
 }
