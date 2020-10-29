@@ -31,7 +31,7 @@ namespace App\Domain\Contact\Service;
 use App\Domain\Contact\Repository\ContactReaderRepository;
 use App\Exception\ValidationException;
 
-final class ContactEditor
+final class ContactReader
 {
     /**
      * @Injection
