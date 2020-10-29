@@ -28,18 +28,53 @@
 
 namespace App\Application\Actions\Contact;
 
-use App\Application\Actions\Action;
+use App\Domain\Contact\Service\ContactEditor;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class EditAction extends Action
+class EditAction
 {
+    /**
+     * @Injection
+     * @var ContactEditor
+     */
+    private ContactEditor $contactEditor;
+
+    /**
+     * @Injection
+     * @var ContainerInterface
+     */
+    private $ci;
+
+    /**
+     * The constructor
+     * 
+     * @param ContactEditor $contactEditor
+     * @param ContainerInterface $ci;
+     */
+    public function __construct(ContactEditor $contactEditor, ContainerInterface $ci)
+    {
+        $this->contactEditor = $contactEditor;
+        $this->ci = $ci;
+    }
+
+    /**
+     * The invoker
+     * 
+     * @param Request $request
+     * @param Response $response
+     * @param array $args
+     * 
+     * @return Response
+     */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $contact= $this->entityManager()
-            ->getRepository('Entities\Contact')
-            ->find($args['id']);
-        
-        return $this->render($response, 'contact/edit', $contact);
+        $contact = $this->contactEditor->readContact($args['id']);
+
+        $html = $this->ci->get('view')->render('contact/edit', $contact);
+        $response->getBody()->write($html);
+
+        return $response;
     }
 }
