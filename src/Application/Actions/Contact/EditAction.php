@@ -28,7 +28,7 @@
 
 namespace App\Application\Actions\Contact;
 
-use App\Domain\Contact\Service\ContactEditor;
+use App\Domain\Contact\Service\ContactReader;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -39,7 +39,7 @@ class EditAction
      * @Injection
      * @var ContactEditor
      */
-    private ContactEditor $contactEditor;
+    private ContactReader $contactReader;
 
     /**
      * @Injection
@@ -53,9 +53,9 @@ class EditAction
      * @param ContactEditor $contactEditor
      * @param ContainerInterface $ci;
      */
-    public function __construct(ContactEditor $contactEditor, ContainerInterface $ci)
+    public function __construct(ContactReader $contactReader, ContainerInterface $ci)
     {
-        $this->contactEditor = $contactEditor;
+        $this->contactReader = $contactReader;
         $this->ci = $ci;
     }
 
@@ -70,7 +70,7 @@ class EditAction
      */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $contact = $this->contactEditor->readContact($args['id']);
+        $contact = $this->contactReader->readContact($args['id']);
 
         $html = $this->ci->get('view')->render('contact/edit', $contact);
         $response->getBody()->write($html);
