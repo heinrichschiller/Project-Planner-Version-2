@@ -29,17 +29,29 @@
 namespace App\Application\Actions\Contact;
 
 use App\Application\Actions\Action;
+use App\Domain\Contact\Service\ContactReader;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class ReadAction extends Action
 {
+    private ContactReader $contactReader;
+    private $ci;
+
+    public function __construct(ContactReader $contactReader, ContainerInterface $ci)
+    {
+        $this->contactReader = $contactReader;
+        $this->ci = $ci;
+    }
+
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $contact= $this->entityManager()
-            ->getRepository('Entities\Contact')
-            ->find($args['id']);
+        $contact = $this->contactReader->readContact($args['id']);
         
-        return $this->render($response, 'contact/read', $contact);
+        $html = $this->ci->get('view')->render('contact/read', $contact);
+        $response->getBody()->write($html);
+
+        return $response;
     }
 }
