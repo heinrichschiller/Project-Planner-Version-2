@@ -33,7 +33,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use DateTime;
 
-class UpdateAction extends Action
+class UpdateAction
 {
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
