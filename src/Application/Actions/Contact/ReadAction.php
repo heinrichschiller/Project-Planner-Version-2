@@ -36,15 +36,39 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 class ReadAction
 {
+    /**
+     * @Injection
+     * @var ContactReader
+     */
     private ContactReader $contactReader;
+
+    /**
+     * @Injection
+     * @var ContainerInterface
+     */
     private $ci;
 
+    /**
+     * The constructor
+     * 
+     * @param ContactReader $contactReader
+     * @param ContainerInterface $ci
+     */
     public function __construct(ContactReader $contactReader, ContainerInterface $ci)
     {
         $this->contactReader = $contactReader;
         $this->ci = $ci;
     }
 
+    /**
+     * The invoker
+     * 
+     * @param Request $request
+     * @param Response $response
+     * @param array $args
+     * 
+     * @return Response
+     */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
         $contact = $this->contactReader->readContact($args['id']);
