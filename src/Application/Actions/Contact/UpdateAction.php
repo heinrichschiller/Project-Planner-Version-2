@@ -28,31 +28,25 @@
 
 namespace App\Application\Actions\Contact;
 
-use App\Application\Actions\Action;
+use App\Domain\Contact\Service\ContactUpdating;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use DateTime;
+
 
 class UpdateAction
 {
+    private ContactUpdating $contactUpdating;
+
+    public function __construct(ContactUpdating $contactUpdating)
+    {
+        $this->contactUpdating = $contactUpdating;
+    }
+
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
         $data = $request->getParsedBody();
 
-        $contact = $this->entityManager()
-            ->getRepository('Entities\Contact')
-            ->find($data['id']);
-        
-        if ( $contact === null ) {
-            echo "No contact found for the given id: {$data['id']}";
-            exit(1);
-        }
-
-        $contact->setDisplayName($data['name']);
-        $contact->setUpdatedAt(new DateTime('now'));
-        
-        $this->entityManager()->persist($contact);
-        $this->entityManager()->flush();
+        $this->contactUpdating->contactUpdate($data);
 
         return $response;
     }
