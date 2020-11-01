@@ -1,141 +1,133 @@
-<!DOCTYPE html>
-<html lang="de">
-    <head>
-        
-        {{> partials/head }}
+{{> partials/head }}
 
-    </head>
-    <body>
-        <div class="navigation">
+    <div class="navigation">
 
-            {{> partials/navigation }}
+        {{> partials/navigation }}
 
+    </div>
+    
+    <form action="/project/update" method="POST">
+
+        {{# project }}
+
+        <div class="header">
+            <div class="container-fluid title-bar">
+                <h1>Projekt -</h1>
+                <input type="text" name="title" value="{{ getTitle }}" id="" class="form-control borderless header-title" placeholder="Hier neuen Titel eintragen">
+            </div>
         </div>
-        
-        <form action="/project/update" method="POST">
 
-            {{# project }}
+        <div class="container-fluid">
 
-            <div class="header">
-                <div class="container-fluid title-bar">
-                    <h1>Projekt -</h1>
-                    <input type="text" name="title" value="{{ getTitle }}" id="" class="form-control borderless header-title" placeholder="Hier neuen Titel eintragen">
-                </div>
-            </div>
+            <div class="row">
+                <div class="col-md-6">
 
-            <div class="container-fluid">
-
-                <div class="row">
-                    <div class="col-md-6">
-
-                        <div class="form-group">
-                            <label for="desc" class="col-form-label">Beschreibung:</label>
-                            <div>
-                                <textarea class="form-control" name="desc" id="desc" cols="30" rows="10">{{ getDescription }}</textarea>
-                            </div>
+                    <div class="form-group">
+                        <label for="desc" class="col-form-label">Beschreibung:</label>
+                        <div>
+                            <textarea class="form-control" name="desc" id="desc" cols="30" rows="10">{{ getDescription }}</textarea>
                         </div>
-
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col">
-                                    <label for="inputTaskBegin">Anfang:</label>
-                                    <input type="datetime-local" name="beginAt" value="{{ getBeginAtDateTimeLocal }}" id="inputTaskBegin" class="form-control">
-                                </div>
-                                <div class="col">
-                                    <label for="inputTaskEnd">Ende:</label>
-                                    <input type="datetime-local" name="endAt" value="{{ getEndAtDateTimeLocal }}"id="inputTaskEnd" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col">
-                                    <label for="input__status">Status:</label>
-                                    <select name="statusId" data-status_id="{{ getStatusId}}" id="input__status" class="form-control">
-
-                                        {{# statusList }}
-                                        <option value="{{ getId }}">{{ getId }} {{ getDescription }}</option>
-                                        {{/ statusList }}
-
-                                    </select>
-                                </div>
-                                <div class="col">
-                                    <label for="input__riority">Priorität:</label>
-                                    <select name="priorityId" data-priority_id="{{ getPriorityId }}" id="input__priority" class="form-control">
-
-                                        {{# priorityList }}
-                                        <option value="{{ getId }}">{{ getId }}  {{ getDescription }}</option>
-                                        {{/ priorityList }}
-
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
 
-                    <div class="col-md-3"></div>
-
-                    <div class="col-md-3">
-
-                        <div>
-                            <div class="form-group">
-                                <div>#: {{ getId }}</div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <label for="inputTaskBegin">Anfang:</label>
+                                <input type="datetime-local" name="beginAt" value="{{ getBeginAtDateTimeLocal }}" id="inputTaskBegin" class="form-control">
                             </div>
-
-                            <div>
-                                <div>Erstellt: {{ getCreatedAt }}</div>
-                            </div>
-                            <div>
-                                <div>Aktualisiert: {{ getUpdatedAt }}</div>
-                            </div> 
-
-                            <div>
-                                <div>Anfang: {{ getBeginAt }}</div>
-                            </div>
-                            <div>
-                                <div>Ende: {{ getEndAt }}</div>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <div>
-                                <div>Status: {{ getStatus.getDescription }}</div>
-                            </div>
-                            <div>
-                                <div>Priorität: {{ getPriority.getDescription }}</div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div>
-                                <div>Kontakt: {{ getContact.getDisplayName }}</div>
+                            <div class="col">
+                                <label for="inputTaskEnd">Ende:</label>
+                                <input type="datetime-local" name="endAt" value="{{ getEndAtDateTimeLocal }}"id="inputTaskEnd" class="form-control">
                             </div>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <label for="input__status">Status:</label>
+                                <select name="statusId" data-status_id="{{ getStatusId}}" id="input__status" class="form-control">
+
+                                    {{# statusList }}
+                                    <option value="{{ getId }}">{{ getId }} {{ getDescription }}</option>
+                                    {{/ statusList }}
+
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="input__priority">Priorität:</label>
+                                <select name="priorityId" data-priority_id="{{ getPriorityId }}" id="input__priority" class="form-control">
+
+                                    {{# priorityList }}
+                                    <option value="{{ getId }}">{{ getId }}  {{ getDescription }}</option>
+                                    {{/ priorityList }}
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+
+                <div class="col-md-3"></div>
+
+                <div class="col-md-3">
+
+                    <div>
+                        <div class="form-group">
+                            <div>#: {{ getId }}</div>
+                        </div>
+
+                        <div>
+                            <div>Erstellt: {{ getCreatedAt }}</div>
+                        </div>
+                        <div>
+                            <div>Aktualisiert: {{ getUpdatedAt }}</div>
+                        </div> 
+
+                        <div>
+                            <div>Anfang: {{ getBeginAt }}</div>
+                        </div>
+                        <div>
+                            <div>Ende: {{ getEndAt }}</div>
+                        </div>
+                    </div>
                     
-            </div>
+                    <div>
+                        <div>
+                            <div>Status: {{ getStatus.getDescription }}</div>
+                        </div>
+                        <div>
+                            <div>Priorität: {{ getPriority.getDescription }}</div>
+                        </div>
+                    </div>
 
-            <div class="buttons">
-                <div class="container-fluid">
-                    <button role="button" class="btn btn-primary">Speichern</button>
-                    <a class="btn btn-secondary" href="/projects">Abbrechen</a>
+                    <div>
+                        <div>
+                            <div>Kontakt: {{ getContact.getDisplayName }}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
+                
+        </div>
 
-            <div>
-                <input type="hidden" name="id" value="{{ getId }}">
+        <div class="buttons">
+            <div class="container-fluid">
+                <button class="btn btn-primary">Speichern</button>
+                <a class="btn btn-secondary" href="/projects">Abbrechen</a>
             </div>
+        </div>
 
-            {{/ project }}
+        <div>
+            <input type="hidden" name="id" value="{{ getId }}">
+        </div>
 
-        </form>
+        {{/ project }}
 
-        {{ partials/javascript }}
+    </form>
 
-        <script src="/assets/js/modules/project/edit.js"></script>
-        <script src="/assets/js/modules/project/main.js"></script>
-    </body>
-</html>
+    <script src="/assets/js/modules/project/edit.js"></script>
+    <script src="/assets/js/modules/project/main.js"></script>
+
+{{> partials/footer }}

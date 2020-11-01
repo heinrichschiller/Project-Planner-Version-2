@@ -1,67 +1,63 @@
-<!DOCTYPE html>
-<html lang="de">
-    <head>
-        
-        {{> partials/head }}
+{{> partials/head }}
 
-    </head>
-    <body>
-        <div class="navigation">
+    <div class="navigation">
 
-            {{> partials/navigation }}
+        {{> partials/navigation }}
 
+    </div>
+    
+    <div class="header">
+        <div class="container-fluid title-bar">
+            <h1>Projekte</h1>
+            <a href="/project/new" title="Neues Projekt" class="btn header-button">Neues Projekt</a>
         </div>
-        
-        <div class="header">
-            <div class="container-fluid title-bar">
-                <h1>Projekte</h1>
-                <a href="/project/new" title="Neues Projekt" class="btn header-button">Neues Projekt</a>
+    </div>
+
+    <div class="table-scrollable">
+        <div class="table table-striped table-hover table-sm">
+            <div class="container-fluid">
+                <table class="table__index">
+                    <thead>
+                        <tr>
+                            <th>Aktionen</th>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th class="contact">Kontakt</th>
+                            <th class="begin">Anfang</th>
+                            <th class="end">Ende</th>
+                            <th class="status">Status</th>
+                            <th class="priority">Priorität</th>
+                            <th>Fortschritt</th>
+                            <th class="created">Erstellt</th>
+                            <th class="updatedAt">Aktualisiert</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {{#projects}}
+
+                        <tr class="clickable__row" data-href="/project/read/{{ getId }}">
+                            <td>-</td>
+                            <td>{{ getId }}</td>
+                            <td>{{ getTitle }}</td>
+                            <td>{{ getContact.getDisplayName }}</td>
+                            <td>{{ getBeginAt }}</td>
+                            <td>{{ getEndAt }}</td>
+                            <td class="status__color" data-status_id="{{ getStatusId}} ">{{ getStatus.getDescription }}</td>
+                            <td class="priority__color" data-priority_id="{{ getPriorityId }}">{{ getPriority.getDescription }}</td>
+                            <td>-</td>
+                            <td>{{ getCreatedAt }}</td>
+                            <td>{{ getUpdatedAt }}</td>
+                        </tr>
+
+                        {{/projects}}
+                        
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
 
-        <div class="table-scrollable">
-            <div class="table table-striped table-hover table-sm">
-                <div class="container-fluid">
-                    <table class="table__index">
-                        <thead>
-                            <tr>
-                                <th>Aktionen</th>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th class="contact">Kontakt</th>
-                                <th class="begin">Anfang</th>
-                                <th class="end">Ende</th>
-                                <th class="status">Status</th>
-                                <th class="priority">Priorität</th>
-                                <th>Fortschritt</th>
-                                <th class="created">Erstellt</th>
-                                <th class="updatedAt">Aktualisiert</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#projects}}
-                            <tr class="clickable__row" data-href="/project/read/{{ getId }}">
-                                <td>-</td>
-                                <td>{{ getId }}</td>
-                                <td>{{ getTitle }}</td>
-                                <td>{{ getContact.getDisplayName }}</td>
-                                <td>{{ getBeginAt }}</td>
-                                <td>{{ getEndAt }}</td>
-                                <td class="status__color" data-status_id="{{ getStatusId}} ">{{ getStatus.getDescription }}</td>
-                                <td class="priority__color" data-priority_id="{{ getPriorityId }}">{{ getPriority.getDescription }}</td>
-                                <td>-</td>
-                                <td>{{ getCreatedAt }}</td>
-                                <td>{{ getUpdatedAt }}</td>
-                            </tr>
-                            {{/projects}}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+    <script src="/assets/js/modules/project/index.js"></script>
 
-        {{ partials/javascript-src }}
-
-        <script src="/assets/js/modules/project/index.js"></script>
-    </body>
-</html>
+{{> partials/footer }}

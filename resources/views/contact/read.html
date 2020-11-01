@@ -1,60 +1,51 @@
-<!DOCTYPE html>
-<html lang="de">
-    <head>
-        
-        {{> partials/head }}
 
-    </head>
-    <body>
-        <div class="navigation">
+{{> partials/head }}
 
-            {{> partials/navigation }}
+    <div class="navigation">
 
+        {{> partials/navigation }}
+
+    </div>
+    
+    <div class="header">
+        <div class="container-fluid title-bar">
+            <h1>Kontakt - {{ getDisplayName }}</h1>
         </div>
-        
-        <div class="header">
-            <div class="container-fluid title-bar">
-                <h1>Kontakt - {{ getDisplayName }}</h1>
+    </div>
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-9">
+
+                <!-- later -->
+
             </div>
-        </div>
 
-        <div class="container-fluid">
+            <div class="col-md-3">
 
-            <div class="row">
-                <div class="col-md-9">
-
-                    <!-- later -->
-
-                </div>
-
-                <div class="col-md-3">
+                <div>
+                    <div class="form-group">
+                        <div>#: {{ getId }}</div>
+                    </div>
 
                     <div>
-                        <div class="form-group">
-                            <div>#: {{ getId }}</div>
-                        </div>
-    
-                        <div>
-                            <div>Erstellt: {{ getCreatedAt }}</div>
-                        </div>
-                        <div>
-                            <div>Aktualisiert: {{ getUpdatedAt }}</div>
-                        </div> 
+                        <div>Erstellt: {{ getCreatedAt }}</div>
                     </div>
-                    
+                    <div>
+                        <div>Aktualisiert: {{ getUpdatedAt }}</div>
+                    </div> 
                 </div>
-            </div>
                 
-        </div>
-
-        <div class="buttons fixed-bottom">
-            <div class="container-fluid">
-                <button id="edit__btn" role="button" class="btn btn-primary" data-location="/contact/edit/{{ getId }}">Bearbeiten</button>
             </div>
         </div>
+            
+    </div>
 
-        {{ partials/javascript }}
+    <div class="buttons fixed-bottom">
+        <div class="container-fluid">
+            <button id="edit__btn" class="btn btn-primary" data-location="/contact/edit/{{ getId }}">Bearbeiten</button>
+        </div>
+    </div>
 
-        <script src="/assets/js/modules/contact/read.js"></script>
-    </body>
-</html>
+{{> partials/footer }}

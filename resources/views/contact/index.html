@@ -1,55 +1,50 @@
-<!DOCTYPE html>
-<html lang="de">
-    <head>
-        
-        {{> partials/head }}
 
-    </head>
-    <body>
-        <div class="navigation">
+{{> partials/head }}
 
-            {{> partials/navigation }}
+    <div class="navigation">
 
+        {{> partials/navigation }}
+
+    </div>
+    
+    <div class="header">
+        <div class="container-fluid title-bar">
+            <h1>Kontakte</h1>
+            <a href="/contact/new" title="Neue Aufgabe" class="btn header-button">Neuer Kontakt</a>
         </div>
-        
-        <div class="header">
-            <div class="container-fluid title-bar">
-                <h1>Kontakte</h1>
-                <a href="/contact/new" title="Neue Aufgabe" class="btn header-button">Neuer Kontakt</a>
+    </div>
+
+    <div class="table-scrollable">
+        <div class="table table-striped table-hover table-sm">
+            <div class="container-fluid">
+                <table class="table__index">
+                    <thead>
+                        <tr>
+                            <th>Aktionen</th>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th class="created">Erstellt</th>
+                            <th class="updatedAt">Aktualisiert</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {{#contacts}}
+
+                        <tr class="clickable__row" data-href="/contact/read/{{ getId }}">
+                            <td>-</td>
+                            <td>{{ getId }}</td>
+                            <td>{{ getDisplayName}}</td>
+                            <td>{{ getCreatedAt }}</td>
+                            <td>{{ getUpdatedAt }}</td>
+                        </tr>
+
+                        {{/contacts}}
+                        
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
 
-        <div class="table-scrollable">
-            <div class="table table-striped table-hover table-sm">
-                <div class="container-fluid">
-                    <table class="table__index">
-                        <thead>
-                            <tr>
-                                <th>Aktionen</th>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th class="created">Erstellt</th>
-                                <th class="updatedAt">Aktualisiert</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#contacts}}
-                            <tr class="clickable__row" data-href="/contact/read/{{ getId }}">
-                                <td>-</td>
-                                <td>{{ getId }}</td>
-                                <td>{{ getDisplayName}}</td>
-                                <td>{{ getCreatedAt }}</td>
-                                <td>{{ getUpdatedAt }}</td>
-                            </tr>
-                            {{/contacts}}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        {{ partials/javascript-src }}
-
-        <script src="/assets/js/modules/contact/index.js"></script>
-    </body>
-</html>
+{{> partials/footer }}

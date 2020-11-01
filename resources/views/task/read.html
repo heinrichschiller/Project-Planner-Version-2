@@ -1,91 +1,83 @@
-<!DOCTYPE html>
-<html lang="de">
-    <head>
-        
-        {{> partials/head }}
+{{> partials/head }}
 
-    </head>
-    <body>
-        <div class="navigation">
+    <div class="navigation">
 
-            {{> partials/navigation }}
+        {{> partials/navigation }}
 
+    </div>
+    
+    <div class="header">
+        <div class="container-fluid title-bar">
+            <h1>Aufgabe - {{ getTitle }}</h1>
         </div>
-        
-        <div class="header">
-            <div class="container-fluid title-bar">
-                <h1>Aufgabe - {{ getTitle }}</h1>
-            </div>
-        </div>
+    </div>
 
-        <div class="container-fluid">
+    <div class="container-fluid">
 
-            <div class="row">
-                <div class="col-md-7">
+        <div class="row">
+            <div class="col-md-7">
 
-                    <div class="description">
-                        <label for="desc">Beschreibung:</label>
-                        <div class="content">
-                            {{{ getDescription }}}
-                        </div>
+                <div class="description">
+                    <label for="desc">Beschreibung:</label>
+                    <div class="content">
+                        {{{ getDescription }}}
                     </div>
-
                 </div>
 
-                <div class="col-md-3"></div>
-
-                <div class="col-md-2">
-
-                    <div>
-                        <div class="form-group">
-                            <div>#: {{ getId }}</div>
-                        </div>
-    
-                        <div>
-                            <div>Begin: {{ getBeginAt }}</div>
-                        </div>
-                        <div>
-                            <div>Ende: {{ getEndAt }}</div>
-                        </div>
-    
-                        <div>
-                            <div>Erstellt: {{ getCreatedAt }}</div>
-                        </div>
-                        <div>
-                            <div>Aktualisiert: {{ getUpdatedAt }}</div>
-                        </div> 
-                    </div>
-                    
-                    <div>
-                        <div>
-                            <div>Status: {{ getStatus.getDescription }}</div>
-                        </div>
-                        <div>
-                            <div>Priorität: {{ getPriority.getDescription }}</div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div>
-                            <div>Kontakt: {{ getContact.getDisplayName }}</div>
-                        </div>
-                        <div>
-                            <div>Projekt: {{ getProject.getTitle}}</div>
-                        </div>    
-                    </div>
-                </div>
             </div>
+
+            <div class="col-md-3"></div>
+
+            <div class="col-md-2">
+
+                <div>
+                    <div class="form-group">
+                        <div>#: {{ getId }}</div>
+                    </div>
+
+                    <div>
+                        <div>Begin: {{ getBeginAt }}</div>
+                    </div>
+                    <div>
+                        <div>Ende: {{ getEndAt }}</div>
+                    </div>
+
+                    <div>
+                        <div>Erstellt: {{ getCreatedAt }}</div>
+                    </div>
+                    <div>
+                        <div>Aktualisiert: {{ getUpdatedAt }}</div>
+                    </div> 
+                </div>
                 
-        </div>
+                <div>
+                    <div>
+                        <div>Status: {{ getStatus.getDescription }}</div>
+                    </div>
+                    <div>
+                        <div>Priorität: {{ getPriority.getDescription }}</div>
+                    </div>
+                </div>
 
-        <div class="buttons fixed-bottom">
-            <div class="container-fluid">
-                <button id="edit__btn" role="button" class="btn btn-primary" data-id="{{ getId }}">Bearbeiten</button>
+                <div>
+                    <div>
+                        <div>Kontakt: {{ getContact.getDisplayName }}</div>
+                    </div>
+                    <div>
+                        <div>Projekt: {{ getProject.getTitle}}</div>
+                    </div>    
+                </div>
             </div>
         </div>
+            
+    </div>
 
-        {{ partials/javascript }}
+    <div class="buttons fixed-bottom">
+        <div class="container-fluid">
+            <button id="edit__btn" role="button" class="btn btn-primary" data-id="{{ getId }}">Bearbeiten</button>
+        </div>
+    </div>
 
-        <script src="/assets/js/modules/task/read.js"></script>
-    </body>
-</html>
+    <script src="/assets/js/modules/task/read.js"></script>
+
+{{> partials/footer }}
