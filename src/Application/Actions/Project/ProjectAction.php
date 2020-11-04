@@ -28,23 +28,54 @@
 
 namespace App\Application\Actions\Project;
 
-use App\Application\Actions\Action;
+use App\Domain\Project\Service\ProjectFinder;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class ProjectAction extends Action
+class ProjectAction
 {
+    /**
+     * @Injection
+     * @var ContainerInterface
+     */
+    private $ci;
+
+    /**
+     * @Injection
+     * @var ProjectFinder 
+     */
+    private ProjectFinder $projectFinder;
+
+    /**
+     * The constructor
+     * 
+     * @param ContainerInterface $ci
+     * @param ProjectFinder $projectFinder
+     */
+    public function __construct(ContainerInterface $ci, ProjectFinder $projectFinder)
+    {
+        $this->ci = $ci;
+        $this->projectFinder = $projectFinder;
+    }
+
+    /**
+     * The invoker
+     * 
+     * @param Request $request
+     * @param Response $response
+     * @param array $args
+     * 
+     * @return Request
+     */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $projects = $this->entityManager()
-            ->createQueryBuilder()
-            ->select('p, c')
-            ->from('Entities\Project', 'p')
-            ->leftJoin('p.contact', 'c')
-            ->where('p.statusId != 5 AND p.statusId != 6')
-            ->getQuery()
-            ->getResult();
-        
-        return $this->render($response, 'project/index', ['projects' => $projects]);
+        $projects = $this->projectFinder->findAll();
+
+        $html = $this->ci->get('view')->render('project/index', ['projects' => $projects]);
+
+        $response->getBody()->write($html);
+
+        return $response;
     }
 }
