@@ -28,25 +28,71 @@
 
 namespace App\Application\Actions\Project;
 
-use App\Application\Actions\Action;
+use App\Domain\Contact\Service\ContactFinder;
+use App\Domain\Priority\Service\PriorityFinder;
+use App\Domain\Status\Service\StatusFinder;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class NewAction extends Action
+class NewAction
 {
+    /**
+     * @Injection
+     * @var ContainerInterface
+     */
+    private $ci;
+
+    /**
+     * @Injection
+     * @var ContactFinder
+     */
+    private ContactFinder $contactFinder;
+
+    /**
+     * @Injection
+     * @var PriorityFinder
+     */
+    private PriorityFinder $priorityFinder;
+
+    /**
+     * @Injection
+     * @var StatusFinder
+     */
+    private StatusFinder $statusFinder;
+
+    /**
+     * The constructor
+     * 
+     * @param ConstainerInterface $ci
+     * @param ContactFinder $contactFinder
+     * @param PriorityFinder $priorityFinder
+     */
+    public function __construct(ContactFinder $contactFinder
+        , PriorityFinder $priorityFinder
+        , StatusFinder $statusFinder
+        , ContainerInterface $ci)
+    {
+        $this->contactFinder = $contactFinder;
+        $this->priorityFinder = $priorityFinder;
+        $this->statusFinder = $statusFinder;
+        $this->ci = $ci;
+    }
+
+    /**
+     * The invoker
+     * 
+     * @param Request $request
+     * @param Response $response
+     * @param array $args
+     * 
+     * @return Response
+     */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $contactList = $this->entityManager()
-            ->getRepository(('Entities\Contact'))
-            ->findAll();
-
-        $priorityList = $this->entityManager()
-            ->getRepository('Entities\Priority')
-            ->findAll();
-        
-        $statusList = $this->entityManager()
-            ->getRepository(('Entities\Status'))
-            ->findAll();
+        $contactList = $this->contactFinder->findAll();
+        $priorityList = $this->priorityFinder->findAll();
+        $statusList = $this->statusFinder->findAll();
 
         $data = [
             'contactList' => $contactList,
@@ -54,6 +100,10 @@ class NewAction extends Action
             'statusList' => $statusList
         ];
 
-        return $this->render($response, 'project/new', $data);
+        $html = $this->ci->get('view')->render('project/new', $data);
+
+        $response->getBody()->write($html);
+
+        return $response;
     }
 }
