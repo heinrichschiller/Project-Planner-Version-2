@@ -28,61 +28,42 @@
 
 namespace App\Application\Actions\Project;
 
-use App\Application\Actions\Action;
+use App\Domain\Project\Service\ProjectCreator;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use DateTime;
-use Entities\Project;
 
-class CreateAction extends Action
+class CreateAction
 {
+    /**
+     * @Injection
+     * @var ProjectCreator
+     */
+    private ProjectCreator $projectCreator;
+
+    /**
+     * The constructor
+     * 
+     * @param ProjectCreator $projectCreator
+     */
+    public function __construct(ProjectCreator $projectCreator)
+    {
+        $this->projectCreator = $projectCreator;
+    }
+
+    /**
+     * The invoker
+     * 
+     * @param Request $request
+     * @param Response $response
+     * @param array $args
+     * 
+     * @return Response
+     */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $newProject = new Project;
-
         $data = (array) $request->getParsedBody();
 
-        $newProject->setTitle($data['title']);
-        $newProject->setDescription($data['desc']);
-        $newProject->setBeginAt($data['beginAt']);
-        $newProject->setEndAt($data['endAt']);
-        $newProject->setCreatedAt(new DateTime('now'));
-
-        $contact = $this->entityManager()
-            ->getRepository('Entities\Contact')
-            ->find($data['contactId']);
-
-        if ($contact === null) {
-            echo "No contact found for the given id: {$data['id']}";
-            exit(1);
-        }
-
-        $newProject->setContact($contact);
-
-        $status = $this->entityManager()
-            ->getRepository('Entities\Status')
-            ->find($data['statusId']);
-
-        if ($status === null) {
-            echo "No status found for the given id: {$data['statusId']}";
-            exit(1);
-        }
-
-        $newProject->setStatus($status);
-
-        $priority = $this->entityManager()
-            ->getRepository('Entities\Priority')
-            ->find($data['priorityId']);
-
-        if ($priority === null) {
-            echo "No priority found for the given id: {$data['priorityId']}";
-            exit(1);
-        }
-        
-        $newProject->setPriority($priority);
-
-        $this->entityManager()->persist($newProject);
-        $this->entityManager()->flush();
+        $this->projectCreator->insertProject($data);
 
         return $response;
     }
