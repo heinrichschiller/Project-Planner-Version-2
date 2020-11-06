@@ -28,7 +28,6 @@
 
 namespace App\Application\Actions\Contact;
 
-use App\Application\Actions\Action;
 use App\Domain\Contact\Service\ContactReader;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
