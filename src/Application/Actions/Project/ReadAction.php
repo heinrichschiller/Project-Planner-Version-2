@@ -28,40 +28,42 @@
 
 namespace App\Application\Actions\Project;
 
-use App\Application\Actions\Action;
+use App\Domain\Project\Service\ProjectReader;
+use App\Domain\Project\Service\ProjectTaskReader;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class ReadAction extends Action
+class ReadAction
 {
+    private $ci;
+    private ProjectReader $projectReader;
+    private ProjectTaskReader $projectTaskReader;
+
+    public function __construct(ContainerInterface $ci
+        , ProjectReader $projectReader
+        , ProjectTaskReader $projectTaskReader)
+    {
+        $this->ci = $ci;
+        $this->projectReader = $projectReader;
+        $this->projectTaskReader = $projectTaskReader;
+    }
+
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $project= $this->entityManager()
-            ->createQueryBuilder()
-            ->select('p, c')
-            ->from('Entities\Project', 'p')
-            ->leftJoin('p.contact', 'c')
-            ->where('p.id = :id')
-            ->setParameter(':id', $args['id'])
-            ->getQuery()
-            ->getSingleResult();
+        $project = $this->projectReader->readProject($args['id']);
         
-        $taskList = $this->entityManager()
-            ->createQueryBuilder()
-            ->select('t')
-            ->from('Entities\Task', 't')
-            ->where('t.projectId = :id')
-            ->andWhere('t.statusId != 5 AND t.statusId != 6')
-            ->setParameter(':id', $args['id'])
-            ->setMaxResults(5)
-            ->getQuery()
-            ->getResult();
+        $taskList = $this->projectTaskReader->readProjectTask($args['id']);
 
         $data = [
             'project' => $project,
             'tasks'  => $taskList
         ];
 
-        return $this->render($response, 'project/read', $data);
+        $html = $this->ci->get('view')->render('project/read', $data);
+
+        $response->getBody()->write($html);
+
+        return $response;
     }
 }
