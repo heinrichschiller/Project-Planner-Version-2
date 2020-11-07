@@ -63,7 +63,7 @@ class CreateAction
     {
         $data = (array) $request->getParsedBody();
 
-        $this->projectCreator->insertProject($data);
+        $this->projectCreator->createProject($data);
 
         return $response;
     }

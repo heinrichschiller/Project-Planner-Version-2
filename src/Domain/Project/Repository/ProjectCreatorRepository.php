@@ -34,16 +34,36 @@ use Psr\Container\ContainerInterface;
 
 class ProjectCreatorRepository
 {
+    /**
+     * @Injection
+     * @var ContainerInterface
+     */
     private $ci;
+
+    /**
+     * @Injection
+     * @var Project 
+     */
     private Project $project;
 
+    /**
+     * The constructor
+     * 
+     * @param ContainerInterface $ci
+     * @param Project
+     */
     public function __construct(ContainerInterface $ci, Project $project)
     {
         $this->ci = $ci;
         $this->project = $project;
     }
 
-    public function insertProject(array $data)
+    /**
+     * Create a project
+     * 
+     * @param array $data The form data
+     */
+    public function createProject(array $data)
     {
         $this->project->setTitle($data['title']);
         $this->project->setDescription($data['desc']);
