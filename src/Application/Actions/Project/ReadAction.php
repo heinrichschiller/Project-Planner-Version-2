@@ -36,10 +36,31 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 class ReadAction
 {
+    /**
+     * @Injection
+     * @var ContainerInterface
+     */
     private $ci;
+
+    /**
+     * @Injection
+     * @var ProjectReader $projectReader
+     */
     private ProjectReader $projectReader;
+
+    /**
+     * @Injection
+     * @var ProjectTaskReader $projectTaskReader
+     */
     private ProjectTaskReader $projectTaskReader;
 
+    /**
+     * The constructor
+     * 
+     * @param ContainerInterface $ci
+     * @param ProjectReader $projectReader
+     * @param ProjectTaskReader $projectTaskReader
+     */
     public function __construct(ContainerInterface $ci
         , ProjectReader $projectReader
         , ProjectTaskReader $projectTaskReader)
@@ -49,6 +70,15 @@ class ReadAction
         $this->projectTaskReader = $projectTaskReader;
     }
 
+    /**
+     * The invoker
+     * 
+     * @param Request $request
+     * @param Response $response
+     * @param array $args
+     * 
+     * @return Response
+     */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
         $project = $this->projectReader->readProject($args['id']);
