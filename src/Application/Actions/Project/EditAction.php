@@ -28,35 +28,83 @@
 
 namespace App\Application\Actions\Project;
 
-use App\Application\Actions\Action;
+use App\Domain\Contact\Service\ContactReader;
+use App\Domain\Priority\Service\PriorityFinder;
+use App\Domain\Project\Service\ProjectReader;
+use App\Domain\Status\Service\StatusFinder;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class EditAction extends Action
+class EditAction
 {
+    /**
+     * @Injection
+     * @var ContainerInterface
+     */
+    private $ci;
+
+    /**
+     * @Injection
+     * @var ContactReader
+     */
+    private ContactReader $contactReader;
+
+    /**
+     * @Injection
+     * @var PriorityFinder
+     */
+    private PriorityFinder $priorityFinder;
+
+    /**
+     * @Injection
+     * @var ProjectReader
+     */
+    private ProjectReader $projectReader;
+
+    /**
+     * @Injection
+     * @var StatusFinder
+     */
+    private StatusFinder $statusFinder;
+
+    /**
+     * The constructor
+     * 
+     * @param ContainerInterface $ci
+     * @param ContactReader $contactReader
+     * @param PriorityFinder $priorityFinder
+     * @param ProjectReader $projectReader
+     * @param StatusFinder $statusFinder
+     */
+    public function __construct(ContainerInterface $ci
+        , ContactReader $contactReader
+        , PriorityFinder $priorityFinder
+        , ProjectReader $projectReader
+        , StatusFinder $statusFinder)
+    {
+        $this->ci = $ci;
+        $this->contactReader = $contactReader;
+        $this->priorityFinder = $priorityFinder;
+        $this->projectReader = $projectReader;
+        $this->statusFinder = $statusFinder;
+    }
+
+    /**
+     * The invoker
+     * 
+     * @param Request $request
+     * @param Response $response
+     * @param array $args
+     * 
+     * @return Response
+     */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $project = $this->entityManager()
-            ->createQueryBuilder()
-            ->select('p, c')
-            ->from('Entities\Project', 'p')
-            ->leftJoin('p.contact', 'c')
-            ->where('p.id = :id')
-            ->setParameter(':id', $args['id'])
-            ->getQuery()
-            ->getSingleResult();
-
-        $contactList = $this->entityManager()
-            ->getRepository(('Entities\Contact'))
-            ->findAll();
-
-        $priorityList = $this->entityManager()
-            ->getRepository('Entities\Priority')
-            ->findAll();
-
-        $statusList = $this->entityManager()
-            ->getRepository(('Entities\Status'))
-            ->findAll();
+        $project = $this->projectReader->readProject($args['id']);
+        $contactList = $this->contactReader->readContact($args['id']);
+        $priorityList = $this->priorityFinder->findAll();
+        $statusList = $this->statusFinder->findAll();
 
         $data = [
             'project' => $project,
@@ -65,6 +113,10 @@ class EditAction extends Action
             'statusList' => $statusList
         ];
 
-        return $this->render($response, 'project/edit', $data);
+        $html = $this->ci->get('view')->render('project/edit', $data);
+
+        $response->getBody()->write($html);
+
+        return $response;
     }
 }
