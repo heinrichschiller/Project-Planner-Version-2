@@ -28,7 +28,6 @@
 
 namespace App\Domain\Contact\Repository;
 
-use Doctrine\ORM\EntityManager;
 use Psr\Container\ContainerInterface;
 
 class ContactReaderRepository
@@ -54,9 +53,9 @@ class ContactReaderRepository
      * 
      * @param int $id Id of a contact
      * 
-     * @return array
+     * @return Object
      */
-    public function readContact(int $id): array
+    public function readContact(int $id): Object
     {
         return $this->ci->get('EntityManager')
             ->getRepository('Entities\Contact')
