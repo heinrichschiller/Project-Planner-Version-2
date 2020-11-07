@@ -28,7 +28,6 @@
 
 namespace App\Application\Actions\Project;
 
-use App\Domain\Contact\Service\ContactReader;
 use App\Domain\Priority\Service\PriorityFinder;
 use App\Domain\Project\Service\ProjectReader;
 use App\Domain\Status\Service\StatusFinder;
@@ -43,12 +42,6 @@ class EditAction
      * @var ContainerInterface
      */
     private $ci;
-
-    /**
-     * @Injection
-     * @var ContactReader
-     */
-    private ContactReader $contactReader;
 
     /**
      * @Injection
@@ -72,19 +65,16 @@ class EditAction
      * The constructor
      * 
      * @param ContainerInterface $ci
-     * @param ContactReader $contactReader
      * @param PriorityFinder $priorityFinder
      * @param ProjectReader $projectReader
      * @param StatusFinder $statusFinder
      */
     public function __construct(ContainerInterface $ci
-        , ContactReader $contactReader
         , PriorityFinder $priorityFinder
         , ProjectReader $projectReader
         , StatusFinder $statusFinder)
     {
         $this->ci = $ci;
-        $this->contactReader = $contactReader;
         $this->priorityFinder = $priorityFinder;
         $this->projectReader = $projectReader;
         $this->statusFinder = $statusFinder;
@@ -102,13 +92,11 @@ class EditAction
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
         $project = $this->projectReader->readProject($args['id']);
-        $contactList = $this->contactReader->readContact($args['id']);
         $priorityList = $this->priorityFinder->findAll();
         $statusList = $this->statusFinder->findAll();
 
         $data = [
             'project' => $project,
-            'contactList' => $contactList,
             'priorityList' => $priorityList,
             'statusList' => $statusList
         ];
