@@ -28,36 +28,24 @@
 
 namespace App\Application\Actions\Project;
 
-use App\Application\Actions\Action;
+use App\Domain\Project\Service\ProjectUpdating;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use DateTime;
 
-class UpdateAction extends Action
+class UpdateAction
 {
+    private ProjectUpdating $projectUpdating;
+
+    public function __construct(ProjectUpdating $projectUpdating)
+    {
+        $this->projectUpdating = $projectUpdating;
+    }
+
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
         $data = (array) $request->getParsedBody();
 
-        $project = $this->entityManager()
-            ->getRepository('Entities\Project')
-            ->find($data['id']);
-
-        if ( $project === null ) {
-            echo "No project found for the given id: {$data['id']}";
-            exit(1);
-        }
-
-        $project->setTitle($data['title']);
-        $project->setDescription($data['desc']);
-        $project->setBeginAt($data['beginAt']);
-        $project->setEndAt($data['endAt']);
-        $project->setStatusId($data['statusId']);
-        $project->setPriorityId($data['priorityId']);
-        $project->setUpdatedAt(new DateTime('now'));
-
-        $this->entityManager()->persist($project);
-        $this->entityManager()->flush();
+        $this->projectUpdating->updateProject($data);
 
         return $response;
     }
