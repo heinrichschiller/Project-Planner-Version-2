@@ -29,6 +29,7 @@
 namespace App\Domain\Project\Service;
 
 use App\Domain\Project\Repository\ProjectCreatorRepository;
+use App\Exception\ValidationException;
 
 final class ProjectCreator
 {
@@ -53,8 +54,63 @@ final class ProjectCreator
      * 
      * @param array $data
      */
-    public function insertProject(array $data)
+    public function createProject(array $data)
     {
-        $this->repository->insertProject($data);
+        $this->validateNewProject($data);
+
+        $this->repository->createProject($data);
+    }
+
+    /**
+     * Input validation
+     * 
+     * @param array $data
+     *
+     * @throws ValidationException
+     * 
+     * @return void
+     */
+    public function validateNewProject(array $data)
+    {
+        $errors = [];
+
+        if( empty($data['title']) ) {
+            $errors['title'] = 'Input required.';
+        }
+
+        if( empty($data['desc']) ) {
+            $errors['description'] = 'Input required.';
+        }
+
+        if( empty($data['beginAt']) ) {
+            $errors['beginAt'] = 'Input required.';
+        }
+
+        if( empty($data['endAt']) ) {
+            $errors['endAt'] = 'Input required.';
+        }
+
+        if( empty($data['statusId']) ) {
+            $errors['statusId'] = 'Status id is empty.';
+        } elseif ( false === filter_var($data['statusId'], FILTER_VALIDATE_INT) ) {
+            $errors['statusId'] = 'Id is not a number.';
+        }
+
+        if( empty($data['priorityId']) ) {
+            $errors = 'Priority id is empty.';
+        } elseif ( false === filter_var($data['priorityId'], FILTER_VALIDATE_INT) ) {
+            $errors['priorityId'] = 'Id is not a number.';
+        }
+
+        if( empty($data['contactId']) ) {
+            $errors = 'Contact id is empty';
+        } elseif ( false === filter_var($data['contactId'], FILTER_VALIDATE_INT) ) {
+            $errors['contactId'] = 'Id is not a number.';
+        }
+
+        if ( $errors ) {
+            throw new ValidationException('Please check your inputs: ', $errors);
+        }
+
     }
 }
