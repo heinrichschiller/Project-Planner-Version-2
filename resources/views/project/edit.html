@@ -6,22 +6,21 @@
 
     </div>
     
-    <form action="/project/update" method="POST">
+    <div class="row">
+        <div class="col-md-6">
 
-        {{# project }}
+            <div class="container-fluid">
+                <form action="/project/update" method="POST">
 
-        <div class="header">
-            <div class="container-fluid title-bar">
-                <h1>Projekt -</h1>
-                <input type="text" name="title" value="{{ getTitle }}" id="" class="form-control borderless header-title" placeholder="Hier neuen Titel eintragen">
-            </div>
-        </div>
-
-        <div class="container-fluid">
-
-            <div class="row">
-                <div class="col-md-6">
-
+                    {{# project }}
+            
+                    <div class="header">
+                        <div class="title-bar">
+                            <h1>Projekt -</h1>
+                            <input type="text" name="title" value="{{ getTitle }}" id="" class="form-control borderless header-title" placeholder="Hier neuen Titel eintragen">
+                        </div>
+                    </div>
+        
                     <div class="form-group">
                         <label for="desc" class="col-form-label">Beschreibung:</label>
                         <div>
@@ -41,7 +40,7 @@
                             </div>
                         </div>
                     </div>
-
+        
                     <div class="form-group">
                         <div class="row">
                             <div class="col">
@@ -67,11 +66,29 @@
                         </div>
                     </div>
 
-                </div>
+                    <div class="buttons">
+                        <button class="btn btn-primary">Speichern</button>
+                        <a class="btn btn-secondary" href="/projects">Abbrechen</a>
+                    </div>
+            
+                    <div>
+                        <input type="hidden" name="id" value="{{ getId }}">
+                    </div>
+                
+                    {{/ project }}
+            
+                </form>
+            </div>
+        </div>
 
-                <div class="col-md-3"></div>
+        <div class="col-md-6">
+
+            <div class="row">
+                <div class="col-md-9"></div>
 
                 <div class="col-md-3">
+
+                    {{# project }}
 
                     <div>
                         <div class="form-group">
@@ -107,25 +124,13 @@
                             <div>Kontakt: {{ getContact.getDisplayName }}</div>
                         </div>
                     </div>
+
+                    {{/ project }}
                 </div>
-            </div>
-                
-        </div>
 
-        <div class="buttons">
-            <div class="container-fluid">
-                <button class="btn btn-primary">Speichern</button>
-                <a class="btn btn-secondary" href="/projects">Abbrechen</a>
             </div>
         </div>
-
-        <div>
-            <input type="hidden" name="id" value="{{ getId }}">
-        </div>
-
-        {{/ project }}
-
-    </form>
+    </div>
 
     <script src="/assets/js/modules/project/edit.js"></script>
     <script src="/assets/js/modules/project/main.js"></script>
