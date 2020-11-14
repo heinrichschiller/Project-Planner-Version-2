@@ -28,73 +28,26 @@
 
 namespace App\Application\Actions\Task;
 
-use App\Application\Actions\Action;
+
+use App\Domain\Task\Service\TaskCreator;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use Entities\Task;
-use DateTime;
 
-class CreateAction extends Action
+class CreateAction
 {
+    private TaskCreator $taskCreator;
+
+    public function __construct(TaskCreator $taskCreator)
+    {
+        $this->taskCreator = $taskCreator;
+    }
+    
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $task = new Task;
+        $formData = (array) $request->getParsedBody();
 
-        $data = (array) $request->getParsedBody();
-
-        $task->setTitle($data['title']);
-        $task->setDescription($data['desc']);
-        $task->setBeginAt($data['beginAt']);
-        $task->setEndAt($data['endAt']);
-        $task->setCreatedAt(new DateTime('now'));
-
-        $contact = $this->entityManager()
-            ->getRepository('Entities\Contact')
-            ->find($data['contactId']);
-
-        if ($contact === null) {
-            echo "No contact found for the given id: {$data['id']}";
-            exit(1);
-        }
-
-        $task->setContact($contact);
-
-        $project = $this->entityManager()
-            ->getRepository('Entities\Project')
-            ->find($data['projectId']);
-
-        if ($project === null) {
-            echo "No project found for the given id: {$data['projectId']}";
-            exit(1);
-        }
-
-        $task->setProject($project);
-
-        $status = $this->entityManager()
-            ->getRepository('Entities\Status')
-            ->find($data['statusId']);
-
-        if ($status === null) {
-            echo "No status found for the given id: {$data['statusId']}";
-            exit(1);
-        }
+        $this->taskCreator->createTask($formData);
         
-        $task->setStatus($status);
-
-        $priority = $this->entityManager()
-            ->getRepository('Entities\Priority')
-            ->find($data['priorityId']);
-
-        if ($priority === null) {
-            echo "No priority found for the given id: {$data['priorityId']}";
-            exit(1);
-        }
-
-        $task->setPriority($priority);
-
-        $this->entityManager()->persist($task);
-        $this->entityManager()->flush();
-
         return $response;
     }
 }
