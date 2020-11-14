@@ -28,24 +28,54 @@
 
 namespace App\Application\Actions\Task;
 
-use App\Application\Actions\Action;
+use App\Domain\Task\Service\TaskFinder;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class TaskAction extends Action
+class TaskAction
 {
+    /**
+     * @Injection
+     * @var ContainerInterface
+     */
+    private $ci;
+
+    /**
+     * @Injection
+     * @var TaskFinder $taskFinder
+     */
+    private TaskFinder $taskFinder;
+
+    /**
+     * The constructor
+     * 
+     * @param ContainerInterface $ci
+     * @param TaskFinder $taskFinder
+     */
+    public function __construct(ContainerInterface $ci, TaskFinder $taskFinder)
+    {
+        $this->ci = $ci;
+        $this->taskFinder = $taskFinder;
+    }
+
+    /**
+     * The invoker
+     * 
+     * @param Request $request
+     * @param Responce $response
+     * @param array $args
+     * 
+     * @return Response
+     */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $tasks = $this->entityManager()
-            ->createQueryBuilder()
-            ->select('t, c, p')
-            ->from('Entities\Task', 't')
-            ->leftJoin('t.contact', 'c')
-            ->leftJoin('t.project', 'p')
-            ->where('t.statusId != 5 AND t.statusId != 6')
-            ->getQuery()
-            ->getResult();
-        
-        return $this->render($response, 'task/index', ['tasks' => $tasks]);
+        $tasks = $this->taskFinder->findAll();
+
+        $html = $this->ci->get('view')->render('task/index', ['tasks' => $tasks]);
+
+        $response->getBody()->write($html);
+
+        return $response;
     }
 }
