@@ -45,4 +45,9 @@ final class ValidationException extends RuntimeException
 
         $this->errors = $errors;
     }
+
+    public function getErrors(): array
+    {
+        return $this->errors;
+    }
 }
