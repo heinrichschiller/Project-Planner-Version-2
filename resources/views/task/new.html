@@ -6,19 +6,18 @@
 
     </div>
     
-    <form action="/task/create" method="POST">
+    <div class="row">
+        <div class="col-md-6">
 
-        <div class="header">
-            <div class="container-fluid title-bar">
-                <h1>Aufgabe -</h1>
-                <input type="text" name="title" value="{{title}}" id="" class="form-control borderless header-title" placeholder="Hier neuen Titel eintragen">
-            </div>
-        </div>
+            <div class="container-fluid">
+                <form action="/task/create" method="POST">
 
-        <div class="container-fluid">
-
-            <div class="row">
-                <div class="col-md-6">
+                    <div class="header">
+                        <div class="title-bar">
+                            <h1>Aufgabe -</h1>
+                            <input type="text" name="title" value="{{title}}" class="form-control borderless header-title" placeholder="Hier neuen Titel eintragen" required>
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label for="desc" class="col-form-label">Beschreibung:</label>
@@ -39,7 +38,7 @@
                             </div>
                         </div>
                     </div>
-                    
+                                
                     <div class="form-group">
                         <div class="row">
                             <div class="col">
@@ -62,7 +61,7 @@
                             </div>
                         </div>
                     </div>
-
+            
                     <div class="form-group">
                         <div class="row">
                             <div class="col">
@@ -85,10 +84,26 @@
                             </div>
                         </div>
                     </div>
+            
 
-                </div>
+                    <div class="buttons">
+                        <button role="button" class="btn btn-primary">Speichern</button>
+                        <a class="btn btn-secondary" href="/tasks">Abbrechen</a>
+                    </div>
+            
+                    <div>
+                        <input type="hidden" name="id" value="{{id}}">
+                    </div>
+            
+                </form>
+            </div>
 
-                <div class="col-md-3"></div>
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="row">
+                <div class="col-md-9"></div>
 
                 <div class="col-md-3">
 
@@ -131,21 +146,8 @@
                     </div>
                 </div>
             </div>
-                
         </div>
-
-        <div class="buttons">
-            <div class="container-fluid">
-                <button role="button" class="btn btn-primary">Speichern</button>
-                <a class="btn btn-secondary" href="/tasks">Abbrechen</a>
-            </div>
-        </div>
-
-        <div>
-            <input type="hidden" name="id" value="{{id}}">
-        </div>
-
-    </form>
+    </div>
 
     <script src="/assets/js/modules/task/new.js"></script>
 
