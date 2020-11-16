@@ -53,7 +53,7 @@ final class ProjectFinder
      * 
      * @return array
      */
-    public function findAll()
+    public function findAll(): array
     {
         return $this->repository->findAll();
     }
