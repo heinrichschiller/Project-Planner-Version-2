@@ -28,25 +28,54 @@
 
 namespace App\Application\Actions\Task;
 
-use App\Application\Actions\Action;
+use App\Domain\Task\Service\TaskReader;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class ReadAction extends Action
+class ReadAction
 {
+    /**
+     * @Injection
+     * @var ContainerInterface
+     */
+    private $ci;
+
+    /**
+     * @Injection
+     * @var TaskReader
+     */
+    private TaskReader $taskReader;
+
+    /**
+     * The constructor
+     * 
+     * @param ContainerInterface
+     * @param TaskReader
+     */
+    public function __construct(ContainerInterface $ci, TaskReader $taskReader)
+    {
+        $this->ci = $ci;
+        $this->taskReader = $taskReader;
+    }
+
+    /**
+     * The invoker
+     * 
+     * @param Request $request
+     * @param Response $response
+     * @param array $args
+     * 
+     * @return Response
+     */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $task = $this->entityManager()
-            ->createQueryBuilder()
-            ->select('t, c, p')
-            ->from('Entities\Task', 't')
-            ->leftJoin('t.contact', 'c')
-            ->leftJoin('t.project', 'p')
-            ->where('t.id = :id')
-            ->setParameter(':id', $args['id'])
-            ->getQuery()
-            ->getSingleResult();
+        $task = $this->taskReader->readTask( (int) $args['id']);
         
-        return $this->render($response, 'task/read', $task);
+        $html = $this->ci->get('view')->render('task/read', $task);
+
+        $response->getBody()->write($html);
+
+        return $response;
     }
 }
