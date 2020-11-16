@@ -1,12 +1,12 @@
 .vscode
+.env
 
 composer.lock
 composer.phar
 
 package-lock.json
 
-/configs/
 /node_modules/
-/public/assets/
-/src/configs/
+
+/public/assets/js/lib/
 /vendor/
