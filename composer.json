@@ -16,7 +16,8 @@
         "doctrine/orm": "2.7.3",
         "slim/slim": "4.*",
         "slim/psr7": "dev-master",
-        "php-di/php-di": "dev-master"
+        "php-di/php-di": "dev-master",
+        "cakephp/validation": "9999999-dev"
     },
     "autoload": {
         "psr-0": {
