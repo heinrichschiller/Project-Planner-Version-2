@@ -28,36 +28,43 @@
 
 namespace App\Application\Actions\Task;
 
-use App\Application\Actions\Action;
+use App\Domain\Task\Service\TaskUpdating;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use DateTime;
 
-class UpdateAction extends Action
+
+class UpdateAction
 {
-    public function __invoke(Request $request, Response $response, $args = []): Response
+    /**
+     * @Injection
+     * @var TaskUpdating
+     */
+    private TaskUpdating $taskUpdating;
+
+    /**
+     * The contructor
+     * 
+     * @param TaskUpdating $taskUpdating
+     */
+    public function __construct(TaskUpdating $taskUpdating)
     {
-        $data = (array) $request->getParsedBody();
+        $this->taskUpdating = $taskUpdating;
+    }
 
-        $task = $this->entityManager()
-            ->getRepository('Entities\Task')
-            ->find($data['id']);
+    /**
+     * The invoker
+     * 
+     * @param Request $request
+     * @param Response $response
+     * @param array $args
+     * 
+     * @return Response
+     */
+    public function __invoke(Request $request, Response $response, array $args = []): Response
+    {
+        $formData = (array) $request->getParsedBody();
 
-        if ( $task === null ) {
-            echo "No task found for the given id: {$data['id']}";
-            exit(1);
-        }
-
-        $task->setTitle($data['title']);
-        $task->setDescription($data['desc']);
-        $task->setBeginAt($data['beginAt']);
-        $task->setEndAt($data['endAt']);
-        $task->setStatusId($data['statusId']);
-        $task->setPriorityId($data['priorityId']);
-        $task->setUpdatedAt(new DateTime('now'));
-
-        $this->entityManager()->persist($task);
-        $this->entityManager()->flush();
+        $this->taskUpdating->updateTask($formData);
 
         return $response;
     }
