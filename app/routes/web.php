@@ -26,7 +26,6 @@
  *
  */
 
-
 /*
 |----------------------------------------------------------------------------
 | Index route
@@ -90,6 +89,6 @@ $app->get('/notes', App\Application\Actions\Note\NoteAction::class);
 | Timetrack-Routes
 |----------------------------------------------------------------------------
 */
-$app->get('/timetrack', 'App\Modules\Timetrack\Controller\Timetrack:index');
+$app->get('/timetrack', App\Application\Actions\Timetrack\TimetrackAction::class);
 
 
