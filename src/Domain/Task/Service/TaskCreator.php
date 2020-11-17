@@ -45,7 +45,7 @@ final class TaskCreator
     {
         $this->validateNewTask($formData);
 
-        // $this->repository->createTask($formData);
+        $this->repository->createTask($formData);
     }
 
     public function validateNewTask(array $formData)
@@ -54,8 +54,7 @@ final class TaskCreator
 
         $validator
             ->requirePresence('title', 'This field is required')
-            ->notEmptyString('title', 'Title is required'
-        );
+            ->notEmptyString('title', 'Title is required');
 
         $errors = $validator->validate($formData);
 
