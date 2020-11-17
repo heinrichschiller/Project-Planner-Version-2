@@ -28,40 +28,94 @@
 
 namespace App\Application\Actions\Task;
 
-use App\Application\Actions\Action;
+use App\Domain\Contact\Service\ContactFinder;
+use App\Domain\Priority\Service\PriorityFinder;
+use App\Domain\Project\Service\ProjectFinder;
+use App\Domain\Project\Service\ProjectReader;
+use App\Domain\Status\Service\StatusFinder;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class CreateProjectTaskAction extends Action
+class CreateProjectTaskAction
 {
-    public function __invoke(Request $request, Response $response, $args = []): Response
+    /**
+     * @Injection
+     * @var ContainerInterface
+     */
+    private $ci;
+
+    /**
+     * @Injection
+     * @var ContactFinder
+     */
+    private ContactFinder $contactFinder;
+
+    /**
+     * @Injection
+     * @var PriorityFinder
+     */
+    private PriorityFinder $priorityFinder;
+
+    /**
+     * @Injection
+     * @var ProjectFinder
+     */
+    private ProjectFinder $projectFinder;
+
+    /**
+     * @Injection
+     * @var ProjectReader
+     */
+    private ProjectReader $projectReader;
+
+    /**
+     * @Injection
+     * @var StatusFinder
+     */
+    private StatusFinder $statusFinder;
+
+    /**
+     * The constructor
+     * 
+     * @param ContainerInterface $ci
+     * @param ContactFinder $contactFinder
+     * @param ProjectFinder $projectFinder
+     * @param ProjectReader $projectReader
+     * @param StatusFinder $statusFinder
+     */
+    public function __construct(ContainerInterface $ci,
+        ContactFinder $contactFinder,
+        PriorityFinder $priorityFinder,
+        ProjectFinder $projectFinder,
+        ProjectReader $projectReader,
+        StatusFinder $statusFinder)
     {
-        $project = $this->entityManager()
-            ->createQueryBuilder()
-            ->select('p, c')
-            ->from('Entities\Project', 'p')
-            ->leftJoin('p.contact', 'c')
-            ->where('p.id = :id')
-            ->setParameter(':id', $args['id'])
-            ->getQuery()
-            ->getSingleResult();
+        $this->ci = $ci;
+        $this->contactFinder = $contactFinder;
+        $this->priorityFinder = $priorityFinder;
+        $this->projectFinder = $projectFinder;
+        $this->projectReader = $projectReader;
+        $this->statusFinder = $statusFinder;
+    }
+
+    /**
+     * The invoker
+     * 
+     * @param Request $request
+     * @param Response $response
+     * @param array $args
+     * 
+     * @return Response
+     */
+    public function __invoke(Request $request, Response $response, array $args = []): Response
+    {
+        $project = $this->projectReader->readProject( (int) $args['id']);
+        $contactList = $this->contactFinder->findAll();
+        $projectList = $this->projectFinder->findAll();
+        $priorityList = $this->priorityFinder->findAll();
+        $statusList = $this->statusFinder->findAll();
         
-        $contactList = $this->entityManager()
-            ->getRepository(('Entities\Contact'))
-            ->findAll();
-
-        $priorityList = $this->entityManager()
-            ->getRepository('Entities\Priority')
-            ->findAll();
-
-        $statusList = $this->entityManager()
-            ->getRepository(('Entities\Status'))
-            ->findAll();
-        
-        $projectList = $this->entityManager()
-            ->getRepository(('Entities\Project'))
-            ->findAll();
-
         $data = [
             'project' => $project,
             'contactList' => $contactList,
@@ -70,6 +124,9 @@ class CreateProjectTaskAction extends Action
             'projectList' => $projectList
         ];
 
-        return $this->render($response, '/task/newProjectTask', $data);
+        $html = $this->ci->get('view')->render('/task/newProjectTask', $data);
+        $response->getBody()->write($html);
+
+        return $response;
     }
 }
