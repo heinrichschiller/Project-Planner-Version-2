@@ -28,44 +28,82 @@
 
 namespace App\Application\Actions\Task;
 
-use App\Application\Actions\Action;
+use App\Domain\Priority\Service\PriorityFinder;
+use App\Domain\Status\Service\StatusFinder;
+use App\Domain\Task\Service\TaskReader;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class EditAction extends Action
+class EditAction
 {
+    /**
+     * @Injection
+     * @var ContainerInterface
+     */
+    private $ci;
+
+    /**
+     * @Injection
+     * @var PriorityFinder
+     */
+    private PriorityFinder $priorityFinder;
+
+    /**
+     * @Injection
+     * @var StatusFinder
+     */
+    private StatusFinder $statusFinder;
+
+    /**
+     * @Injection
+     * @var TaskReader
+     */
+    private TaskReader $taskReader;
+
+    /**
+     * The constructor
+     * 
+     * @param ContainerInterface $ci
+     * @param PriorityFinder $priorityFinder
+     * @param StatusFinder $statusFinder
+     * @param TaskReader $taskReader
+     */
+    public function __construct(ContainerInterface $ci,
+        PriorityFinder $priorityFinder,
+        StatusFinder $statusFinder,
+        TaskReader $taskReader)
+    {
+        $this->ci = $ci;
+        $this->priorityFinder = $priorityFinder;
+        $this->statusFinder = $statusFinder;
+        $this->taskReader = $taskReader;
+    }
+
+    /**
+     * The invoker
+     * 
+     * @param Request $request
+     * @param Response $response
+     * @param array $args
+     * 
+     * @return Response
+     */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $task = $this->entityManager()
-            ->createQueryBuilder()
-            ->select('t, c, p')
-            ->from('Entities\Task', 't')
-            ->leftJoin('t.contact', 'c')
-            ->leftJoin('t.project', 'p')
-            ->where('t.id = :id')
-            ->setParameter(':id', $args['id'])
-            ->getQuery()
-            ->getSingleResult();
-        
-        $contactList = $this->entityManager()
-            ->getRepository(('Entities\Contact'))
-            ->findAll();
+        $task = $this->taskReader->readTask($args['id']);
+        $priorityList = $this->priorityFinder->findAll();
+        $statusList = $this->statusFinder->findAll();
 
-        $priorityList = $this->entityManager()
-            ->getRepository('Entities\Priority')
-            ->findAll();
-
-        $statusList = $this->entityManager()
-            ->getRepository(('Entities\Status'))
-            ->findAll();
-        
         $data = [
-            'contactList' => $contactList,
             'priorityList' => $priorityList,
             'statusList' => $statusList,
             'task' => $task
         ];
 
-        return $this->render($response, 'task/edit', $data);
+        $html = $this->ci->get('view')->render('task/edit', $data);
+        $response->getBody()->write($html);
+        
+        return $response;
     }
 }
