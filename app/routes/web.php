@@ -76,7 +76,7 @@ $app->post('/task/create', App\Application\Actions\Task\CreateAction::class);
 | Document-Routes
 |----------------------------------------------------------------------------
 */
-$app->get('/documents', 'App\Modules\Document\Controller\Document:index');
+$app->get('/documents', App\Application\Actions\Document\DocumentAction::class);
 
 /*
 |----------------------------------------------------------------------------
