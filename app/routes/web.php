@@ -83,7 +83,7 @@ $app->get('/documents', App\Application\Actions\Document\DocumentAction::class);
 | Note-Routes
 |----------------------------------------------------------------------------
 */
-$app->get('GET', '/notes', 'App\Modules\Note\Controller\Note:index');
+$app->get('/notes', App\Application\Actions\Note\NoteAction::class);
 
 /*
 |----------------------------------------------------------------------------
