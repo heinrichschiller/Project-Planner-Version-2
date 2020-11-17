@@ -6,27 +6,25 @@
 
     </div>
     
-    <form action="/task/create" method="POST">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="container-fluid">
+                <form action="/task/create" method="POST">
 
-        <div class="header">
-            <div class="container-fluid title-bar">
-                <h1>Aufgabe -</h1>
-                <input type="text" name="title" value="{{title}}" id="" class="form-control borderless header-title" placeholder="Hier neuen Titel eintragen">
-            </div>
-        </div>
-
-        <div class="container-fluid">
-
-            <div class="row">
-                <div class="col-md-6">
-
+                    <div class="header">
+                        <div class="title-bar">
+                            <h1>Aufgabe -</h1>
+                            <input type="text" name="title" value="{{title}}" id="" class="form-control borderless header-title" placeholder="Hier neuen Titel eintragen">
+                        </div>
+                    </div>
+            
                     <div class="form-group">
                         <label for="desc" class="col-form-label">Beschreibung:</label>
                         <div>
                             <textarea class="form-control" name="desc" id="desc" cols="30" rows="10"></textarea>
                         </div>
                     </div>
-
+            
                     <div class="form-group">
                         <div class="row">
                             <div class="col">
@@ -39,20 +37,22 @@
                             </div>
                         </div>
                     </div>
-                    
+                                
                     <div class="form-group">
                         <div class="row">
-                            <div class="col">
+                            <div class="col-md-6">
                                 <label for="inputStatus">Status:</label>
                                 <select name="statusId" id="inputStatus" class="form-control">
+                                    <option value="">Bitte auswählen...</option>
                                     {{# statusList }}
                                     <option value="{{ getId }}">{{ getId }} {{ getDescription }}</option>
                                     {{/ statusList }}
                                 </select>
                             </div>
-                            <div class="col">
+                            <div class="col-md-6">
                                 <label for="inputPriority">Priorität:</label>
                                 <select name ="priorityId" id="inputPriority" class="form-control">
+                                    <option value="">Bitte auswählen...</option>
                                     {{# priorityList }}
                                     <option value="{{ getId }}">{{ getId }}  {{ getDescription }}</option>
                                     {{/ priorityList }}
@@ -60,22 +60,24 @@
                             </div>
                         </div>
                     </div>
-
+            
                     <div class="form-group">
                         <div class="row">
 
-                            <div class="col">
+                            <div class="col-md-6">
                                 <label for="input__contact">Kontakt:</label>
                                 <select name="contactId" data-contact_id="{{ project.getContact.getId }}" id="input__contact" class="form-control">
+                                    <option value="">Bitte auswählen...</option>
                                     {{# contactList }}
                                     <option value="{{ getId }}">{{ getId}} {{ getDisplayName }}</option>
                                     {{/ contactList }}
                                 </select>
                             </div>
 
-                            <div class="col">
+                            <div class="col-md-6">
                                 <label for="input__project">Projekt:</label>
                                 <select name="projectId" data-project_id="{{ project.getId }}" id="input__project" class="form-control">
+                                    <option value="">Bitte auswählen...</option>
                                     {{# projectList }}
                                     <option value="{{ getId }}">{{ getId}} {{ getTitle }}</option>
                                     {{/ projectList }}
@@ -85,9 +87,23 @@
                         </div>
                     </div>
 
-                </div>
+                    <div class="buttons">
+                        <button role="button" class="btn btn-primary">Speichern</button>
+                        <a class="btn btn-secondary" href="/tasks">Abbrechen</a>
+                    </div>
+                        
+                    <div>
+                        <input type="hidden" name="isProject" value="1">
+                    </div>
+                        
+                </form>
+            </div>
+        </div>
 
-                <div class="col-md-3"></div>
+        <div class="col-md-6">
+
+            <div class="row">
+                <div class="col-md-9"></div>
 
                 <div class="col-md-3">
 
@@ -121,6 +137,7 @@
                     </div>
 
                     {{# project }}
+
                     <div>
                         <div>
                             <div>Kontakt: {{ getContact.getDisplayName }}</div>
@@ -129,24 +146,14 @@
                             <div>Projekt: {{ getTitle }}</div>
                         </div>    
                     </div>
+
                     {{/ project }}
+
                 </div>
             </div>
-                
-        </div>
 
-        <div class="buttons">
-            <div class="container-fluid">
-                <button role="button" class="btn btn-primary">Speichern</button>
-                <a class="btn btn-secondary" href="/tasks">Abbrechen</a>
-            </div>
         </div>
-
-        <div>
-            <input type="hidden" name="isProject" value="1">
-        </div>
-
-    </form>
+    </div>
 
     <script src="/assets/js/modules/task/newProjectTask.js"></script>
     <script src="/assets/js/modules/task/main.js"></script>
