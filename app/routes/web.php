@@ -47,6 +47,33 @@ $app->post('/contact/update', App\Application\Actions\Contact\UpdateAction::clas
 
 /*
 |----------------------------------------------------------------------------
+| Email-Routes
+|----------------------------------------------------------------------------
+*/
+$app->get('/emails', App\Application\Actions\Email\EmailAction::class);
+
+/*
+|----------------------------------------------------------------------------
+| Calendar-Routes
+|----------------------------------------------------------------------------
+*/
+$app->get('/calendar', App\Application\Actions\Calendar\CalendarAction::class);
+
+/*
+|----------------------------------------------------------------------------
+| Document-Routes
+|----------------------------------------------------------------------------
+*/
+$app->get('/documents', App\Application\Actions\Document\DocumentAction::class);
+
+/*
+|----------------------------------------------------------------------------
+| Issue-Routes
+|----------------------------------------------------------------------------
+*/
+$app->get('/issues', App\Application\Actions\Issue\IssueAction::class);
+/*
+|----------------------------------------------------------------------------
 | Project-Routes
 |----------------------------------------------------------------------------
 */
@@ -72,10 +99,18 @@ $app->post('/task/create', App\Application\Actions\Task\CreateAction::class);
 
 /*
 |----------------------------------------------------------------------------
-| Document-Routes
+| Test-Routes
 |----------------------------------------------------------------------------
 */
-$app->get('/documents', App\Application\Actions\Document\DocumentAction::class);
+$app->get('/tests', App\Application\Actions\Test\TestAction::class);
+
+/*
+|----------------------------------------------------------------------------
+| Tool-Routes
+|----------------------------------------------------------------------------
+*/
+$app->get('/tools', App\Application\Actions\Tool\ToolAction::class);
+
 
 /*
 |----------------------------------------------------------------------------
