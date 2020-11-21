@@ -61,7 +61,7 @@ class NewAction
      */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $html = $this->ci->get('view')->render($response, 'contact/new');
+        $html = $this->ci->get('view')->render('contact/new');
         $response->getBody()->write($html);
 
         return $response;
