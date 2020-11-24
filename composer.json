@@ -17,7 +17,7 @@
         "slim/slim": "4.*",
         "slim/psr7": "dev-master",
         "php-di/php-di": "dev-master",
-        "cakephp/validation": "9999999-dev"
+        "cakephp/validation": "4.1.*"
     },
     "autoload": {
         "psr-0": {
