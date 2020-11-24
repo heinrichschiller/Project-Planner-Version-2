@@ -26,8 +26,10 @@
  *
  */
 
-require_once __DIR__ . "/bootstrap/doctrine.bootstrap.php";
+require_once __DIR__ . "/bootstrap/bootstrap.php";
 
 use \Doctrine\ORM\Tools\Console\ConsoleRunner;
+
+$entityManager = $container->get('EntityManager');
 
 return ConsoleRunner::createHelperSet($entityManager);
