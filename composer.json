@@ -16,7 +16,7 @@
         "doctrine/orm": "2.7.*",
         "slim/slim": "4.*",
         "slim/psr7": "1.*",
-        "php-di/php-di": "dev-master",
+        "php-di/php-di": "6.3.*",
         "cakephp/validation": "4.1.*"
     },
     "autoload": {
