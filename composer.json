@@ -13,7 +13,7 @@
     "require": {
         "mustache/mustache": "2.13.0",
         "vlucas/phpdotenv": "5.1.0",
-        "doctrine/orm": "2.7.3",
+        "doctrine/orm": "2.7.*",
         "slim/slim": "4.*",
         "slim/psr7": "dev-master",
         "php-di/php-di": "dev-master",
