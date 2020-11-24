@@ -15,7 +15,7 @@
         "vlucas/phpdotenv": "5.2.*",
         "doctrine/orm": "2.7.*",
         "slim/slim": "4.*",
-        "slim/psr7": "dev-master",
+        "slim/psr7": "1.*",
         "php-di/php-di": "dev-master",
         "cakephp/validation": "4.1.*"
     },
