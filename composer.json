@@ -12,7 +12,7 @@
     "minimum-stability": "dev",
     "require": {
         "mustache/mustache": "2.13.0",
-        "vlucas/phpdotenv": "5.1.0",
+        "vlucas/phpdotenv": "5.2.*",
         "doctrine/orm": "2.7.*",
         "slim/slim": "4.*",
         "slim/psr7": "dev-master",
