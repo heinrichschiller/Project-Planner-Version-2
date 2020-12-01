@@ -72,7 +72,14 @@ class TaskAction
     {
         $tasks = $this->taskFinder->findAll();
 
-        $html = $this->ci->get('view')->render('task/index', ['tasks' => $tasks]);
+        $hasTasks = !empty($tasks) ? true : false;
+
+        $data = [
+            'tasks' => $tasks,
+            'hasTasks' => $hasTasks
+        ];
+
+        $html = $this->ci->get('view')->render('task/index', $data);
 
         $response->getBody()->write($html);
 
