@@ -13,6 +13,7 @@
         </div>
     </div>
 
+    {{# hasContacts }}
     <div class="table-scrollable">
         <div class="table table-striped table-hover table-sm">
             <div class="container-fluid">
@@ -28,7 +29,7 @@
                     </thead>
                     <tbody>
 
-                        {{#contacts}}
+                        {{# contacts }}
 
                         <tr class="clickable__row" data-href="/contact/read/{{ getId }}">
                             <td>-</td>
@@ -38,13 +39,20 @@
                             <td>{{ getUpdatedAt }}</td>
                         </tr>
 
-                        {{/contacts}}
+                        {{/ contacts }}
                         
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+    {{/ hasContacts }}
+
+    {{^ hasContacts }}
+    <div class="container-fluid">
+        <p>Es sind noch keine Kontakte angelegt. Mit "Neuer Kontakt" können Sie neue Kontakte anlegen.</p>
+    </div>
+    {{/ hasContacts }}
 
     <script src="/assets/js/modules/contact/index.js"></script>
     

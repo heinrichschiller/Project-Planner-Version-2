@@ -13,6 +13,7 @@
         </div>
     </div>
 
+    {{# hasTasks }}
     <div class="table-scrollable">
         <div class="table table-striped table-hover table-sm">
             <div class="container-fluid">
@@ -59,7 +60,14 @@
             </div>
         </div>
     </div>
+    {{/ hasTasks }}
 
+    {{^ hasTasks }}
+    <div class="container-fluid">
+        <p>Es sind noch keine Kontakte angelegt. Mit "Neue Aufgabe" können Sie neue Aufgaben anlegen.</p>
+    </div>
+    {{/ hasTasks }}
+    
     <script src="/assets/js/modules/task/index.js"></script>
 
 {{> partials/footer }}
