@@ -72,7 +72,14 @@ class ProjectAction
     {
         $projects = $this->projectFinder->findAll();
 
-        $html = $this->ci->get('view')->render('project/index', ['projects' => $projects]);
+        $hasProjects = !empty($projects) ? true : false;
+
+        $data = [
+            'projects' => $projects,
+            'hasProjects' => $hasProjects
+        ];
+
+        $html = $this->ci->get('view')->render('project/index', $data);
 
         $response->getBody()->write($html);
 
