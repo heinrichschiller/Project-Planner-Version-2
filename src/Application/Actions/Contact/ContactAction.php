@@ -72,7 +72,14 @@ class ContactAction
     {
         $contacts = $this->contactFinder->findAll();
 
-        $html = $this->ci->get('view')->render('contact/index', ['contacts' => $contacts]);
+        $hasContacts = !empty($contacts) ? true : false;
+
+        $data = [
+            'contacts' => $contacts,
+            'hasContacts' => $hasContacts,
+        ];
+
+        $html = $this->ci->get('view')->render('contact/index', $data);
         $response->getBody()->write($html);
 
         return $response;
