@@ -1,7 +1,5 @@
 <?php
 
-use App\Domain\Status\Repository\StatusFinderRepository;
-
 /**
  *
  * MIT License
