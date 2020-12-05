@@ -26,6 +26,8 @@
  *
  */
 
+declare(strict_types = 1 );
+
 use Psr\Container\ContainerInterface;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
