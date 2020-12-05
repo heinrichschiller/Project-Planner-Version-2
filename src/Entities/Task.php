@@ -159,7 +159,7 @@ class Task
     /**
      * Status
      * 
-     * @ORM\OneToOne(targetEntity="Status")
+     * @ORM\ManyToOne(targetEntity="Status", inversedBy="tasks")
      * 
      * @var Status
      */
@@ -168,7 +168,7 @@ class Task
     /**
      * Priority
      * 
-     * @ORM\OneToOne(targetEntity="Priority")
+     * @ORM\ManyToOne(targetEntity="Priority", inversedBy="tasks")
      * 
      * @var Priority
      */
@@ -431,7 +431,7 @@ class Task
     /**
      * Set project
      *
-     * @param  Project  $project  Project
+     * @param Project $project Project
      */ 
     public function setProject(Project $project)
     {

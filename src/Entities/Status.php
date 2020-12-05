@@ -28,6 +28,7 @@
 
 namespace Entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -55,6 +56,28 @@ class Status
      * @var string
      */
     private string $description = '';
+
+    /**
+     * @ORM\OneToMany(targetEntity="Project", mappedBy="status")
+     */
+    private $projects;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="status")
+     */
+    private $tasks;
+
+    public function __construct()
+    {
+        $this->projects = new ArrayCollection;
+        $this->tasks = new ArrayCollection;
+    }
+
+    /*
+    |----------------------------------------------------------------------------
+    | Getter && Setter
+    |----------------------------------------------------------------------------
+    */
 
     /**
      * Get id
@@ -89,4 +112,5 @@ class Status
 
         return $this;
     }
+    
 }

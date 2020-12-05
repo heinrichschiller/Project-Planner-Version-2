@@ -150,7 +150,7 @@ class Project
     /**
      * Status
      * 
-     * @ORM\OneToOne(targetEntity="Status")
+     * @ORM\ManyToOne(targetEntity="Status", inversedBy="projects")
      * 
      * @var Status
      */
@@ -159,7 +159,7 @@ class Project
     /**
      * Priority
      * 
-     * @ORM\OneToOne(targetEntity="Priority")
+     * @ORM\ManyToOne(targetEntity="Priority", inversedBy="projects")
      * 
      * @var Priority
      */

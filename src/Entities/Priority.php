@@ -28,6 +28,7 @@
 
 namespace Entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -55,6 +56,28 @@ class Priority
      * @var string
      */
     private string $description = '';
+
+    /**
+     * @ORM\OneToMany(targetEntity="Project", mappedBy="priority")
+     */
+    private $projects;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="priority")
+     */
+    private $tasks;
+
+    public function __construct()
+    {
+        $this->projects = new ArrayCollection;
+        $this->tasks = new ArrayCollection;
+    }
+
+    /*
+    |----------------------------------------------------------------------------
+    | Getter && Setter
+    |----------------------------------------------------------------------------
+    */
 
     /**
      * Get id
