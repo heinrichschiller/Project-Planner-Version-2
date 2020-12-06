@@ -61,6 +61,7 @@ class ProjectFinderRepository
             ->from('Entities\Project', 'p')
             ->leftJoin('p.contact', 'c')
             ->where('p.statusId != 5 AND p.statusId != 6')
+            ->orderBy('p.priorityId', 'ASC')
             ->getQuery()
             ->getResult();
     }

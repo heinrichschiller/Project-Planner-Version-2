@@ -62,6 +62,7 @@ class TaskFinderRepository
             ->leftJoin('t.contact', 'c')
             ->leftJoin('t.project', 'p')
             ->where('t.statusId != 5 AND t.statusId != 6')
+            ->orderBy('t.priorityId', 'ASC')
             ->getQuery()
             ->getResult();
     }
