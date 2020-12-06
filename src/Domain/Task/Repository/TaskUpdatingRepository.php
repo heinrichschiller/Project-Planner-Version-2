@@ -59,6 +59,14 @@ class TaskUpdatingRepository
         $task->setPriorityId($data['priorityId']);
         $task->setUpdatedAt(new DateTime('now'));
 
+        if( 5 === (int) $data['statusId'] ) {
+            $task->setFinishedOn(new DateTime('now'));
+        }
+
+        if( 6 === (int) $data['statusId'] ) {
+            $task->setDiscardedOn(new DateTime('now'));
+        }
+
         $this->ci->get('EntityManager')->persist($task);
         $this->ci->get('EntityManager')->flush();
     }
