@@ -28,7 +28,6 @@
 
 declare(strict_types = 1);
 
-use Slim\App;
 use DI\ContainerBuilder;
 use Dotenv\Dotenv;
 use Slim\Factory\AppFactory;
@@ -36,18 +35,7 @@ use Slim\Factory\AppFactory;
 error_reporting(-1);
 ini_set('display_errors', '1');
 
-/*
-|----------------------------------------------------------------------------
-| ROOT_DIR 
-|----------------------------------------------------------------------------
-|
-| Absolute path to this application directory.
-|
-*/
-if(!defined('ROOT_DIR')) {
-    define('ROOT_DIR', __DIR__ . '/../');
-}
-
+require __DIR__ . '/../app/constants.php';
 require ROOT_DIR . 'vendor/autoload.php';
 
 /*
