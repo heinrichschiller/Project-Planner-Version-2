@@ -339,7 +339,7 @@ class Task
     /**
      * Set priority id
      *
-     * @param  int  $priotityId  Priority id
+     * @param  int  $priorityId  Priority id
      */ 
     public function setPriorityId(int $priorityId)
     {
@@ -369,7 +369,7 @@ class Task
     /**
      * Get created at
      *
-     * @return  DateTime
+     * @return string
      */ 
     public function getCreatedAt(): string
     {
@@ -389,7 +389,7 @@ class Task
     /**
      * Get updated at
      *
-     * @return  DataTime
+     * @return string
      */ 
     public function getUpdatedAt(): string 
     {
@@ -457,7 +457,7 @@ class Task
     /**
      * Set discarded on
      * 
-     * @param null|DateTime $discardeOn 
+     * @param null|DateTime $discardedOn 
      */
     public function setDiscardedOn(?DateTime $discardedOn)
     {

@@ -42,7 +42,7 @@ final class ProjectUpdating
     /**
      * The construct
      * 
-     * @param ProjectCreatorRepository $repository
+     * @param ProjectUpdatingRepository $repository
      */
     public function __construct(ProjectUpdatingRepository $repository)
     {

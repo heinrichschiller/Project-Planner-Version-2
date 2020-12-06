@@ -64,7 +64,7 @@ class NewAction
     /**
      * The constructor
      * 
-     * @param ConstainerInterface $ci
+     * @param ContainerInterface $ci
      * @param ContactFinder $contactFinder
      * @param PriorityFinder $priorityFinder
      */

@@ -44,7 +44,7 @@ class CreateAction
     /**
      * The constructor
      * 
-     * @param TaskCreator
+     * @param TaskCreator $taskCreator
      */
     public function __construct(TaskCreator $taskCreator)
     {

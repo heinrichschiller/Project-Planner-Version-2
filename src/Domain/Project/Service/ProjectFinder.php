@@ -41,7 +41,7 @@ final class ProjectFinder
     /**
      * The constructor
      * 
-     * @param ProjectFinderRepository
+     * @param ProjectFinderRepository $repository
      */
     public function __construct(ProjectFinderRepository $repository)
     {

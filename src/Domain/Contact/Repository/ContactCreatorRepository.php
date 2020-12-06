@@ -30,6 +30,7 @@ namespace App\Domain\Contact\Repository;
 
 use Psr\Container\ContainerInterface;
 use DateTime;
+use Doctrine\ORM\EntityManager;
 use Entities\Contact;
 
 class ContactCreatorRepository
@@ -55,7 +56,7 @@ class ContactCreatorRepository
      * 
      * @return EntityManager
      */
-    private function entityManager()
+    private function entityManager(): EntityManager
     {
         return $this->ci->get('EntityManager');
     }

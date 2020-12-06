@@ -37,7 +37,7 @@ class EditAction
 {
     /**
      * @Injection
-     * @var ContactEditor
+     * @var ContactReader
      */
     private ContactReader $contactReader;
 
@@ -50,7 +50,7 @@ class EditAction
     /**
      * The constructor
      * 
-     * @param ContactEditor $contactEditor
+     * @param ContactReader $contactReader
      * @param ContainerInterface $ci;
      */
     public function __construct(ContactReader $contactReader, ContainerInterface $ci)

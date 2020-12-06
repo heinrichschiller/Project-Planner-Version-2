@@ -50,8 +50,8 @@ class ReadAction
     /**
      * The constructor
      * 
-     * @param ContainerInterface
-     * @param TaskReader
+     * @param ContainerInterface $ci
+     * @param TaskReader $taskReader
      */
     public function __construct(ContainerInterface $ci, TaskReader $taskReader)
     {

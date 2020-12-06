@@ -210,9 +210,7 @@ class Project
     /**
      * Set title
      *
-     * @param  string  $title  Title
-     *
-     * @return  self
+     * @param string $title Title
      */ 
     public function setTitle(string $title)
     {
@@ -222,7 +220,7 @@ class Project
     /**
      * Get description
      *
-     * @return  string
+     * @return string
      */ 
     public function getDescription(): string
     {
@@ -364,7 +362,7 @@ class Project
     /**
      * Get created at
      *
-     * @return  DateTime
+     * @return string
      */ 
     public function getCreatedAt(): string
     {
@@ -384,7 +382,7 @@ class Project
     /**
      * Get updated at
      *
-     * @return  DataTime
+     * @return string
      */ 
     public function getUpdatedAt(): string 
     {
@@ -400,7 +398,7 @@ class Project
     /**
      * Set updated at
      *
-     * @param  null|DataTime  $updatedAt  Updated at
+     * @param null|DateTime $updatedAt
      */ 
     public function setUpdatedAt(?DateTime $updatedAt)
     {
@@ -452,7 +450,7 @@ class Project
     /**
      * Set discarded on
      * 
-     * @param null|DateTime $discardeOn 
+     * @param null|DateTime $discardedOn 
      */
     public function setDiscardedOn(?DateTime $discardedOn)
     {

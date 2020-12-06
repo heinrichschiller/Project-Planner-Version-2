@@ -53,7 +53,6 @@ final class ContactUpdating
      * Contact update
      * 
      * @param array $data The form data
-     * @param int $id Id of a contact
      */
     public function contactUpdate(array $data)
     {
@@ -66,7 +65,6 @@ final class ContactUpdating
      * Input validation
      * 
      * @param array $data The form data
-     * @param int $id Id of a contact
      */
     public function validateContactUpdating(array $data)
     {

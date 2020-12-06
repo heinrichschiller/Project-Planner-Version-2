@@ -66,7 +66,7 @@ class ProjectAction
      * @param Response $response
      * @param array $args
      * 
-     * @return Request
+     * @return Response
      */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {

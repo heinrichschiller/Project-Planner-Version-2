@@ -35,14 +35,14 @@ final class ContactReader
 {
     /**
      * @Injection
-     * @var ContactEditorRepository
+     * @var ContactReaderRepository $repository
      */
     private ContactReaderRepository $repository;
 
     /**
      * The constructor
      * 
-     * @param ContactEditorRepository $repository The repository
+     * @param ContactReaderRepository $repository The repository
      */
     public function __construct(ContactReaderRepository $repository)
     {
@@ -52,7 +52,6 @@ final class ContactReader
     /**
      * Edit a contact
      * 
-     * @param array $data The form data
      * @param int $id Id of a contact
      */
     public function readContact(int $id)
@@ -65,7 +64,6 @@ final class ContactReader
     /**
      * Input validation
      * 
-     * @param array $data The form data
      * @param int $id Id of a contact
      */
     public function validateReadContact(int $id)

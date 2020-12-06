@@ -28,7 +28,8 @@
 
  namespace App\Domain\Contact\Repository;
 
- use Psr\Container\ContainerInterface;
+use Doctrine\ORM\EntityManager;
+use Psr\Container\ContainerInterface;
 
  class ContactFinderRepository
  {
@@ -53,7 +54,7 @@
      * 
      * @return EntityManager
      */
-    private function entityManager()
+    private function entityManager(): EntityManager
     {
         return $this->ci->get('EntityManager');
     }

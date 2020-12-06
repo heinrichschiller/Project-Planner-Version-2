@@ -151,7 +151,7 @@ class Contact
     /**
      * Get the value of updatedAt
      *
-     * @return  
+     * @return string
      */ 
     public function getUpdatedAt(): string
     {

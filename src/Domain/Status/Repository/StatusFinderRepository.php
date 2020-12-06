@@ -41,7 +41,7 @@ class StatusFinderRepository
     /**
      * The constructor
      * 
-     * @param ContainerInterface
+     * @param ContainerInterface $ci
      */
     public function __construct(ContainerInterface $ci)
     {

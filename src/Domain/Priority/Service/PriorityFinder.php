@@ -41,7 +41,7 @@ final class PriorityFinder
     /**
      * The constructor
      * 
-     * @param PriorityFinderRepository
+     * @param PriorityFinderRepository $repository
      */
     public function __construct(PriorityFinderRepository $repository)
     {

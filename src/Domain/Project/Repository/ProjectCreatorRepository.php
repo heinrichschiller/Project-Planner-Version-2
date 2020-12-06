@@ -50,7 +50,7 @@ class ProjectCreatorRepository
      * The constructor
      * 
      * @param ContainerInterface $ci
-     * @param Project
+     * @param Project $project
      */
     public function __construct(ContainerInterface $ci, Project $project)
     {

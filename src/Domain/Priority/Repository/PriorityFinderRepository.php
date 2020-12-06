@@ -34,14 +34,14 @@ class PriorityFinderRepository
 {
     /**
      * @Injection
-     * @var ContactInterface
+     * @var ContainerInterface
      */
     private $ci;
 
     /**
      * The constructor
      * 
-     * @param ContainerInterface
+     * @param ContainerInterface $ci
      */
     public function __construct(ContainerInterface $ci)
     {

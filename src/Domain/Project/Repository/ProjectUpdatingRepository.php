@@ -42,7 +42,7 @@ class ProjectUpdatingRepository
     /**
      * The constructor
      * 
-     * @param ConstainerInterface $ci
+     * @param ContainerInterface $ci
      */
     public function __construct(ContainerInterface $ci)
     {

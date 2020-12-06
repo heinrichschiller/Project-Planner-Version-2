@@ -41,7 +41,7 @@ final class StatusFinder
     /**
      * The contructor
      * 
-     * @param StatusFinderRepository
+     * @param StatusFinderRepository $repository
      */
     public function __construct(StatusFinderRepository $repository)
     {

@@ -53,7 +53,7 @@ class ProjectReaderRepository
      * 
      * @param int $id Id of a project
      * 
-     * @return Entities\Project
+     * @return Object
      */
     public function readProject(int $id): Object
     {
