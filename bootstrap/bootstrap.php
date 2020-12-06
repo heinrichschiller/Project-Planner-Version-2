@@ -28,6 +28,7 @@
 
 declare(strict_types = 1);
 
+use Slim\App;
 use DI\ContainerBuilder;
 use Dotenv\Dotenv;
 use Slim\Factory\AppFactory;
@@ -88,6 +89,6 @@ $app->addErrorMiddleware(true, true, true);
 | router.
 |
 */
-require __DIR__ . '/../app/routes/web.php';
+(require __DIR__ . '/../app/routes/web.php')($app);
 
 $app->run();

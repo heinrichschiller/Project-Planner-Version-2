@@ -26,104 +26,110 @@
  *
  */
 
-/*
-|----------------------------------------------------------------------------
-| Index route
-|----------------------------------------------------------------------------
-*/
-$app->get('/', App\Application\Actions\Dashboard\DashboardAction::class);
+declare(strict_types = 1 );
 
-/*
-|----------------------------------------------------------------------------
-| Contact-Routes
-|----------------------------------------------------------------------------
-*/
-$app->get('/contacts', App\Application\Actions\Contact\ContactAction::class);
-$app->get('/contact/new', App\Application\Actions\Contact\NewAction::class);
-$app->get('/contact/read/{id:\d+}', App\Application\Actions\Contact\ReadAction::class);
-$app->get('/contact/edit/{id:\d+}', App\Application\Actions\Contact\EditAction::class);
-$app->post('/contact/create',  App\Application\Actions\Contact\CreateAction::class);
-$app->post('/contact/update', App\Application\Actions\Contact\UpdateAction::class);
+use Slim\App;
 
-/*
-|----------------------------------------------------------------------------
-| Email-Routes
-|----------------------------------------------------------------------------
-*/
-$app->get('/emails', App\Application\Actions\Email\EmailAction::class);
+return function(App $app)
+{
+    /*
+    |----------------------------------------------------------------------------
+    | Index route
+    |----------------------------------------------------------------------------
+    */
+    $app->get('/', \App\Application\Actions\Dashboard\DashboardAction::class);
 
-/*
-|----------------------------------------------------------------------------
-| Calendar-Routes
-|----------------------------------------------------------------------------
-*/
-$app->get('/calendar', App\Application\Actions\Calendar\CalendarAction::class);
+    /*
+    |----------------------------------------------------------------------------
+    | Contact-Routes
+    |----------------------------------------------------------------------------
+    */
+    $app->get('/contacts', \App\Application\Actions\Contact\ContactAction::class);
+    $app->get('/contact/new', \App\Application\Actions\Contact\NewAction::class);
+    $app->get('/contact/read/{id:\d+}', \App\Application\Actions\Contact\ReadAction::class);
+    $app->get('/contact/edit/{id:\d+}', \App\Application\Actions\Contact\EditAction::class);
+    $app->post('/contact/create',  \App\Application\Actions\Contact\CreateAction::class);
+    $app->post('/contact/update', \App\Application\Actions\Contact\UpdateAction::class);
 
-/*
-|----------------------------------------------------------------------------
-| Document-Routes
-|----------------------------------------------------------------------------
-*/
-$app->get('/documents', App\Application\Actions\Document\DocumentAction::class);
+    /*
+    |----------------------------------------------------------------------------
+    | Email-Routes
+    |----------------------------------------------------------------------------
+    */
+    $app->get('/emails', \App\Application\Actions\Email\EmailAction::class);
 
-/*
-|----------------------------------------------------------------------------
-| Issue-Routes
-|----------------------------------------------------------------------------
-*/
-$app->get('/issues', App\Application\Actions\Issue\IssueAction::class);
-/*
-|----------------------------------------------------------------------------
-| Project-Routes
-|----------------------------------------------------------------------------
-*/
-$app->get('/projects', App\Application\Actions\Project\ProjectAction::class);
-$app->get('/project/new', App\Application\Actions\Project\NewAction::class);
-$app->get('/project/read/{id:\d+}', App\Application\Actions\Project\ReadAction::class);
-$app->get('/project/edit/{id:\d+}', App\Application\Actions\Project\EditAction::class);
-$app->post('/project/create', App\Application\Actions\Project\CreateAction::class);
-$app->post('/project/update',  App\Application\Actions\Project\UpdateAction::class);
+    /*
+    |----------------------------------------------------------------------------
+    | Calendar-Routes
+    |----------------------------------------------------------------------------
+    */
+    $app->get('/calendar', \App\Application\Actions\Calendar\CalendarAction::class);
 
-/*
-|----------------------------------------------------------------------------
-| Task-Routes
-|----------------------------------------------------------------------------
-*/
-$app->get('/tasks',  App\Application\Actions\Task\TaskAction::class);
-$app->get('/task/new', App\Application\Actions\Task\NewAction::class);
-$app->get('/task/newProjectTask/{id:\d+}', App\Application\Actions\Task\CreateProjectTaskAction::class);
-$app->get('/task/read/{id:\d+}', App\Application\Actions\Task\ReadAction::class);
-$app->get('/task/edit/{id:\d+}', App\Application\Actions\Task\EditAction::class);
-$app->post('/task/update', App\Application\Actions\Task\UpdateAction::class);
-$app->post('/task/create', App\Application\Actions\Task\CreateAction::class);
+    /*
+    |----------------------------------------------------------------------------
+    | Document-Routes
+    |----------------------------------------------------------------------------
+    */
+    $app->get('/documents', \App\Application\Actions\Document\DocumentAction::class);
 
-/*
-|----------------------------------------------------------------------------
-| Test-Routes
-|----------------------------------------------------------------------------
-*/
-$app->get('/tests', App\Application\Actions\Test\TestAction::class);
+    /*
+    |----------------------------------------------------------------------------
+    | Issue-Routes
+    |----------------------------------------------------------------------------
+    */
+    $app->get('/issues', \App\Application\Actions\Issue\IssueAction::class);
+    /*
+    |----------------------------------------------------------------------------
+    | Project-Routes
+    |----------------------------------------------------------------------------
+    */
+    $app->get('/projects', \App\Application\Actions\Project\ProjectAction::class);
+    $app->get('/project/new', \App\Application\Actions\Project\NewAction::class);
+    $app->get('/project/read/{id:\d+}', \App\Application\Actions\Project\ReadAction::class);
+    $app->get('/project/edit/{id:\d+}', \App\Application\Actions\Project\EditAction::class);
+    $app->post('/project/create', \App\Application\Actions\Project\CreateAction::class);
+    $app->post('/project/update',  \App\Application\Actions\Project\UpdateAction::class);
 
-/*
-|----------------------------------------------------------------------------
-| Tool-Routes
-|----------------------------------------------------------------------------
-*/
-$app->get('/tools', App\Application\Actions\Tool\ToolAction::class);
+    /*
+    |----------------------------------------------------------------------------
+    | Task-Routes
+    |----------------------------------------------------------------------------
+    */
+    $app->get('/tasks',  \App\Application\Actions\Task\TaskAction::class);
+    $app->get('/task/new', \App\Application\Actions\Task\NewAction::class);
+    $app->get('/task/newProjectTask/{id:\d+}', \App\Application\Actions\Task\CreateProjectTaskAction::class);
+    $app->get('/task/read/{id:\d+}', \App\Application\Actions\Task\ReadAction::class);
+    $app->get('/task/edit/{id:\d+}', \App\Application\Actions\Task\EditAction::class);
+    $app->post('/task/update', \App\Application\Actions\Task\UpdateAction::class);
+    $app->post('/task/create', \App\Application\Actions\Task\CreateAction::class);
 
+    /*
+    |----------------------------------------------------------------------------
+    | Test-Routes
+    |----------------------------------------------------------------------------
+    */
+    $app->get('/tests', \App\Application\Actions\Test\TestAction::class);
 
-/*
-|----------------------------------------------------------------------------
-| Note-Routes
-|----------------------------------------------------------------------------
-*/
-$app->get('/notes', App\Application\Actions\Note\NoteAction::class);
-
-/*
-|----------------------------------------------------------------------------
-| Timetrack-Routes
-|----------------------------------------------------------------------------
-*/
-$app->get('/timetrack', App\Application\Actions\Timetrack\TimetrackAction::class);
+    /*
+    |----------------------------------------------------------------------------
+    | Tool-Routes
+    |----------------------------------------------------------------------------
+    */
+    $app->get('/tools', \App\Application\Actions\Tool\ToolAction::class);
 
 
+    /*
+    |----------------------------------------------------------------------------
+    | Note-Routes
+    |----------------------------------------------------------------------------
+    */
+    $app->get('/notes', \App\Application\Actions\Note\NoteAction::class);
+
+    /*
+    |----------------------------------------------------------------------------
+    | Timetrack-Routes
+    |----------------------------------------------------------------------------
+    */
+    $app->get('/timetrack', \App\Application\Actions\Timetrack\TimetrackAction::class);
+
+};
