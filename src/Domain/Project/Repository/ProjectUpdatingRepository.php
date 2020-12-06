@@ -73,6 +73,14 @@ class ProjectUpdatingRepository
         $project->setPriorityId($data['priorityId']);
         $project->setUpdatedAt(new DateTime('now'));
 
+        if( 5 === (int) $data['statusId'] ) {
+            $project->setFinishedOn(new DateTime('now'));
+        }
+
+        if( 6 === (int) $data['statusId'] ) {
+            $project->setDiscardedOn(new DateTime('now'));
+        }
+
         $this->ci->get('EntityManager')->persist($project);
         $this->ci->get('EntityManager')->flush();
     }
