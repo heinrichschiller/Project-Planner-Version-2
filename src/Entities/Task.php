@@ -132,11 +132,27 @@ class Task
     /**
      * Updated at
      * 
-     * @ORM\Column(type="datetime", name="updated_at", nullable=true, options={"default": "CURRENT_TIMESTAMP"})
+     * @ORM\Column(type="datetime", name="updated_at", nullable=true)
      * 
      * @var null|DateTime
      */
-    protected ?DateTime $updatedAt = null;
+    protected ?DateTime $updatedAt;
+
+    /**
+     * Finished on
+     * 
+     * @ORM\Column(type="datetime", name="finished_on", nullable=true)
+     * 
+     * @var null|DateTime
+     */
+    protected ?DateTime $finishedOn;
+
+    /**
+     * Discarded on
+     * 
+     * @ORM\Column(type="datetime", name="discarded_on", nullable=true)
+     */
+    protected ?DateTime $discardedOn;
 
     /**
      * Contact
@@ -394,6 +410,58 @@ class Task
     public function setUpdatedAt(?DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
+    }
+
+        /**
+     * Get finished on
+     * 
+     * @return string
+     */
+    public function getFinishedOn(): string
+    {
+        $str = '';
+
+        if ( null !== $this->finishedOn ) {
+            $str = $this->finishedOn->format('d.m.Y H:i');
+        }
+        
+        return $str;
+    }
+
+    /**
+     * Set finished on
+     * 
+     * @param null|DateTime $finishedOn 
+     */
+    public function setFinishedOn(?DateTime $finishedOn)
+    {
+        $this->finishedOn = $finishedOn;
+    }
+
+    /**
+     * Get discarded on
+     * 
+     * @return string
+     */
+    public function getDiscardedOn(): string
+    {
+        $str = '';
+
+        if ( null !== $this->discardedOn ) {
+            $str = $this->discardedOn->format('d.m.Y H:i');
+        }
+        
+        return $str;
+    }
+
+    /**
+     * Set discarded on
+     * 
+     * @param null|DateTime $discardeOn 
+     */
+    public function setDiscardedOn(?DateTime $discardedOn)
+    {
+        $this->discardedOn = $discardedOn;
     }
 
     /**
