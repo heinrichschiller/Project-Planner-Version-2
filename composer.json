@@ -11,6 +11,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
+        "php": ">=7.2",
         "mustache/mustache": "2.13.0",
         "vlucas/phpdotenv": "5.2.*",
         "doctrine/orm": "2.7.*",
