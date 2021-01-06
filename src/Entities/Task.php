@@ -253,7 +253,7 @@ class Task
      */ 
     public function getBeginAt(): string
     {
-        return $this->beginAt->format('d.m.Y H:i');
+        return $this->beginAt->format($_ENV['DATETIME_FORMAT']);
     }
 
     /**
@@ -283,7 +283,7 @@ class Task
      */ 
     public function getEndAt(): string
     {
-        return $this->endAt->format('d.m.Y H:i');;
+        return $this->endAt->format($_ENV['DATETIME_FORMAT']);
     }
 
     /**
@@ -373,7 +373,7 @@ class Task
      */ 
     public function getCreatedAt(): string
     {
-        return $this->createdAt->format("d.m.Y H:i");
+        return $this->createdAt->format($_ENV['DATETIME_FORMAT']);
     }
 
     /**
@@ -396,7 +396,7 @@ class Task
         $str = '';
 
         if ( $this->updatedAt !== null ) {
-            $str = $this->updatedAt->format('d.m.Y H:i');
+            $str = $this->updatedAt->format($_ENV['DATETIME_FORMAT']);
         }
         
         return $str;
