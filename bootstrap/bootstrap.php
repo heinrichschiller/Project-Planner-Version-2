@@ -58,7 +58,7 @@ $settings($containerBuilder);
 
 $container = $containerBuilder->build();
 
-require ROOT_DIR . 'app/container.php';
+(require ROOT_DIR . 'app/container.php')($container);
 
 AppFactory::setContainer($container);
 
@@ -67,6 +67,17 @@ $app = AppFactory::create();
 $app->addRoutingMiddleware();
 
 $app->addErrorMiddleware(true, true, true);
+
+/*
+|----------------------------------------------------------------------------
+| Routes with nikic/fast-route
+|----------------------------------------------------------------------------
+|
+| This library provides a fast implementation of a regular expression based
+| router.
+|
+*/
+(require __DIR__ . '/../app/routes/api.php')($app);
 
 /*
 |----------------------------------------------------------------------------
