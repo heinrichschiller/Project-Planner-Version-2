@@ -34,14 +34,14 @@ return function(App $app)
 {
     /*
     |----------------------------------------------------------------------------
-    | Index route
+    | Index routes
     |----------------------------------------------------------------------------
     */
     $app->get('/', \App\Application\Actions\Dashboard\DashboardAction::class);
 
     /*
     |----------------------------------------------------------------------------
-    | Contact-Routes
+    | Contact routes
     |----------------------------------------------------------------------------
     */
     $app->get('/contacts', \App\Application\Actions\Contact\ContactAction::class);
@@ -53,34 +53,34 @@ return function(App $app)
 
     /*
     |----------------------------------------------------------------------------
-    | Email-Routes
+    | Email routes
     |----------------------------------------------------------------------------
     */
     $app->get('/emails', \App\Application\Actions\Email\EmailAction::class);
 
     /*
     |----------------------------------------------------------------------------
-    | Calendar-Routes
+    | Calendar routes
     |----------------------------------------------------------------------------
     */
     $app->get('/calendar', \App\Application\Actions\Calendar\CalendarAction::class);
 
     /*
     |----------------------------------------------------------------------------
-    | Document-Routes
+    | Document routes
     |----------------------------------------------------------------------------
     */
     $app->get('/documents', \App\Application\Actions\Document\DocumentAction::class);
 
     /*
     |----------------------------------------------------------------------------
-    | Issue-Routes
+    | Issue routes
     |----------------------------------------------------------------------------
     */
     $app->get('/issues', \App\Application\Actions\Issue\IssueAction::class);
     /*
     |----------------------------------------------------------------------------
-    | Project-Routes
+    | Project routes
     |----------------------------------------------------------------------------
     */
     $app->get('/projects', \App\Application\Actions\Project\ProjectAction::class);
@@ -92,7 +92,7 @@ return function(App $app)
 
     /*
     |----------------------------------------------------------------------------
-    | Task-Routes
+    | Task routes
     |----------------------------------------------------------------------------
     */
     $app->get('/tasks',  \App\Application\Actions\Task\TaskAction::class);
@@ -105,14 +105,14 @@ return function(App $app)
 
     /*
     |----------------------------------------------------------------------------
-    | Test-Routes
+    | Test routes
     |----------------------------------------------------------------------------
     */
     $app->get('/tests', \App\Application\Actions\Test\TestAction::class);
 
     /*
     |----------------------------------------------------------------------------
-    | Tool-Routes
+    | Tool routes
     |----------------------------------------------------------------------------
     */
     $app->get('/tools', \App\Application\Actions\Tool\ToolAction::class);
@@ -120,14 +120,14 @@ return function(App $app)
 
     /*
     |----------------------------------------------------------------------------
-    | Note-Routes
+    | Note routes
     |----------------------------------------------------------------------------
     */
     $app->get('/notes', \App\Application\Actions\Note\NoteAction::class);
 
     /*
     |----------------------------------------------------------------------------
-    | Timetrack-Routes
+    | Timetrack routes
     |----------------------------------------------------------------------------
     */
     $app->get('/timetrack', \App\Application\Actions\Timetrack\TimetrackAction::class);
