@@ -63,7 +63,7 @@ class ProjectNotesAction
      */
     public function __invoke(Request $request, Response $response, array $args = []): Response
     {
-        $data = json_encode($this->noteFinder->findAll($args['id']));
+        $data = json_encode($this->noteFinder->findAll( (int) $args['id']));
 
         $response->getBody()->write($data);
 

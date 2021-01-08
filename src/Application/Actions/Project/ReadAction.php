@@ -83,9 +83,9 @@ class ReadAction
      */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $project = $this->projectReader->readProject($args['id']);
+        $project = $this->projectReader->readProject( (int) $args['id']);
         
-        $taskList = $this->projectTaskReader->readProjectTask($args['id']);
+        $taskList = $this->projectTaskReader->readProjectTask( (int) $args['id']);
 
         $data = [
             'project' => $project,
