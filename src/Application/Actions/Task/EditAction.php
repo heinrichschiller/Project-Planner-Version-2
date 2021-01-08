@@ -93,7 +93,7 @@ class EditAction
      */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $task = $this->taskReader->readTask($args['id']);
+        $task = $this->taskReader->readTask( (int) $args['id']);
         $priorityList = $this->priorityFinder->findAll();
         $statusList = $this->statusFinder->findAll();
 

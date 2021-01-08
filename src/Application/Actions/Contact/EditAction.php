@@ -72,7 +72,7 @@ class EditAction
      */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $contact = $this->contactReader->readContact($args['id']);
+        $contact = $this->contactReader->readContact( (int) $args['id']);
 
         $html = $this->ci->get('view')->render('contact/edit', $contact);
         $response->getBody()->write($html);
