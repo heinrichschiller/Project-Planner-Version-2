@@ -26,7 +26,9 @@
  *
  */
 
- namespace App\Domain\Contact\Repository;
+declare(strict_types = 1);
+
+namespace App\Domain\Contact\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Psr\Container\ContainerInterface;

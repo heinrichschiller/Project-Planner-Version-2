@@ -26,6 +26,8 @@
  *
  */
 
+declare(strict_types = 1);
+
 namespace App\Application\Actions\Contact;
 
 use App\Domain\Contact\Service\ContactReader;

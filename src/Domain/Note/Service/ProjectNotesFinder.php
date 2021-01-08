@@ -26,6 +26,8 @@
  *
  */
 
+declare(strict_types = 1);
+
 namespace App\Domain\Note\Service;
 
 use App\Domain\Note\Repository\NoteFinderRepository;

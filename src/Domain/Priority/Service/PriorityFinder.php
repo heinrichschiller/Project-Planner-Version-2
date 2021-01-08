@@ -26,6 +26,8 @@
  *
  */
 
+declare(strict_types = 1);
+
 namespace App\Domain\Priority\Service;
 
 use App\Domain\Priority\Repository\PriorityFinderRepository;

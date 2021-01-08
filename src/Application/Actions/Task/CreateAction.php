@@ -26,8 +26,9 @@
  *
  */
 
-namespace App\Application\Actions\Task;
+declare(strict_types = 1);
 
+namespace App\Application\Actions\Task;
 
 use App\Domain\Task\Service\TaskCreator;
 use Psr\Http\Message\ServerRequestInterface as Request;

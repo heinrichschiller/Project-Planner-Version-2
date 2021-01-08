@@ -26,6 +26,8 @@
  *
  */
 
+declare(strict_types = 1);
+
 namespace App\Application\Actions\Project;
 
 use App\Domain\Priority\Service\PriorityFinder;

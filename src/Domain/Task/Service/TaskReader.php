@@ -26,6 +26,8 @@
  *
  */
 
+declare(strict_types = 1);
+
 namespace App\Domain\Task\Service;
 
 use App\Domain\Task\Repository\TaskReaderRepository;

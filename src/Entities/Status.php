@@ -26,6 +26,8 @@
  *
  */
 
+declare(strict_types = 1);
+
 namespace Entities;
 
 use Doctrine\Common\Collections\ArrayCollection;

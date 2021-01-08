@@ -26,6 +26,8 @@
  *
  */
 
+declare(strict_types = 1);
+
 namespace App\Domain\Contact\Service;
 
 use App\Domain\Contact\Repository\ContactUpdatingRepository;
