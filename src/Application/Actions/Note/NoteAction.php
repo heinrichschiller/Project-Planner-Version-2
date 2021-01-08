@@ -34,13 +34,31 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 class NoteAction
 {
-    private $ci;
+    /**
+     * @Injection
+     * @var ContainerInterface
+     */
+    private ContainerInterface $ci;
 
+    /**
+     * The constructor
+     * 
+     * @param ContainerInterface $ci
+     */
     public function __construct(ContainerInterface $ci)
     {
         $this->ci = $ci;
     }
 
+    /**
+     * The invoker
+     * 
+     * @param Request $request
+     * @param Response $response
+     * @param array $args
+     * 
+     * @return Response
+     */
     public function __invoke(Request $request, Response $response, array $args = []): Response
     {
         $html = $this->ci->get('view')->render('note/index');
