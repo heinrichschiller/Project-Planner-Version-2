@@ -46,9 +46,9 @@ class TaskUpdatingRepository
     {
         $task = $this->ci->get('EntityManager')
             ->getRepository('Entities\Task')
-            ->find($data['id']);
+            ->find( (int) $data['id']);
 
-        if ( $task === null ) {
+        if ( null === $task ) {
             echo "No task found for the given id: {$data['id']}";
             exit(1);
         }
@@ -57,8 +57,8 @@ class TaskUpdatingRepository
         $task->setDescription($data['desc']);
         $task->setBeginAt($data['beginAt']);
         $task->setEndAt($data['endAt']);
-        $task->setStatusId($data['statusId']);
-        $task->setPriorityId($data['priorityId']);
+        $task->setStatusId( (int) $data['statusId']);
+        $task->setPriorityId( (int) $data['priorityId']);
         $task->setUpdatedAt(new DateTime('now'));
 
         if( 5 === (int) $data['statusId'] ) {

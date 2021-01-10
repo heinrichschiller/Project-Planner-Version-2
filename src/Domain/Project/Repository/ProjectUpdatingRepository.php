@@ -60,7 +60,7 @@ class ProjectUpdatingRepository
     {
         $project = $this->ci->get('EntityManager')
             ->getRepository('Entities\Project')
-            ->find($data['id']);
+            ->find( (int) $data['id']);
 
         if ( $project === null ) {
             echo "No project found for the given id: {$data['id']}";
@@ -71,8 +71,8 @@ class ProjectUpdatingRepository
         $project->setDescription($data['desc']);
         $project->setBeginAt($data['beginAt']);
         $project->setEndAt($data['endAt']);
-        $project->setStatusId($data['statusId']);
-        $project->setPriorityId($data['priorityId']);
+        $project->setStatusId( (int) $data['statusId']);
+        $project->setPriorityId( (int) $data['priorityId']);
         $project->setUpdatedAt(new DateTime('now'));
 
         if( 5 === (int) $data['statusId'] ) {
