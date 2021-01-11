@@ -424,7 +424,7 @@ class Task
         $str = '';
 
         if ( null !== $this->finishedOn ) {
-            $str = $this->finishedOn->format('d.m.Y H:i');
+            $str = $this->finishedOn->format($_ENV['DATETIME_FORMAT']);
         }
         
         return $str;
@@ -450,7 +450,7 @@ class Task
         $str = '';
 
         if ( null !== $this->discardedOn ) {
-            $str = $this->discardedOn->format('d.m.Y H:i');
+            $str = $this->discardedOn->format($_ENV['DATETIME_FORMAT']);
         }
         
         return $str;

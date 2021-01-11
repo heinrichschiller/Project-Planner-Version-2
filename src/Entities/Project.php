@@ -246,7 +246,7 @@ class Project
      */ 
     public function getBeginAt(): string
     {
-        return $this->beginAt->format('d.m.Y H:i');
+        return $this->beginAt->format($_ENV['DATETIME_FORMAT']);
     }
 
     /**
@@ -276,7 +276,7 @@ class Project
      */ 
     public function getEndAt(): string
     {
-        return $this->endAt->format('d.m.Y H:i');;
+        return $this->endAt->format($_ENV['DATETIME_FORMAT']);;
     }
 
     /**
@@ -368,7 +368,7 @@ class Project
      */ 
     public function getCreatedAt(): string
     {
-        return $this->createdAt->format("d.m.Y H:i");
+        return $this->createdAt->format($_ENV['DATETIME_FORMAT']);
     }
 
     /**
@@ -391,7 +391,7 @@ class Project
         $str = '';
 
         if ( null !== $this->updatedAt ) {
-            $str = $this->updatedAt->format('d.m.Y H:i');
+            $str = $this->updatedAt->format($_ENV['DATETIME_FORMAT']);
         }
         
         return $str;
@@ -417,7 +417,7 @@ class Project
         $str = '';
 
         if ( null !== $this->finishedOn ) {
-            $str = $this->finishedOn->format('d.m.Y H:i');
+            $str = $this->finishedOn->format($_ENV['DATETIME_FORMAT']);
         }
         
         return $str;
@@ -443,7 +443,7 @@ class Project
         $str = '';
 
         if ( null !== $this->discardedOn ) {
-            $str = $this->discardedOn->format('d.m.Y H:i');
+            $str = $this->discardedOn->format($_ENV['DATETIME_FORMAT']);
         }
         
         return $str;
