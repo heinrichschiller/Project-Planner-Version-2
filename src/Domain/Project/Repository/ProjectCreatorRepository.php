@@ -64,8 +64,10 @@ class ProjectCreatorRepository
      * Create a project
      * 
      * @param array $data The form data
+     * 
+     * @return int Last insert id
      */
-    public function createProject(array $data)
+    public function createProject(array $data): int
     {
         $this->project->setTitle($data['title']);
         $this->project->setDescription($data['desc']);
@@ -108,5 +110,7 @@ class ProjectCreatorRepository
 
         $this->ci->get('EntityManager')->persist($this->project);
         $this->ci->get('EntityManager')->flush();
+
+        return $this->project->getId();
     }
 }
