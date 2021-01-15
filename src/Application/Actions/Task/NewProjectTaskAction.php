@@ -39,7 +39,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class CreateProjectTaskAction
+class NewProjectTaskAction
 {
     /**
      * @Injection
@@ -112,7 +112,7 @@ class CreateProjectTaskAction
      */
     public function __invoke(Request $request, Response $response, array $args = []): Response
     {
-        $project = $this->projectReader->readProject( (int) $args['id']);
+        $project = $this->projectReader->readProject( (int) $args['pid']);
         $contactList = $this->contactFinder->findAll();
         $projectList = $this->projectFinder->findAll();
         $priorityList = $this->priorityFinder->findAll();
@@ -126,7 +126,7 @@ class CreateProjectTaskAction
             'projectList' => $projectList
         ];
 
-        $html = $this->ci->get('view')->render('/task/newProjectTask', $data);
+        $html = $this->ci->get('view')->render('/project/newTask', $data);
         $response->getBody()->write($html);
 
         return $response;
