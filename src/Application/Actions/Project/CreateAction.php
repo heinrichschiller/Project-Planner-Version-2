@@ -63,10 +63,12 @@ class CreateAction
      */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $data = (array) $request->getParsedBody();
+        $formData = (array) $request->getParsedBody();
 
-        $this->projectCreator->createProject($data);
+        $lastInsertId = $this->projectCreator->createProject($formData);
 
-        return $response;
+        return $response
+            ->withHeader('Location', "/project/read/$lastInsertId")
+            ->withStatus(302);;
     }
 }
