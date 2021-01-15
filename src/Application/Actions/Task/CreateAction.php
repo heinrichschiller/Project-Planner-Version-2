@@ -67,6 +67,8 @@ class CreateAction
 
         $this->taskCreator->createTask($formData);
         
-        return $response;
+        return $response
+            ->withHeader('Location', '/tasks')
+            ->withStatus(302);
     }
 }
