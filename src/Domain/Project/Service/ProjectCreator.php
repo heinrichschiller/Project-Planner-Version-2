@@ -54,13 +54,15 @@ final class ProjectCreator
     /**
      * Insert new project
      * 
-     * @param array $data
+     * @param array $formData The form data
+     * 
+     * @return int Last insert id
      */
-    public function createProject(array $data)
+    public function createProject(array $formData): int
     {
-        $this->validateNewProject($data);
+        $this->validateNewProject($formData);
 
-        $this->repository->createProject($data);
+        return $this->repository->createProject($formData);
     }
 
     /**
