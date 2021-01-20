@@ -36,19 +36,45 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 class UpdateAction
 {
+    /**
+     * @Injection
+     * @var ProjectUpdating
+     */
     private ProjectUpdating $projectUpdating;
 
+    /**
+     * The constructor
+     * 
+     * @param ProjectUpdating $projectUpdating
+     */
     public function __construct(ProjectUpdating $projectUpdating)
     {
         $this->projectUpdating = $projectUpdating;
     }
 
+    /**
+     * The invoker
+     * 
+     * @param Request $request
+     * @param Response $response
+     * @param array $args
+     * 
+     * @return Response
+     */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $data = (array) $request->getParsedBody();
+        $formData = (array) $request->getParsedBody();
 
-        $this->projectUpdating->updateProject($data);
+        $this->projectUpdating->updateProject($formData);
 
-        return $response;
+        $target = "/project/read/${formData['id']}";
+
+        if ( 5 == (int) $formData['statusId'] || 6 == (int) $formData['statusId'] ) {
+            $target = '/projects';
+        }
+
+        return $response
+            ->withHeader('Location', $target)
+            ->withStatus(302);
     }
 }
