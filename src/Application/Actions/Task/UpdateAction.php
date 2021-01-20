@@ -68,6 +68,8 @@ class UpdateAction
 
         $this->taskUpdating->updateTask($formData);
 
-        return $response;
+        return $response
+            ->withHeader('Location', "/task/read/${formData['id']}")
+            ->withStatus(302);
     }
 }
