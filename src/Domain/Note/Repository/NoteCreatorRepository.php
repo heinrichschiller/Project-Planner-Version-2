@@ -63,7 +63,19 @@ class NoteCreatorRepository
 
         $note->setTitle($formData['title']);
         $note->setDescription($formData['desc']);
-        $note->setProjectId($formData['projectId']);
+
+        if(!empty($formData['contactId'])) {
+            $note->setContactId( (int) $formData['contactId']);
+        }
+
+        if(!empty($formData['projectId'])) {
+            $note->setProjectId( (int) $formData['projectId']);
+        }
+
+        if(!empty($formData['taskId'])) {
+            $note->setTaskId( (int) $formData['taskId']);
+        }
+        
         $note->setCreatedAt(new DateTime('now'));
 
         $this->entityManager->persist($note);
