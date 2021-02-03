@@ -63,7 +63,7 @@ class CreateAction
      */
     public function __invoke(Request $request, Response $response, array $args = []): Response
     {
-        $formData = $request->getParsedBody();
+        $formData = (array) $request->getParsedBody();
 
         $this->noteCreator->insertNote($formData);
 
