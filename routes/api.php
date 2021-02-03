@@ -26,4 +26,18 @@
  *
  */
 
-use ProjectPlanner\Library\Route;
+declare(strict_types = 1 );
+
+use Slim\App;
+
+return function(App $app)
+{
+    /*
+    |----------------------------------------------------------------------------
+    | Notes routes
+    |----------------------------------------------------------------------------
+    */
+    $app->get('/api/project/notes/{pid:\d+}', \App\Application\Actions\Note\ProjectNotesAction::class);
+    $app->get('/api/project/task/notes/{pid:\d+}/{tid:\d+}', \App\Application\Actions\Note\ProjectTaskNotesAction::class);
+    $app->post('/api/note/create', \App\Application\Actions\Note\CreateAction::class);
+};
