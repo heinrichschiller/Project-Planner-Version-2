@@ -87,6 +87,8 @@ return function(App $app)
     $app->get('/project/new', \App\Application\Actions\Project\NewAction::class);
     $app->get('/project/read/{id:\d+}', \App\Application\Actions\Project\ReadAction::class);
     $app->get('/project/edit/{id:\d+}', \App\Application\Actions\Project\EditAction::class);
+    $app->get('/project/task/new/{pid:\d+}', \App\Application\Actions\Task\NewProjectTaskAction::class);
+    $app->post('/project/task/create', \App\Application\Actions\Project\CreateProjectTaskAction::class);
     $app->post('/project/create', \App\Application\Actions\Project\CreateAction::class);
     $app->post('/project/update',  \App\Application\Actions\Project\UpdateAction::class);
 
@@ -97,7 +99,6 @@ return function(App $app)
     */
     $app->get('/tasks',  \App\Application\Actions\Task\TaskAction::class);
     $app->get('/task/new', \App\Application\Actions\Task\NewAction::class);
-    $app->get('/task/newProjectTask/{id:\d+}', \App\Application\Actions\Task\CreateProjectTaskAction::class);
     $app->get('/task/read/{id:\d+}', \App\Application\Actions\Task\ReadAction::class);
     $app->get('/task/edit/{id:\d+}', \App\Application\Actions\Task\EditAction::class);
     $app->post('/task/update', \App\Application\Actions\Task\UpdateAction::class);
