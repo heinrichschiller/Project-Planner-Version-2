@@ -78,7 +78,7 @@ $app->addErrorMiddleware(true, true, true);
 | router.
 |
 */
-(require __DIR__ . '/../app/routes/api.php')($app);
+(require ROOT_DIR . '/routes/api.php')($app);
 
 /*
 |----------------------------------------------------------------------------
@@ -89,6 +89,6 @@ $app->addErrorMiddleware(true, true, true);
 | router.
 |
 */
-(require __DIR__ . '/../app/routes/web.php')($app);
+(require ROOT_DIR . 'routes/web.php')($app);
 
 return $app;
