@@ -29,12 +29,11 @@
  * Gets the value of an environment variable. Supports boolean, empty and null.
  *
  * @param  string  $key
- * @param  mixed   $default
  * @return mixed
  */
-function env($key, $default = null)
+function env($key)
 {
-    $value = getenv($key);
+    $value = $_ENV[$key];
 
     if (false === $value) {
         return false;
