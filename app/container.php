@@ -31,31 +31,77 @@ declare(strict_types = 1 );
 use Psr\Container\ContainerInterface;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
+use App\Domain\Note\Repository\NoteCreatorRepository;
+use App\Domain\Note\Repository\NoteFinderRepository;
+use DI\Container;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+use Monolog\Processor\UidProcessor;
 
-$container->set('EntityManager', function(ContainerInterface $ci) {
-    $doctrineSettings = $ci->get('settings')['doctrine'];
-    
-    $config = Setup::createAnnotationMetadataConfiguration(
-        array(__DIR__."/../src")
-        , $doctrineSettings['dev_mode']
-        , $doctrineSettings['proxy_dir']
-        , $doctrineSettings['cache_dir']
-        , $doctrineSettings['useSimpleAnnotationReader']
-    );
+return function(Container $container) 
+{
+    $container->set('EntityManager', function(ContainerInterface $ci) {
+        $doctrineSettings = $ci->get('settings')['doctrine'];
 
-    $connection = $doctrineSettings['connection'];
+        $config = Setup::createAnnotationMetadataConfiguration(
+            array(__DIR__."/../src")
+            , $doctrineSettings['dev_mode']
+            , $doctrineSettings['proxy_dir']
+            , $doctrineSettings['cache_dir']
+            , $doctrineSettings['useSimpleAnnotationReader']
+        );
 
-    return EntityManager::create($connection, $config);
-});
+        $connection = $doctrineSettings['connection'];
 
-$container->set('view', function(ContainerInterface $ci) {
-    $mustacheSettings = $ci->get('settings')['mustache'];
+        return EntityManager::create($connection, $config);
+    });
 
-    $options = $mustacheSettings['options'];
+    $container->set(EntityManager::class, function(ContainerInterface $ci) {
+        $doctrineSettings = $ci->get('settings')['doctrine'];
+        
+        $config = Setup::createAnnotationMetadataConfiguration(
+            array(__DIR__."/../src")
+            , $doctrineSettings['dev_mode']
+            , $doctrineSettings['proxy_dir']
+            , $doctrineSettings['cache_dir']
+            , $doctrineSettings['useSimpleAnnotationReader']
+        );
 
-    $viewPath = $mustacheSettings['viewPath'];
+        $connection = $doctrineSettings['connection'];
 
-    return new \Mustache_Engine([
-        'loader' => new \Mustache_Loader_FilesystemLoader($viewPath, $options),
-    ]);
-});
+        return EntityManager::create($connection, $config);
+    });
+
+    $container->set(NoteCreatorRepository::class, function($container) {
+        return new NoteCreatorRepository($container->get(EntityManager::class));
+    });
+
+    $container->set(NoteFinderRepository::class, function($container) {
+        return new NoteFinderRepository($container->get(EntityManager::class));
+    });
+
+    $container->set('logger', function(ContainerInterface $container): Logger
+    {
+        $loggerSettings = $container->get('settings')['logger'];
+
+        $logger = new Logger($loggerSettings['name']);
+        $logger->pushProcessor(new UidProcessor);
+
+        $streamHandler = new StreamHandler($loggerSettings['path'], $loggerSettings['level']);
+        $logger->pushHandler($streamHandler);
+
+        return $logger;
+    });
+
+    $container->set('view', function(ContainerInterface $ci) {
+        $mustacheSettings = $ci->get('settings')['mustache'];
+
+        $options = $mustacheSettings['options'];
+
+        $viewPath = $mustacheSettings['viewPath'];
+
+        return new \Mustache_Engine([
+            'loader' => new \Mustache_Loader_FilesystemLoader($viewPath, $options),
+        ]);
+    });
+};
