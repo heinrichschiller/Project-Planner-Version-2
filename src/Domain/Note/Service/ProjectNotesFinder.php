@@ -30,7 +30,7 @@ declare(strict_types = 1);
 
 namespace App\Domain\Note\Service;
 
-use App\Domain\Note\Repository\NoteFinderRepository;
+use App\Domain\Note\Repository\ProjectNoteFinderRepository;
 
 final class ProjectNotesFinder
 {
@@ -38,14 +38,14 @@ final class ProjectNotesFinder
      * @Injection
      * @var NoteFinderRepository
      */
-    private NoteFinderRepository $repository;
+    private ProjectNoteFinderRepository $repository;
 
     /**
      * The constructor
      * 
-     * @param NoteFinderRepository $repository
+     * @param ProjectNoteFinderRepository $repository
      */
-    public function __construct(NoteFinderRepository $repository)
+    public function __construct(ProjectNoteFinderRepository $repository)
     {
         $this->repository = $repository;
     }
