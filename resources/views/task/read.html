@@ -6,75 +6,123 @@
 
     </div>
     
-    <div class="row">
-        <div class="col-md-6">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
 
-            <div class="container-fluid">
-                <div class="header">
-                    <div class="title-bar">
-                        <h1>Aufgabe - {{ getTitle }}</h1>
-                    </div>
+                <div class="mt-4">
+                    <h1>Aufgabe - {{ getTitle }}</h1>
                 </div>
-    
+
                 <div class="description">
                     <label for="desc">Beschreibung:</label>
                     <div class="content">
                         {{{ getDescription }}}
                     </div>
                 </div>
-    
-                <div class="buttons fixed-bottom">
+
+                <div class="buttons fixed-bottom mx-3">
                     <button id="edit__btn" role="button" class="btn btn-primary" data-id="{{ getId }}">Bearbeiten</button>
                 </div>
             </div>
 
-        </div>
+            <div class="col-md-4">
 
-        <div class="col-md-6">
+                <div class="mt-4">
 
-            <div class="row">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Todos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Dokumente</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Einstellungen</a>
+                        </li>
+                    </ul>
 
-                <div class="col-md-9"></div>
+                </div>
 
-                <div class="col-md-3">
+                <div class="notes">
 
-                    <div>
-                        <div class="form-group">
-                            <div>#: {{ getId }}</div>
-                        </div>
-
-                        <div>
-                            <div>Begin: {{ getBeginAt }}</div>
-                        </div>
-                        <div>
-                            <div>Ende: {{ getEndAt }}</div>
-                        </div>
-
-                        <div>
-                            <div>Erstellt: {{ getCreatedAt }}</div>
-                        </div>
-                        <div>
-                            <div>Aktualisiert: {{ getUpdatedAt }}</div>
-                        </div> 
-                    </div>
-                    
-                    <div>
-                        <div>
-                            <div>Status: {{ getStatus.getDescription }}</div>
-                        </div>
-                        <div>
-                            <div>Priorität: {{ getPriority.getDescription }}</div>
-                        </div>
+                    <div class="title-bar">
+                        <h3>Notizen</h3>
+                        <a href="#" id="new__note__btn" class="btn action-button">Neue Notiz</a>
                     </div>
 
-                    <div>
-                        <div>
-                            <div>Kontakt: {{ getContact.getDisplayName }}</div>
+                    <div class="modal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+
+                                <form name="note" id="note__form" action="../../api/note/create" method="post">
+                                    <div class="modal-header">
+                                        <input type="text" name="title" id="modal__title" class="form-control modal-title">
+                                        <button type="button" id="note__close" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <textarea name="desc" id="note__desc" class="modal-textarea"></textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" id="note__save" class="btn btn-primary">Speichern</button>
+                                    </div>
+
+                                    <input type="hidden" name="projectId" value="{{ getProject.getId }}">
+                                    <input type="hidden" name="taskId" value="{{ getId }}">
+                                    
+                                </form>
+
+                            </div>
                         </div>
-                        <div>
-                            <div>Projekt: {{ getProject.getTitle}}</div>
-                        </div>    
                     </div>
+
+                    <div class="accordeon" id="accordeon"></div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-2 wf-info">
+
+                <div>
+                    <div class="mt-4">
+                        <div>#: <span id="task__id">{{ getId }}</span></div>
+                    </div>
+
+                    <div>
+                        <div>Begin: {{ getBeginAt }}</div>
+                    </div>
+                    <div>
+                        <div>Ende: {{ getEndAt }}</div>
+                    </div>
+
+                    <div>
+                        <div>Erstellt: {{ getCreatedAt }}</div>
+                    </div>
+                    <div>
+                        <div>Aktualisiert: {{ getUpdatedAt }}</div>
+                    </div> 
+                </div>
+                
+                <div>
+                    <div>
+                        <div>Status: {{ getStatus.getDescription }}</div>
+                    </div>
+                    <div>
+                        <div>Priorität: {{ getPriority.getDescription }}</div>
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <div>Kontakt: {{ getContact.getDisplayName }}</div>
+                    </div>
+                    <div>
+                        <div>Projekt: {{ getProject.getTitle}}</div>
+                        <input type="hidden" name="projectId" id="project__id" value="{{ getProject.getId }}">
+                    </div>    
                 </div>
 
             </div>
