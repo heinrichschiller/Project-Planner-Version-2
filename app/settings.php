@@ -29,14 +29,15 @@
 declare(strict_types = 1 );
 
 use DI\ContainerBuilder;
+use Monolog\Logger;
 
 return function (ContainerBuilder $containerBuilder)
 {
     $containerBuilder->addDefinitions([
         'settings' => [
-            'displayErrorDetails' => true,
-            'logErrors' => true,
-            'logErrorDetails' => true,
+            'displayErrorDetails' => env('DISPLAY_ERROR_DETAILS'),
+            'logErrors' => env('LOG_ERRORS'),
+            'logErrorDetails' => env('LOG_ERROR_DETAILS'),
             
             /*
             |----------------------------------------------------------------------------
@@ -120,7 +121,7 @@ return function (ContainerBuilder $containerBuilder)
                     | A MySQL driver that uses the pdo_mysql PDO extension.
                     |
                     */
-                    'driver' => $_ENV['DB_DRIVER'],
+                    'driver' => env("DB_DRIVER"),
 
                     /*
                     |----------------------------------------------------------------------------
@@ -130,7 +131,7 @@ return function (ContainerBuilder $containerBuilder)
                     | Hostname of the database to connect to.
                     |
                     */
-                    'host' => $_ENV['DB_HOSTNAME'],
+                    'host' => env('DB_HOSTNAME'),
 
                     /*
                     |----------------------------------------------------------------------------
@@ -140,7 +141,7 @@ return function (ContainerBuilder $containerBuilder)
                     | Username to use when connecting to the database.
                     |
                     */
-                    'user' => $_ENV['DB_USERNAME'],
+                    'user' => env('DB_USERNAME'),
 
                     /*
                     |----------------------------------------------------------------------------
@@ -150,7 +151,7 @@ return function (ContainerBuilder $containerBuilder)
                     | Password to use when connecting to the database.
                     |
                     */
-                    'password' => $_ENV['DB_PASSWORD'],
+                    'password' => env('DB_PASSWORD'),
 
                     /*
                     |----------------------------------------------------------------------------
@@ -160,7 +161,7 @@ return function (ContainerBuilder $containerBuilder)
                     | Name of the database/schema to connect to.
                     |
                     */
-                    'dbname' => $_ENV['DB_DATABASE'],
+                    'dbname' => env('DB_DATABASE'),
 
                     /*
                     |----------------------------------------------------------------------------
@@ -170,7 +171,7 @@ return function (ContainerBuilder $containerBuilder)
                     | Port of the database to connect to.
                     |
                     */
-                    'port' => $_ENV['DB_PORT'],
+                    'port' => env('DB_PORT'),
 
                     /*
                     |----------------------------------------------------------------------------
@@ -193,9 +194,27 @@ return function (ContainerBuilder $containerBuilder)
                     'charset' => 'utf8mb4'
                 ]
             ],
+
             'mustache' => [
                 'options' => ['extension' => '.html'],
                 'viewPath' => ROOT_DIR . 'resources/views'
+            ],
+
+            /*
+            |----------------------------------------------------------------------------
+            | Settings for Monolog Logger
+            |----------------------------------------------------------------------------
+            |
+            | For more information, see: 
+            | https://github.com/Seldaek/monolog
+            |
+            */
+            'logger' => [
+                'name' => env('APP_NAME'),
+                'path' => ROOT_DIR . env('LOGGER_PATH'),
+                'filename' => env('LOGGER_FILENAME'),
+                'level' => Logger::DEBUG,
+                'filePermission' => env('LOGGER_FILE_PERMISSIONS')
             ]
         ]
     ]);
