@@ -149,6 +149,8 @@ class Note
      */ 
     public function setTitle(string $title): void
     {
+        $title = trim($title, " \n\r\t\v\0");
+
         $this->title = $title;
     }
 
