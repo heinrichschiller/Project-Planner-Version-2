@@ -1,10 +1,9 @@
 <?php
 
 /**
- *
  * MIT License
  *
- * Copyright (c) 2019-2020 Heinrich Schiller
+ * Copyright (c) 2019 - 2021 Heinrich Schiller
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,17 +25,13 @@
  *
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use DI\ContainerBuilder;
-use Dotenv\Dotenv;
-use Slim\Factory\AppFactory;
-
-error_reporting(-1);
-ini_set('display_errors', '1');
+use Slim\App;
 
 require __DIR__ . '/../app/constants.php';
-require __DIR__ . '/../app/helper.php';
+require ROOT_DIR . 'app/helper.php';
 require ROOT_DIR . 'vendor/autoload.php';
 
 /*
@@ -48,47 +43,48 @@ require ROOT_DIR . 'vendor/autoload.php';
 | https://github.com/vlucas/phpdotenv
 |
 */
-$dotenv = Dotenv::createImmutable(ROOT_DIR);
+
+$dotenv = Dotenv\Dotenv::createMutable( ROOT_DIR );
 $dotenv->load();
 
-$containerBuilder = new ContainerBuilder();
+/*
+|----------------------------------------------------------------------------
+| Instantiate PHP-DI ContainerBuilder
+|----------------------------------------------------------------------------
+|
+| The dependency injection container for humans, see:
+| https://php-di.org/
+|
+*/
 
-// Set up settings
-$settings = require ROOT_DIR . 'app/settings.php';
-$settings($containerBuilder);
+$builder = new ContainerBuilder;
 
-$container = $containerBuilder->build();
+(require ROOT_DIR . 'app/containers.php')($builder);
 
-(require ROOT_DIR . 'app/container.php')($container);
+(require ROOT_DIR . 'app/dependencies.php')($builder);
 
-AppFactory::setContainer($container);
+$container = $builder->build();
 
-$app = AppFactory::create();
+$app = $container->get(App::class);
 
-$app->addRoutingMiddleware();
-
-$app->addErrorMiddleware(true, true, true);
+(require ROOT_DIR . 'app/middleware.php')($app);
 
 /*
 |----------------------------------------------------------------------------
-| Routes with nikic/fast-route
+| Set up routes with nikic/fast-route
 |----------------------------------------------------------------------------
 |
-| This library provides a fast implementation of a regular expression based
-| router.
+| For more informations see: 
+| https://www.slimframework.com/docs/v4/objects/routing.html
+|
+| Include the routes that you need. You can use web-routes for classic php
+| applications or api-routes for REST-API applications. And of course you 
+| can use both.
 |
 */
-(require ROOT_DIR . '/routes/api.php')($app);
 
-/*
-|----------------------------------------------------------------------------
-| Routes with nikic/fast-route
-|----------------------------------------------------------------------------
-|
-| This library provides a fast implementation of a regular expression based
-| router.
-|
-*/
+(require ROOT_DIR . 'routes/api.php')($app);
+
 (require ROOT_DIR . 'routes/web.php')($app);
 
 return $app;
