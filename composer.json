@@ -12,14 +12,14 @@
     "minimum-stability": "dev",
     "require": {
         "php": "^7.3",
-        "mustache/mustache": "2.13.0",
         "vlucas/phpdotenv": "5.3.*",
         "doctrine/orm": "2.8.*",
         "slim/slim": "4.*",
         "slim/psr7": "1.*",
         "php-di/php-di": "6.3.*",
         "cakephp/validation": "4.2.*",
-        "monolog/monolog": "2.2.*"
+        "monolog/monolog": "2.2.*",
+        "heinrichschiller/slim4-mustache-view": "dev-main"
     },
     "autoload": {
         "psr-0": {
