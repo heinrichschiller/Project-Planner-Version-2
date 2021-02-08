@@ -32,6 +32,7 @@ namespace App\Domain\Contact\Service;
 
 use App\Domain\Contact\Repository\ContactCreatorRepository;
 use App\Exception\ValidationException;
+use Cake\Validation\Validator;
 
 final class ContactCreator
 {
@@ -42,13 +43,20 @@ final class ContactCreator
     private ContactCreatorRepository $repository;
 
     /**
+     * @Injection
+     * @var Validator
+     */
+    private Validator $validator;
+
+    /**
      * The constructor
      * 
      * @param ContactCreatorRepository $repository The repository
      */
-    public function __construct(ContactCreatorRepository $repository)
+    public function __construct(ContactCreatorRepository $repository, Validator $validator)
     {
         $this->repository = $repository;
+        $this->validator = $validator;
     }
 
     /**
@@ -56,31 +64,37 @@ final class ContactCreator
      * 
      * @param array $data The form data
      * 
-     * @return void
+     * @return int $lastInsertId
      */
-    public function createContact(array $data): void
+    public function createContact(array $formData): int
     {
-        $this->validateNewContact($data);
+        $this->validateNewContact($formData);
 
-        $this->repository->insertContact($data);
+        return $this->repository->insertContact($formData);
     }
 
     /**
      * Input validation
      * 
-     * @param array $data The form data
+     * @param array $formData The form data
      * 
      * @throws ValidationException
      * 
      * @return void
      */
-    private function validateNewContact(array $data): void
+    private function validateNewContact(array $formData): void
     {
-        $errors = [];
+        $this->validator
+            ->requirePresence('display_name')
+            ->notEmptyString('display_name')
+            ->add('display_name', [
+                'length' => [
+                    'rule' => ['minLength', 3],
+                    'message' => 'Display name need to be at least 3 characters long'
+                ]
+            ]);
 
-        if (empty($data['name'])) {
-            $errors['contactName'] = 'Input required.';
-        }
+        $errors = $this->validator->validate($formData);
 
         if ($errors) {
             throw new ValidationException('Please check your inputs: ', $errors);
