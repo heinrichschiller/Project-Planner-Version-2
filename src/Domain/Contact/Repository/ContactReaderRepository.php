@@ -30,24 +30,25 @@ declare(strict_types = 1);
 
 namespace App\Domain\Contact\Repository;
 
+use Doctrine\ORM\EntityManager;
 use Psr\Container\ContainerInterface;
 
 class ContactReaderRepository
 {
     /**
      * @Injection
-     * @var ContainerInterface
+     * @var EntityManager
      */
-    private $ci;
+    private $entityManager;
 
     /**
      * The constructor
      * 
-     * @param ContainerInterface $ci
+     * @param EntityManager $entityManager
      */
-    public function __construct(ContainerInterface $ci)
+    public function __construct(EntityManager $entityManager)
     {
-        $this->ci = $ci;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -59,7 +60,7 @@ class ContactReaderRepository
      */
     public function readContact(int $id): Object
     {
-        return $this->ci->get('EntityManager')
+        return $this->entityManager
             ->getRepository('Entities\Contact')
             ->find($id);
     }
