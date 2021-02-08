@@ -30,26 +30,26 @@ declare(strict_types = 1);
 
 namespace App\Application\Actions\Contact;
 
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Views\Mustache;
 
 class NewAction
 {
     /**
      * @Injection
-     * @var ContainerInterface
+     * @var Mustache
      */
-    private $ci;
+    private $view;
 
     /**
      * The constructor
      * 
-     * @param ContainerInterface $ci
+     * @param Mustache $view Mustache Engine
      */
-    public function __construct(ContainerInterface $ci)
+    public function __construct(Mustache $view)
     {
-        $this->ci = $ci;
+        $this->view = $view;
     }
 
     /**
@@ -63,8 +63,7 @@ class NewAction
      */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $html = $this->ci->get('view')->render('contact/new');
-        $response->getBody()->write($html);
+        $this->view->render($response, 'contact/new');
 
         return $response;
     }
