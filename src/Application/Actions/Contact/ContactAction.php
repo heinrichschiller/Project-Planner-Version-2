@@ -34,6 +34,7 @@ use App\Domain\Contact\Service\ContactFinder;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Views\Mustache;
 
 class ContactAction
 {
@@ -45,9 +46,9 @@ class ContactAction
 
     /**
      * @Injection
-     * @var ContainerInterface
+     * @var Mustache
      */
-    private $ci;
+    private $view;
 
     /**
      * The constructor
@@ -55,10 +56,10 @@ class ContactAction
      * @param ContactFinder $contactFinder
      * @param ContainerInterface $ci
      */
-    public function __construct(ContactFinder $contactFinder, ContainerInterface $ci)
+    public function __construct(ContactFinder $contactFinder, Mustache $view)
     {
         $this->contactFinder = $contactFinder;
-        $this->ci = $ci;
+        $this->view = $view;
     }
     
     /**
@@ -81,8 +82,7 @@ class ContactAction
             'hasContacts' => $hasContacts,
         ];
 
-        $html = $this->ci->get('view')->render('contact/index', $data);
-        $response->getBody()->write($html);
+        $this->view->render($response, 'contact/index', $data);
 
         return $response;
     }
