@@ -29,6 +29,8 @@
 declare(strict_types = 1 );
 
 use DI\ContainerBuilder;
+use Doctrine\ORM\Tools\Setup;
+use Doctrine\ORM\EntityManager;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
@@ -37,6 +39,7 @@ use Slim\App;
 use Slim\Factory\AppFactory;
 use Psr\Log\LoggerInterface;
 use Slim\Middleware\ErrorMiddleware;
+use Slim\Views\Mustache;
 
 return function(ContainerBuilder $builder) 
 {
@@ -44,6 +47,11 @@ return function(ContainerBuilder $builder)
         'settings' => function()
         {
             return require ROOT_DIR . 'config/settings.php';
+        },
+
+        'doctrine' => function()
+        {
+            return require ROOT_DIR . 'config/doctrine.php';
         },
 
         App::class => function(ContainerInterface $container): App
@@ -67,6 +75,23 @@ return function(ContainerBuilder $builder)
             );
         },
 
+        EntityManager::class => function(ContainerInterface $container): EntityManager
+        {
+            $settings = $container->get('doctrine');
+        
+            $config = Setup::createAnnotationMetadataConfiguration(
+                array(__DIR__."/../src")
+                , $settings['dev_mode']
+                , $settings['proxy_dir']
+                , $settings['cache_dir']
+                , $settings['useSimpleAnnotationReader']
+            );
+    
+            $connection = $settings['connection'];
+    
+            return EntityManager::create($connection, $config);
+        },
+
         LoggerInterface::class => function(ContainerInterface $container): Logger
         {
             $loggerSettings = $container->get('settings')['logger'];
@@ -78,71 +103,13 @@ return function(ContainerBuilder $builder)
             $logger->pushHandler($streamHandler);
 
             return $logger;
+        },
+
+        Mustache::class => function(ContainerInterface $container): Mustache
+        {
+            $options = $container->get('settings')['mustache'];
+
+            return new Mustache($options);
         }
     ]);
-
-    // $container->set('EntityManager', function(ContainerInterface $ci) {
-    //     $doctrineSettings = $ci->get('settings')['doctrine'];
-
-    //     $config = Setup::createAnnotationMetadataConfiguration(
-    //         array(__DIR__."/../src")
-    //         , $doctrineSettings['dev_mode']
-    //         , $doctrineSettings['proxy_dir']
-    //         , $doctrineSettings['cache_dir']
-    //         , $doctrineSettings['useSimpleAnnotationReader']
-    //     );
-
-    //     $connection = $doctrineSettings['connection'];
-
-    //     return EntityManager::create($connection, $config);
-    // });
-
-    // $container->set(EntityManager::class, function(ContainerInterface $ci) {
-    //     $doctrineSettings = $ci->get('settings')['doctrine'];
-        
-    //     $config = Setup::createAnnotationMetadataConfiguration(
-    //         array(__DIR__."/../src")
-    //         , $doctrineSettings['dev_mode']
-    //         , $doctrineSettings['proxy_dir']
-    //         , $doctrineSettings['cache_dir']
-    //         , $doctrineSettings['useSimpleAnnotationReader']
-    //     );
-
-    //     $connection = $doctrineSettings['connection'];
-
-    //     return EntityManager::create($connection, $config);
-    // });
-
-    // $container->set(NoteCreatorRepository::class, function($container) {
-    //     return new NoteCreatorRepository($container->get(EntityManager::class));
-    // });
-
-    // $container->set(NoteFinderRepository::class, function($container) {
-    //     return new NoteFinderRepository($container->get(EntityManager::class));
-    // });
-
-    // $container->set('logger', function(ContainerInterface $container): Logger
-    // {
-    //     $loggerSettings = $container->get('settings')['logger'];
-
-    //     $logger = new Logger($loggerSettings['name']);
-    //     $logger->pushProcessor(new UidProcessor);
-
-    //     $streamHandler = new StreamHandler($loggerSettings['path'], $loggerSettings['level']);
-    //     $logger->pushHandler($streamHandler);
-
-    //     return $logger;
-    // });
-
-    // $container->set('view', function(ContainerInterface $ci) {
-    //     $mustacheSettings = $ci->get('settings')['mustache'];
-
-    //     $options = $mustacheSettings['options'];
-
-    //     $viewPath = $mustacheSettings['viewPath'];
-
-    //     return new \Mustache_Engine([
-    //         'loader' => new \Mustache_Loader_FilesystemLoader($viewPath, $options),
-    //     ]);
-    // });
 };
