@@ -63,10 +63,12 @@ class CreateAction
      */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $data = $request->getParsedBody();
+        $formData = (array) $request->getParsedBody();
 
-        $this->contactCreator->createContact($data);
+        $lastInsertId = $this->contactCreator->createContact($formData);
         
-        return $response;
+        return $response
+            ->withHeader('Location', "/contact/read/$lastInsertId")
+            ->withStatus(302);
     }
 }
