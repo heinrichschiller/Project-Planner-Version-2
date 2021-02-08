@@ -27,13 +27,90 @@
 
 declare(strict_types=1);
 
+use App\Application\Actions\Calendar\CalendarAction;
+use App\Application\Actions\Contact\ContactAction;
+use App\Application\Actions\Contact\NewAction as ContactNewAction;
+use App\Application\Actions\Contact\ReadAction as ContactReadAction;
 use DI\ContainerBuilder;
+use Psr\Container\ContainerInterface;
+use App\Application\Actions\Dashboard\DashboardAction;
+use App\Application\Actions\Email\EmailAction;
+use App\Domain\Contact\Repository\ContactCreatorRepository;
+use App\Domain\Contact\Repository\ContactFinderRepository;
+use App\Domain\Contact\Repository\ContactReaderRepository;
+use App\Domain\Contact\Service\ContactFinder;
+use App\Domain\Contact\Service\ContactReader;
+use Doctrine\ORM\EntityManager;
+use Slim\Views\Mustache;
 
 return function(ContainerBuilder $builder)
 {
     $builder->addDefinitions([
 
-        // put your own dependencies here
+        CalendarAction::class => function(ContainerInterface $container): CalendarAction
+        {
+            return new CalendarAction(
+                $container->get(Mustache::class)
+            );
+        },
+
+        ContactAction::class => function(ContainerInterface $container): ContactAction
+        {
+            return new ContactAction(
+                $container->get(ContactFinder::class),
+                $container->get(Mustache::class)
+            );
+        },
+
+        ContactCreatorRepository::class => function(ContainerInterface $container): ContactCreatorRepository
+        {
+            return new ContactCreatorRepository(
+                $container->get(EntityManager::class)
+            );
+        },
+
+        ContactReadAction::class => function(ContainerInterface $container): ContactReadAction
+        {
+            return new ContactReadAction(
+                $container->get(ContactReader::class),
+                $container->get(Mustache::class)
+            );
+        },
+
+        ContactFinderRepository::class => function(ContainerInterface $container): ContactFinderRepository
+        {
+            return new ContactFinderRepository(
+                $container->get(EntityManager::class)
+            );
+        },
+
+        ContactNewAction::class => function(ContainerInterface $container): ContactNewAction
+        {
+            return new ContactNewAction(
+                $container->get(Mustache::class)
+            );
+        },
+
+        ContactReaderRepository::class => function(ContainerInterface $container): ContactReaderRepository
+        {
+            return new ContactReaderRepository(
+                $container->get(EntityManager::class)
+            );
+        },
+
+        DashboardAction::class => function(ContainerInterface $container): DashboardAction
+        {
+            return new DashboardAction(
+                $container->get(Mustache::class)
+            );
+        },
+
+        EmailAction::class => function(ContainerInterface $container): EmailAction
+        {
+            return new EmailAction(
+                $container->get(Mustache::class)
+            );
+        }
         
     ]);
 };
