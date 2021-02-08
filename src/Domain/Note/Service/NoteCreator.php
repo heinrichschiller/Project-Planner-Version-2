@@ -86,7 +86,7 @@ final class NoteCreator
             ->add('desc', [
                 'length' => [
                     'rule' => ['minLength', 10],
-                    'message' => 'Title need to be at least 3 characters long'
+                    'message' => 'Description need to be at least 10 characters long'
                 ]
             ])
             ->requirePresence([
