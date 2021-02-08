@@ -31,34 +31,23 @@ declare(strict_types = 1);
 namespace App\Domain\Contact\Repository;
 
 use Doctrine\ORM\EntityManager;
-use Psr\Container\ContainerInterface;
 
  class ContactFinderRepository
  {
     /**
      * @Injection
-     * @var ContainerInterface
+     * @var EntityManager
      */
-    private $ci;
+    private $entityManager;
 
     /**
      * The constructor
      * 
-     * @param ContainerInterface $ci
+     * @param EntityManager $entityManager
      */
-    public function __construct(ContainerInterface $ci)
+    public function __construct(EntityManager $entityManager)
     {
-        $this->ci = $ci;
-    }
-
-    /**
-     * Doctrine entity manager
-     * 
-     * @return EntityManager
-     */
-    private function entityManager(): EntityManager
-    {
-        return $this->ci->get('EntityManager');
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -68,7 +57,7 @@ use Psr\Container\ContainerInterface;
      */
     public function findAll(): array
     {
-        return $this->entityManager()
+        return $this->entityManager
             ->getRepository('Entities\Contact')
             ->findAll();
     }
