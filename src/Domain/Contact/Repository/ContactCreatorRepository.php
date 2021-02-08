@@ -30,7 +30,6 @@ declare(strict_types = 1);
 
 namespace App\Domain\Contact\Repository;
 
-use Psr\Container\ContainerInterface;
 use DateTime;
 use Doctrine\ORM\EntityManager;
 use Entities\Contact;
@@ -39,28 +38,18 @@ class ContactCreatorRepository
 {
     /**
      * @Injection
-     * @var ContainerInterface
+     * @var EntityManager
      */
-    private $ci;
+    private $entityManager;
 
     /**
      * The constructor
      * 
-     * @param ContainerInterface $ci
+     * @param EntityManager $entityManager
      */
-    public function __construct(ContainerInterface $ci)
+    public function __construct(EntityManager $entityManager)
     {
-        $this->ci = $ci;
-    }
-
-    /**
-     * EntityManager
-     * 
-     * @return EntityManager
-     */
-    private function entityManager(): EntityManager
-    {
-        return $this->ci->get('EntityManager');
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -70,14 +59,16 @@ class ContactCreatorRepository
      * 
      * @return void
      */
-    public function insertContact(array $data)
+    public function insertContact(array $data): int
     {
-        $newContact = new Contact;
+        $contact = new Contact;
 
-        $newContact->setDisplayName($data['name']);
-        $newContact->setCreatedAt(new DateTime('now'));
+        $contact->setDisplayName($data['display_name']);
+        $contact->setCreatedAt(new DateTime('now'));
 
-        $this->entityManager()->persist($newContact);
-        $this->entityManager()->flush();
+        $this->entityManager->persist($contact);
+        $this->entityManager->flush();
+
+        return $contact->getId();
     }
 }
