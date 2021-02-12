@@ -34,6 +34,7 @@ use App\Domain\Contact\Service\ContactReader;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Views\Mustache;
 
 class EditAction
 {
@@ -45,9 +46,9 @@ class EditAction
 
     /**
      * @Injection
-     * @var ContainerInterface
+     * @var Mustache
      */
-    private $ci;
+    private $view;
 
     /**
      * The constructor
@@ -55,10 +56,10 @@ class EditAction
      * @param ContactReader $contactReader
      * @param ContainerInterface $ci;
      */
-    public function __construct(ContactReader $contactReader, ContainerInterface $ci)
+    public function __construct(ContactReader $contactReader, Mustache $view)
     {
         $this->contactReader = $contactReader;
-        $this->ci = $ci;
+        $this->view = $view;
     }
 
     /**
@@ -74,8 +75,7 @@ class EditAction
     {
         $contact = $this->contactReader->readContact( (int) $args['id']);
 
-        $html = $this->ci->get('view')->render('contact/edit', $contact);
-        $response->getBody()->write($html);
+        $this->view->render($response, 'contact/edit', $contact);
 
         return $response;
     }
