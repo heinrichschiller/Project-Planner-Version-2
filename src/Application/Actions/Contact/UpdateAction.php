@@ -34,22 +34,41 @@ use App\Domain\Contact\Service\ContactUpdating;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-
 class UpdateAction
 {
+    /**
+     * @Injection
+     * @var ContactUpdating
+     */
     private ContactUpdating $contactUpdating;
 
+    /**
+     * The constructor
+     * 
+     * @param ContactUpdating $contactUpdating
+     */
     public function __construct(ContactUpdating $contactUpdating)
     {
         $this->contactUpdating = $contactUpdating;
     }
 
+    /**
+     * The invoker
+     * 
+     * @param Request $request
+     * @param Response $response
+     * @param array $args
+     * 
+     * @return Response
+     */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $data = $request->getParsedBody();
+        $formData = $request->getParsedBody();
 
-        $this->contactUpdating->contactUpdate($data);
+        $contactId = (int) $this->contactUpdating->contactUpdate($formData);
 
-        return $response;
+        return $response
+            ->withHeader('Location', "/contact/read/$contactId")
+            ->withStatus(302);
     }
 }
