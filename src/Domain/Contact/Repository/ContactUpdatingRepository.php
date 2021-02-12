@@ -30,7 +30,6 @@ declare(strict_types = 1);
 
 namespace App\Domain\Contact\Repository;
 
-use Psr\Container\ContainerInterface;
 use DateTime;
 use Doctrine\ORM\EntityManager;
 
@@ -38,45 +37,44 @@ class ContactUpdatingRepository
 {
     /**
      * @Injection
-     * @var ContainerInterface
+     * @var EntityManager
      */
-    private $ci;
-
-    public function __construct(ContainerInterface $ci)
-    {
-        $this->ci = $ci;
-    }
+    private $entityManager;
 
     /**
-     * Doctrine entity manager
+     * The constructor
      * 
-     * @return EntityManager
+     * @param EntityManager $entityManager Entity Manager
      */
-    private function entityManager(): EntityManager
+    public function __construct(EntityManager $entityManager)
     {
-        return $this->ci->get('EntityManager');
+        $this->entityManager = $entityManager;
     }
 
     /**
      * Update a contact
      * 
-     * @param array $data The form data.
+     * @param array $formData The form data.
+     * 
+     * @return int
      */
-    public function updateContact(array $data)
+    public function updateContact(array $formData): int
     {
-        $contact = $this->entityManager()
+        $contact = $this->entityManager
             ->getRepository('Entities\Contact')
-            ->find($data['id']);
+            ->find( (int) $formData['id']);
         
         if ( $contact === null ) {
-            echo "No contact found for the given id: {$data['id']}";
+            echo "No contact found for the given id: {$formData['id']}";
             exit(1);
         }
 
-        $contact->setDisplayName($data['name']);
+        $contact->setDisplayName($formData['display_name']);
         $contact->setUpdatedAt(new DateTime('now'));
-        
-        $this->entityManager()->persist($contact);
-        $this->entityManager()->flush();
+    
+        $this->entityManager->persist($contact);
+        $this->entityManager->flush();
+
+        return $contact->getId();
     }
 }
