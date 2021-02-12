@@ -29,6 +29,7 @@ declare(strict_types=1);
 
 use App\Application\Actions\Calendar\CalendarAction;
 use App\Application\Actions\Contact\ContactAction;
+use App\Application\Actions\Contact\EditAction as ContactEditAction;
 use App\Application\Actions\Contact\NewAction as ContactNewAction;
 use App\Application\Actions\Contact\ReadAction as ContactReadAction;
 use DI\ContainerBuilder;
@@ -38,6 +39,7 @@ use App\Application\Actions\Email\EmailAction;
 use App\Domain\Contact\Repository\ContactCreatorRepository;
 use App\Domain\Contact\Repository\ContactFinderRepository;
 use App\Domain\Contact\Repository\ContactReaderRepository;
+use App\Domain\Contact\Repository\ContactUpdatingRepository;
 use App\Domain\Contact\Service\ContactFinder;
 use App\Domain\Contact\Service\ContactReader;
 use Doctrine\ORM\EntityManager;
@@ -77,6 +79,14 @@ return function(ContainerBuilder $builder)
             );
         },
 
+        ContactEditAction::class => function(ContainerInterface $container): ContactEditAction
+        {
+            return new ContactEditAction(
+                $container->get(ContactReader::class),
+                $container->get(Mustache::class)
+            );
+        },
+
         ContactFinderRepository::class => function(ContainerInterface $container): ContactFinderRepository
         {
             return new ContactFinderRepository(
@@ -94,6 +104,13 @@ return function(ContainerBuilder $builder)
         ContactReaderRepository::class => function(ContainerInterface $container): ContactReaderRepository
         {
             return new ContactReaderRepository(
+                $container->get(EntityManager::class)
+            );
+        },
+
+        ContactUpdatingRepository::class => function(ContainerInterface $container): ContactUpdatingRepository
+        {
+            return new ContactUpdatingRepository(
                 $container->get(EntityManager::class)
             );
         },
