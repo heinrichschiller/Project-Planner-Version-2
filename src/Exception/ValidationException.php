@@ -35,8 +35,19 @@ use Throwable;
 
 final class ValidationException extends RuntimeException
 {
+    /**
+     * @var array<int> $errors
+     */
     private array $errors = [];
 
+    /**
+     * The constructor
+     * 
+     * @param string $message
+     * @param array<int> $errors
+     * @param int $code
+     * @param Throwable $previous
+     */
     public function __construct(
         string $message, 
         array $errors = [], 
@@ -48,6 +59,11 @@ final class ValidationException extends RuntimeException
         $this->errors = $errors;
     }
 
+    /**
+     * Get errors
+     * 
+     * @return array<int>
+     */
     public function getErrors(): array
     {
         return $this->errors;
