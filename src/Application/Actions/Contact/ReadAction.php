@@ -53,7 +53,7 @@ class ReadAction
      * The constructor
      * 
      * @param ContactReader $contactReader
-     * @param ContainerInterface $ci
+     * @param Mustache $view
      */
     public function __construct(ContactReader $contactReader, Mustache $view)
     {
