@@ -127,6 +127,9 @@ class Contact
      */ 
     public function setDisplayName(string $displayName)
     {
+        $displayName = trim($displayName, " \n\r\t\v\0");
+        $displayName = ucwords($displayName, " \n\r\t\f\v");
+        
         $this->displayName = $displayName;
     }
 
