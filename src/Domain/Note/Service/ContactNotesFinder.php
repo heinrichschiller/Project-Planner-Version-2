@@ -36,14 +36,14 @@ final class ContactNotesFinder
 {
     /**
      * @Injection
-     * @var NoteFinderRepository
+     * @var ContactNoteFinderRepository
      */
     private ContactNoteFinderRepository $repository;
 
     /**
      * The constructor
      * 
-     * @param ProjectNoteFinderRepository $repository
+     * @param ContactNoteFinderRepository $repository
      */
     public function __construct(ContactNoteFinderRepository $repository)
     {
