@@ -201,9 +201,9 @@ class Task
     /**
      * Get id
      *
-     * @return  int
+     * @return int
      */ 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -211,9 +211,9 @@ class Task
     /**
      * Get title
      *
-     * @return  string
+     * @return string
      */ 
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -221,9 +221,11 @@ class Task
     /**
      * Set title
      *
-     * @param  string  $title  Title
+     * @param string $title Title
+     * 
+     * @return void
      */ 
-    public function setTitle(string $title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
@@ -231,9 +233,9 @@ class Task
     /**
      * Get description
      *
-     * @return  string
+     * @return string
      */ 
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -241,9 +243,11 @@ class Task
     /**
      * Set description
      *
-     * @param  string  $description  Description
+     * @param string $description Description
+     * 
+     * @return void
      */ 
-    public function setDescription(string $description)
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
@@ -251,7 +255,7 @@ class Task
     /**
      * Get begin at
      *
-     * @return  string
+     * @return string
      */ 
     public function getBeginAt(): string
     {
@@ -260,6 +264,8 @@ class Task
 
     /**
      * Get the value of beginAt with DateTimeLocal-Format
+     * 
+     * @return string
      */
     public function getBeginAtDateTimeLocal(): string
     {
@@ -269,9 +275,11 @@ class Task
     /**
      * Set begin at
      *
-     * @param  string  $date  Begin at
+     * @param string $date Begin at
+     * 
+     * @return void
      */ 
-    public function setBeginAt(string $date)
+    public function setBeginAt(string $date): void
     {
         $dateTime = DateTime::createFromFormat('Y-m-d\TH:i', $date);
         
@@ -281,7 +289,7 @@ class Task
     /**
      * Get end at
      *
-     * @return  string
+     * @return string
      */ 
     public function getEndAt(): string
     {
@@ -290,6 +298,8 @@ class Task
 
     /**
      * Get the value of beginAt with DateTimeLocal-Format
+     * 
+     * @return string
      */
     public function getEndAtDateTimeLocal(): string
     {
@@ -299,9 +309,11 @@ class Task
     /**
      * Set end at
      *
-     * @param  string  $date  End at
+     * @param string $date End at
+     * 
+     * @return void
      */ 
-    public function setEndAt(string $date)
+    public function setEndAt(string $date): void
     {
         $dateTime = DateTime::createFromFormat('Y-m-d\TH:i', $date);
 
@@ -311,7 +323,7 @@ class Task
     /**
      * Get status id
      *
-     * @return  int
+     * @return int
      */ 
     public function getStatusId(): int
     {
@@ -321,9 +333,11 @@ class Task
     /**
      * Set status id
      *
-     * @param  int  $statusId  Status id
+     * @param int $statusId Status id
+     * 
+     * @return void
      */ 
-    public function setStatusId(int $statusId)
+    public function setStatusId(int $statusId): void
     {
         $this->statusId = $statusId;
     }
@@ -331,7 +345,7 @@ class Task
     /**
      * Get priority id
      *
-     * @return  int
+     * @return int
      */ 
     public function getPriorityId(): int
     {
@@ -341,9 +355,11 @@ class Task
     /**
      * Set priority id
      *
-     * @param  int  $priorityId  Priority id
+     * @param int $priorityId Priority id
+     * 
+     * @return void
      */ 
-    public function setPriorityId(int $priorityId)
+    public function setPriorityId(int $priorityId): void
     {
         $this->priorityId = $priorityId;
     }
@@ -351,7 +367,7 @@ class Task
     /**
      * Get contact id
      *
-     * @return  int
+     * @return int
      */ 
     public function getContactId(): int
     {
@@ -361,7 +377,7 @@ class Task
     /**
      * Get project id
      *
-     * @return  int
+     * @return int
      */ 
     public function getProjectId(): int
     {
@@ -381,9 +397,11 @@ class Task
     /**
      * Set created at
      *
-     * @param  null|DateTime  $createdAt  Created at
+     * @param null|DateTime $createdAt Created at
+     * 
+     * @return void
      */ 
-    public function setCreatedAt(?DateTime $createdAt)
+    public function setCreatedAt(?DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
@@ -407,9 +425,11 @@ class Task
     /**
      * Set updated at
      *
-     * @param  null|DateTime  $updatedAt  Updated at
+     * @param null|DateTime $updatedAt Updated at
+     * 
+     * @return void
      */ 
-    public function setUpdatedAt(?DateTime $updatedAt)
+    public function setUpdatedAt(?DateTime $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
     }
@@ -433,9 +453,11 @@ class Task
     /**
      * Set finished on
      * 
-     * @param null|DateTime $finishedOn 
+     * @param null|DateTime $finishedOn
+     * 
+     * @return void
      */
-    public function setFinishedOn(?DateTime $finishedOn)
+    public function setFinishedOn(?DateTime $finishedOn): void
     {
         $this->finishedOn = $finishedOn;
     }
@@ -459,9 +481,11 @@ class Task
     /**
      * Set discarded on
      * 
-     * @param null|DateTime $discardedOn 
+     * @param null|DateTime $discardedOn
+     * 
+     * @return void 
      */
-    public function setDiscardedOn(?DateTime $discardedOn)
+    public function setDiscardedOn(?DateTime $discardedOn): void
     {
         $this->discardedOn = $discardedOn;
     }
@@ -469,9 +493,9 @@ class Task
     /**
      * Get contact
      *
-     * @return  Contact
+     * @return Contact
      */ 
-    public function getContact()
+    public function getContact(): Contact
     {
         return $this->contact;
     }
@@ -479,9 +503,11 @@ class Task
     /**
      * Set contact
      *
-     * @param  Contact  $contact  Contact
+     * @param Contact $contact Contact
+     * 
+     * @return void
      */ 
-    public function setContact(Contact $contact)
+    public function setContact(Contact $contact): void
     {
         $contact->assignedToTask($this);
         
@@ -491,9 +517,9 @@ class Task
     /**
      * Get project
      *
-     * @return  Project
+     * @return Project
      */ 
-    public function getProject()
+    public function getProject(): Project
     {
         return $this->project;
     }
@@ -502,8 +528,10 @@ class Task
      * Set project
      *
      * @param Project $project Project
+     * 
+     * @return void
      */ 
-    public function setProject(Project $project)
+    public function setProject(Project $project): void
     {
         $project->assignedToTask($this);
         
@@ -513,9 +541,9 @@ class Task
     /**
      * Get status
      *
-     * @return  Status
+     * @return Status
      */ 
-    public function getStatus()
+    public function getStatus(): Status
     {
         return $this->status;
     }
@@ -523,9 +551,11 @@ class Task
     /**
      * Set status
      *
-     * @param  Status  $status  Status
+     * @param Status $status Status
+     * 
+     * @return void
      */ 
-    public function setStatus(Status $status)
+    public function setStatus(Status $status): void
     {
         $this->status = $status;
     }
@@ -533,9 +563,9 @@ class Task
     /**
      * Get priority
      *
-     * @return  Priority
+     * @return Priority
      */ 
-    public function getPriority()
+    public function getPriority(): Priority
     {
         return $this->priority;
     }
@@ -543,9 +573,11 @@ class Task
     /**
      * Set priority
      *
-     * @param  Priority  $priority  Priority
+     * @param Priority $priority Priority
+     * 
+     * @return void
      */ 
-    public function setPriority(Priority $priority)
+    public function setPriority(Priority $priority): void
     {
         $this->priority = $priority;
     }
