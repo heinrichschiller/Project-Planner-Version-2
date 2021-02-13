@@ -36,7 +36,7 @@ final class ProjectNotesFinder
 {
     /**
      * @Injection
-     * @var NoteFinderRepository
+     * @var ProjectNoteFinderRepository
      */
     private ProjectNoteFinderRepository $repository;
 
