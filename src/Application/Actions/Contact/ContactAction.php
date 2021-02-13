@@ -54,7 +54,7 @@ class ContactAction
      * The constructor
      * 
      * @param ContactFinder $contactFinder
-     * @param ContainerInterface $ci
+     * @param Mustache $view
      */
     public function __construct(ContactFinder $contactFinder, Mustache $view)
     {
