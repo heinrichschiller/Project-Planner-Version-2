@@ -62,9 +62,9 @@ final class ContactUpdating
     /**
      * Contact update
      * 
-     * @param array $data The form data
+     * @param array $formData The form data
      * 
-     * @return void
+     * @return int
      */
     public function contactUpdate(array $formData): int
     {
@@ -76,7 +76,7 @@ final class ContactUpdating
     /**
      * Input validation
      * 
-     * @param array $data The form data
+     * @param array $formData The form data
      */
     public function validateContact(array $formData)
     {
