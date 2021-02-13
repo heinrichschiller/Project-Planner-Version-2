@@ -33,6 +33,8 @@ namespace App\Domain\Contact\Service;
 use App\Domain\Contact\Repository\ContactCreatorRepository;
 use App\Exception\ValidationException;
 use Cake\Validation\Validator;
+use Exception;
+use Psr\Log\LoggerInterface;
 
 final class ContactCreator
 {
@@ -44,6 +46,12 @@ final class ContactCreator
 
     /**
      * @Injection
+     * @var LoggerInterface
+     */
+    private LoggerInterface $logger;
+
+    /**
+     * @Injection
      * @var Validator
      */
     private Validator $validator;
@@ -52,9 +60,15 @@ final class ContactCreator
      * The constructor
      * 
      * @param ContactCreatorRepository $repository The repository
+     * @param LoggerInterface $logger Monolog logger
+     * @param Validator $validator CakePHP5 Validator
      */
-    public function __construct(ContactCreatorRepository $repository, Validator $validator)
+    public function __construct(ContactCreatorRepository $repository,
+        LoggerInterface $logger,
+        Validator $validator
+    )
     {
+        $this->logger = $logger;
         $this->repository = $repository;
         $this->validator = $validator;
     }
@@ -62,15 +76,27 @@ final class ContactCreator
     /**
      * Create a new contact.
      * 
-     * @param array $data The form data
+     * @param array $formData The form data
      * 
      * @return int $lastInsertId
      */
     public function createContact(array $formData): int
     {
-        $this->validateNewContact($formData);
+        try {
 
-        return $this->repository->insertContact($formData);
+            $this->validateNewContact($formData);
+
+            $this->logger->info(sprintf('Contact created: %s', $formData['display_name']));
+
+            return $this->repository->insertContact($formData);
+
+        } catch (Exception $ex) {
+
+            $this->logger->error($ex->getMessage());
+
+            throw $ex;
+        }
+        
     }
 
     /**
