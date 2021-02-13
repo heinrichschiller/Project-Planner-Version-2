@@ -169,7 +169,7 @@ class Note
      *
      * @param string $desc Description of a notice
      * 
-     * @param void
+     * @return void
      */ 
     public function setDescription(string $desc): void
     {
@@ -201,7 +201,7 @@ class Note
     /**
      * Get the value of projectId
      * 
-     * @param int
+     * @return int
      */ 
     public function getProjectId(): int
     {
