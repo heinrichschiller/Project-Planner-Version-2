@@ -55,7 +55,8 @@ class ProjectTaskNoteFinderRepository
     /**
      * Find all notes by id.
      * 
-     * @param int $id Contact or project or task id
+     * @param int $projectId Project id
+     * @param int $taskId Task id
      * 
      * @return array Notes from id.
      */
