@@ -36,14 +36,14 @@ final class ProjectTaskNotesFinder
 {
     /**
      * @Injection
-     * @var NoteFinderRepository
+     * @var ProjectTaskNoteFinderRepository
      */
     private ProjectTaskNoteFinderRepository $repository;
 
     /**
      * The constructor
      * 
-     * @param NoteFinderRepository $repository
+     * @param ProjectTaskNoteFinderRepository $repository
      */
     public function __construct(ProjectTaskNoteFinderRepository $repository)
     {
@@ -53,7 +53,8 @@ final class ProjectTaskNotesFinder
     /**
      * Find all notes by id
      * 
-     * @param int $id Contact or project or task id
+     * @param int $projectId Project id of a note
+     * @param int $taskId Task id of a note
      * 
      * @return array Notes from id.
      */
