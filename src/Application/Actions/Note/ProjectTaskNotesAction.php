@@ -38,14 +38,14 @@ class ProjectTaskNotesAction
 {
     /**
      * @Injection
-     * @var ProjectNotesFinder
+     * @var ProjectTaskNotesFinder
      */
     private ProjectTaskNotesFinder $noteFinder;
 
     /**
      * The constructor
      * 
-     * @param ProjectNotesFinder $noteFinder
+     * @param ProjectTaskNotesFinder $noteFinder
      */
     public function __construct(ProjectTaskNotesFinder $noteFinder)
     {
