@@ -57,7 +57,7 @@ class ContactCreatorRepository
      * 
      * @param array $data The form data
      * 
-     * @return void
+     * @return int
      */
     public function insertContact(array $data): int
     {
@@ -69,6 +69,6 @@ class ContactCreatorRepository
         $this->entityManager->persist($contact);
         $this->entityManager->flush();
 
-        return $contact->getId();
+        return (int) $contact->getId();
     }
 }
