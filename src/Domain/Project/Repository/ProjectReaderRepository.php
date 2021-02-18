@@ -30,24 +30,24 @@ declare(strict_types = 1);
 
 namespace App\Domain\Project\Repository;
 
-use Psr\Container\ContainerInterface;
+use Doctrine\ORM\EntityManager;
 
 class ProjectReaderRepository
 {
     /**
      * @Injection
-     * @var ContainerInterface
+     * @var EntityManager
      */
-    private $ci;
+    private EntityManager $entityManager;
 
     /**
      * The constructor
      * 
-     * @param ContainerInterface $ci
+     * @param EntityManager $entityManager
      */
-    public function __construct(ContainerInterface $ci)
+    public function __construct(EntityManager $entityManager)
     {
-        $this->ci = $ci;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -59,7 +59,7 @@ class ProjectReaderRepository
      */
     public function readProject(int $id): Object
     {
-        return $this->ci->get('EntityManager')
+        return $this->entityManager
             ->createQueryBuilder()
             ->select('p, c')
             ->from('Entities\Project', 'p')
