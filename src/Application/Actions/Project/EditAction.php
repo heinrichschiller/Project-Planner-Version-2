@@ -33,17 +33,17 @@ namespace App\Application\Actions\Project;
 use App\Domain\Priority\Service\PriorityFinder;
 use App\Domain\Project\Service\ProjectReader;
 use App\Domain\Status\Service\StatusFinder;
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Views\Mustache;
 
 class EditAction
 {
     /**
      * @Injection
-     * @var ContainerInterface
+     * @var Mustache
      */
-    private $ci;
+    private Mustache $view;
 
     /**
      * @Injection
@@ -66,17 +66,17 @@ class EditAction
     /**
      * The constructor
      * 
-     * @param ContainerInterface $ci
+     * @param Mustache $view
      * @param PriorityFinder $priorityFinder
      * @param ProjectReader $projectReader
      * @param StatusFinder $statusFinder
      */
-    public function __construct(ContainerInterface $ci
+    public function __construct(Mustache $view
         , PriorityFinder $priorityFinder
         , ProjectReader $projectReader
         , StatusFinder $statusFinder)
     {
-        $this->ci = $ci;
+        $this->view = $view;
         $this->priorityFinder = $priorityFinder;
         $this->projectReader = $projectReader;
         $this->statusFinder = $statusFinder;
@@ -103,9 +103,7 @@ class EditAction
             'statusList' => $statusList
         ];
 
-        $html = $this->ci->get('view')->render('project/edit', $data);
-
-        $response->getBody()->write($html);
+        $this->view->render($response, 'project/edit', $data);
 
         return $response;
     }
