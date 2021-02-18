@@ -59,22 +59,6 @@ class Priority
      */
     private string $description = '';
 
-    /**
-     * @ORM\OneToMany(targetEntity="Project", mappedBy="priority")
-     */
-    private $projects;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Task", mappedBy="priority")
-     */
-    private $tasks;
-
-    public function __construct()
-    {
-        $this->projects = new ArrayCollection;
-        $this->tasks = new ArrayCollection;
-    }
-
     /*
     |----------------------------------------------------------------------------
     | Getter && Setter
@@ -84,7 +68,7 @@ class Priority
     /**
      * Get id
      *
-     * @return  integer
+     * @return int
      */ 
     public function getId()
     {
@@ -94,7 +78,7 @@ class Priority
     /**
      * Get description
      *
-     * @return  string
+     * @return string
      */ 
     public function getDescription()
     {
@@ -104,14 +88,10 @@ class Priority
     /**
      * Set description
      *
-     * @param  string  $description  Description
-     *
-     * @return  self
+     * @param string $description Description
      */ 
-    public function setDescription(string $description)
+    public function setDescription(string $description): void
     {
         $this->description = $description;
-
-        return $this;
     }
 }
