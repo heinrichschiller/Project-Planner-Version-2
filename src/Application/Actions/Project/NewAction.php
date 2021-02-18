@@ -33,17 +33,17 @@ namespace App\Application\Actions\Project;
 use App\Domain\Contact\Service\ContactFinder;
 use App\Domain\Priority\Service\PriorityFinder;
 use App\Domain\Status\Service\StatusFinder;
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Views\Mustache;
 
 class NewAction
 {
     /**
      * @Injection
-     * @var ContainerInterface
+     * @var Mustache
      */
-    private $ci;
+    private Mustache $view;
 
     /**
      * @Injection
@@ -66,19 +66,20 @@ class NewAction
     /**
      * The constructor
      * 
-     * @param ContainerInterface $ci
      * @param ContactFinder $contactFinder
      * @param PriorityFinder $priorityFinder
+     * @param StatusFinder $statusFinder
+     * @param Mustache $view
      */
     public function __construct(ContactFinder $contactFinder
         , PriorityFinder $priorityFinder
         , StatusFinder $statusFinder
-        , ContainerInterface $ci)
+        , Mustache $view)
     {
         $this->contactFinder = $contactFinder;
         $this->priorityFinder = $priorityFinder;
         $this->statusFinder = $statusFinder;
-        $this->ci = $ci;
+        $this->view = $view;
     }
 
     /**
@@ -102,9 +103,7 @@ class NewAction
             'statusList' => $statusList
         ];
 
-        $html = $this->ci->get('view')->render('project/new', $data);
-
-        $response->getBody()->write($html);
+        $this->view->render($response, 'project/new', $data);
 
         return $response;
     }
