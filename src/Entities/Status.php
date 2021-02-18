@@ -59,22 +59,6 @@ class Status
      */
     private string $description = '';
 
-    /**
-     * @ORM\OneToMany(targetEntity="Project", mappedBy="status")
-     */
-    private $projects;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Task", mappedBy="status")
-     */
-    private $tasks;
-
-    public function __construct()
-    {
-        $this->projects = new ArrayCollection;
-        $this->tasks = new ArrayCollection;
-    }
-
     /*
     |----------------------------------------------------------------------------
     | Getter && Setter
@@ -84,7 +68,7 @@ class Status
     /**
      * Get id
      *
-     * @return  integer
+     * @return int
      */ 
     public function getId()
     {
@@ -94,7 +78,7 @@ class Status
     /**
      * Get description
      *
-     * @return  string
+     * @return string
      */ 
     public function getDescription()
     {
@@ -104,15 +88,13 @@ class Status
     /**
      * Set description
      *
-     * @param  string  $description  Description
+     * @param string $description Description
      *
-     * @return  self
+     * @return void
      */ 
-    public function setDescription(string $description)
+    public function setDescription(string $description): void
     {
         $this->description = $description;
-
-        return $this;
     }
     
 }
