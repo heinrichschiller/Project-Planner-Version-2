@@ -30,24 +30,24 @@ declare(strict_types = 1);
 
 namespace App\Domain\Status\Repository;
 
-use Psr\Container\ContainerInterface;
+use Doctrine\ORM\EntityManager;
 
 class StatusFinderRepository
 {
     /**
      * @Injection
-     * @var ContainerInterface
+     * @var EntityManager
      */
-    private $ci;
+    private EntityManager $entityManager;
 
     /**
      * The constructor
      * 
      * @param ContainerInterface $ci
      */
-    public function __construct(ContainerInterface $ci)
+    public function __construct(EntityManager $entityManager)
     {
-        $this->ci = $ci;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -57,7 +57,7 @@ class StatusFinderRepository
      */
     public function findAll(): array
     {
-        return $this->ci->get('EntityManager')
+        return (array) $this->entityManager
             ->getRepository(('Entities\Status'))
             ->findAll();
     }
