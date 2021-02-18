@@ -31,16 +31,16 @@ declare(strict_types = 1);
 namespace App\Domain\Project\Repository;
 
 use DateTime;
+use Doctrine\ORM\EntityManager;
 use Entities\Project;
-use Psr\Container\ContainerInterface;
 
 class ProjectCreatorRepository
 {
     /**
      * @Injection
-     * @var ContainerInterface
+     * @var EntityManager
      */
-    private $ci;
+    private EntityManager $entityManager;
 
     /**
      * @Injection
@@ -51,12 +51,12 @@ class ProjectCreatorRepository
     /**
      * The constructor
      * 
-     * @param ContainerInterface $ci
+     * @param EntityManager $entityManager
      * @param Project $project
      */
-    public function __construct(ContainerInterface $ci, Project $project)
+    public function __construct(EntityManager $entityManager, Project $project)
     {
-        $this->ci = $ci;
+        $this->entityManager = $entityManager;
         $this->project = $project;
     }
 
@@ -75,7 +75,7 @@ class ProjectCreatorRepository
         $this->project->setEndAt($data['endAt']);
         $this->project->setCreatedAt(new DateTime('now'));
 
-        $contact = $this->ci->get('EntityManager')
+        $contact = $this->entityManager
             ->getRepository('Entities\Contact')
             ->find($data['contactId']);
 
@@ -86,7 +86,7 @@ class ProjectCreatorRepository
 
         $this->project->setContact($contact);
 
-        $status = $this->ci->get('EntityManager')
+        $status = $this->entityManager
             ->getRepository('Entities\Status')
             ->find($data['statusId']);
 
@@ -97,7 +97,7 @@ class ProjectCreatorRepository
 
         $this->project->setStatus($status);
 
-        $priority = $this->ci->get('EntityManager')
+        $priority = $this->entityManager
             ->getRepository('Entities\Priority')
             ->find($data['priorityId']);
 
@@ -108,8 +108,8 @@ class ProjectCreatorRepository
         
         $this->project->setPriority($priority);
 
-        $this->ci->get('EntityManager')->persist($this->project);
-        $this->ci->get('EntityManager')->flush();
+        $this->entityManager->persist($this->project);
+        $this->entityManager->flush();
 
         return $this->project->getId();
     }
