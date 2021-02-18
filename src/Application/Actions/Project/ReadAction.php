@@ -32,17 +32,17 @@ namespace App\Application\Actions\Project;
 
 use App\Domain\Project\Service\ProjectReader;
 use App\Domain\Project\Service\ProjectTaskReader;
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Views\Mustache;
 
 class ReadAction
 {
     /**
      * @Injection
-     * @var ContainerInterface
+     * @var Mustache
      */
-    private $ci;
+    private Mustache $view;
 
     /**
      * @Injection
@@ -59,15 +59,15 @@ class ReadAction
     /**
      * The constructor
      * 
-     * @param ContainerInterface $ci
+     * @param Mustache $view
      * @param ProjectReader $projectReader
      * @param ProjectTaskReader $projectTaskReader
      */
-    public function __construct(ContainerInterface $ci
+    public function __construct(Mustache $view
         , ProjectReader $projectReader
         , ProjectTaskReader $projectTaskReader)
     {
-        $this->ci = $ci;
+        $this->view = $view;
         $this->projectReader = $projectReader;
         $this->projectTaskReader = $projectTaskReader;
     }
@@ -92,9 +92,7 @@ class ReadAction
             'tasks'  => $taskList
         ];
 
-        $html = $this->ci->get('view')->render('project/read', $data);
-
-        $response->getBody()->write($html);
+        $this->view->render($response, 'project/read', $data);
 
         return $response;
     }
