@@ -31,17 +31,17 @@ declare(strict_types = 1);
 namespace App\Application\Actions\Project;
 
 use App\Domain\Project\Service\ProjectFinder;
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Views\Mustache;
 
 class ProjectAction
 {
     /**
      * @Injection
-     * @var ContainerInterface
+     * @var Mustache
      */
-    private $ci;
+    private $view;
 
     /**
      * @Injection
@@ -52,12 +52,12 @@ class ProjectAction
     /**
      * The constructor
      * 
-     * @param ContainerInterface $ci
+     * @param Mustache $view
      * @param ProjectFinder $projectFinder
      */
-    public function __construct(ContainerInterface $ci, ProjectFinder $projectFinder)
+    public function __construct(Mustache $view, ProjectFinder $projectFinder)
     {
-        $this->ci = $ci;
+        $this->view = $view;
         $this->projectFinder = $projectFinder;
     }
 
@@ -72,7 +72,7 @@ class ProjectAction
      */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $projects = $this->projectFinder->findAll();
+        $projects = (array) $this->projectFinder->findAll();
 
         $hasProjects = !empty($projects) ? true : false;
 
@@ -81,9 +81,7 @@ class ProjectAction
             'hasProjects' => $hasProjects
         ];
 
-        $html = $this->ci->get('view')->render('project/index', $data);
-
-        $response->getBody()->write($html);
+        $this->view->render($response, 'project/index', $data);
 
         return $response;
     }
