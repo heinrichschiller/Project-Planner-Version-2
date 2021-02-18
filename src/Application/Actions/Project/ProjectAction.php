@@ -41,7 +41,7 @@ class ProjectAction
      * @Injection
      * @var Mustache
      */
-    private $view;
+    private Mustache $view;
 
     /**
      * @Injection
