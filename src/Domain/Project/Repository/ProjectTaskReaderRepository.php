@@ -30,20 +30,36 @@ declare(strict_types = 1);
 
 namespace App\Domain\Project\Repository;
 
-use Psr\Container\ContainerInterface;
+use Doctrine\ORM\EntityManager;
 
 class ProjectTaskReaderRepository
 {
-    private $ci;
+    /**
+     * @Injection
+     * @var EntityMananger
+     */
+    private $entityManager;
 
-    public function __construct(ContainerInterface $ci)
+    /**
+     * The constructor
+     * 
+     * @param EntityManager $entityManager
+     */
+    public function __construct(EntityManager $entityManager)
     {
-        $this->ci = $ci;
+        $this->entityManager = $entityManager;
     }
 
+    /**
+     * Read a project task by id
+     * 
+     * @param int $id Id of a project task
+     * 
+     * @return array
+     */
     public function readProjectTask(int $id): array
     {
-        return $this->ci->get('EntityManager')
+        return (array) $this->entityManager
             ->createQueryBuilder()
             ->select('t')
             ->from('Entities\Task', 't')
