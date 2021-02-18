@@ -30,24 +30,24 @@ declare(strict_types = 1);
 
 namespace App\Domain\Project\Repository;
 
-use Psr\Container\ContainerInterface;
+use Doctrine\ORM\EntityManager;
 
 class ProjectFinderRepository
 {
     /**
      * @Injection
-     * @var ContainerInterface
+     * @var EntityManager
      */
-    private $ci;
+    private $entityManager;
 
     /**
      * The constructor
      * 
-     * @param ContainerInterface $ci
+     * @param EntityManager
      */
-    public function __construct(ContainerInterface $ci)
+    public function __construct(EntityManager $entityManager)
     {
-        $this->ci = $ci;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -55,9 +55,9 @@ class ProjectFinderRepository
      * 
      * @return array
      */
-    public function findAll()
+    public function findAll(): array
     {
-        return $this->ci->get('EntityManager')
+        return (array) $this->entityManager
             ->createQueryBuilder()
             ->select('p, c')
             ->from('Entities\Project', 'p')
