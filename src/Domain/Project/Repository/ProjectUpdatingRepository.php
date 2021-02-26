@@ -31,59 +31,62 @@ declare(strict_types = 1);
 namespace App\Domain\Project\Repository;
 
 use DateTime;
+use Doctrine\ORM\EntityManager;
 use Psr\Container\ContainerInterface;
 
 class ProjectUpdatingRepository
 {
     /**
      * @Injection
-     * @var ContainerInterface
+     * @var EntityManager
      */
-    private $ci;
+    private EntityManager $entityManager;
 
     /**
      * The constructor
      * 
-     * @param ContainerInterface $ci
+     * @param EntityManager $entityManager
      */
-    public function __construct(ContainerInterface $ci)
+    public function __construct(EntityManager $entityManager)
     {
-        $this->ci = $ci;
+        $this->entityManager = $entityManager;
     }
 
     /**
      * Updating project data
      * 
-     * @param array $data The form data
+     * @param array $formData The form data
+     * 
+     * @return void
      */
-    public function updateProject(array $data)
+    public function updateProject(array $formData): void
     {
-        $project = $this->ci->get('EntityManager')
+        $project = $this->entityManager
             ->getRepository('Entities\Project')
-            ->find( (int) $data['id']);
+            ->find( (int) $formData['id']);
 
-        if ( $project === null ) {
-            echo "No project found for the given id: {$data['id']}";
+        if ( null === $project ) {
+            echo "No project found for the given id: {$formData['id']}";
             exit(1);
         }
 
-        $project->setTitle($data['title']);
-        $project->setDescription($data['desc']);
-        $project->setBeginAt($data['beginAt']);
-        $project->setEndAt($data['endAt']);
-        $project->setStatusId( (int) $data['statusId']);
-        $project->setPriorityId( (int) $data['priorityId']);
+        $project->setTitle($formData['title']);
+        $project->setDescription($formData['desc']);
+        $project->setBeginAt($formData['beginAt']);
+        $project->setEndAt($formData['endAt']);
+        $project->setStatusId( (int) $formData['statusId']);
+        $project->setPriorityId( (int) $formData['priorityId']);
         $project->setUpdatedAt(new DateTime('now'));
 
-        if( 5 === (int) $data['statusId'] ) {
+        if( 5 === (int) $formData['statusId'] ) {
             $project->setFinishedOn(new DateTime('now'));
         }
 
-        if( 6 === (int) $data['statusId'] ) {
+        if( 6 === (int) $formData['statusId'] ) {
             $project->setDiscardedOn(new DateTime('now'));
         }
 
-        $this->ci->get('EntityManager')->persist($project);
-        $this->ci->get('EntityManager')->flush();
+        $this->entityManager->persist($project);
+        $this->entityManager->flush();
     }
 }
