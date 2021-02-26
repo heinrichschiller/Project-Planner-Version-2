@@ -32,9 +32,18 @@ namespace App\Domain\Project\Service;
 
 use App\Domain\Project\Repository\ProjectCreatorRepository;
 use App\Exception\ValidationException;
+use Cake\Validation\Validator;
+use Exception;
+use Psr\Log\LoggerInterface;
 
 final class ProjectCreator
 {
+    /**
+     * @Injection
+     * @var LoggerInterface
+     */
+    private LoggerInterface $logger;
+
     /**
      * @Injection
      * @var ProjectCreatorRepository
@@ -42,13 +51,26 @@ final class ProjectCreator
     private ProjectCreatorRepository $repository;
 
     /**
+     * @Injection
+     * @var Validator
+     */
+    private Validator $validator;
+
+    /**
      * The construct
      * 
      * @param ProjectCreatorRepository $repository
+     * @param LoggerInterface $logger Monolog logger
+     * @param Validator $validator CakePHP Velidator
      */
-    public function __construct(ProjectCreatorRepository $repository)
+    public function __construct(
+        ProjectCreatorRepository $repository, 
+        LoggerInterface $logger, 
+        Validator $validator)
     {
         $this->repository = $repository;
+        $this->logger = $logger;
+        $this->validator = $validator;
     }
 
     /**
@@ -60,9 +82,17 @@ final class ProjectCreator
      */
     public function createProject(array $formData): int
     {
-        $this->validateNewProject($formData);
+        try {
+            $this->validateNewProject($formData);
 
-        return $this->repository->createProject($formData);
+            $this->logger->info(sprintf('Project created: %s', $formData['title']));
+
+            return $this->repository->createProject($formData);
+        } catch (Exception $ex) {
+            $this->logger->error($ex->getMessage());
+
+            throw $ex;
+        }
     }
 
     /**
@@ -74,47 +104,38 @@ final class ProjectCreator
      * 
      * @return void
      */
-    public function validateNewProject(array $data)
+    public function validateNewProject(array $formData)
     {
-        $errors = [];
+        $this->validator
+            ->requirePresence('title')
+            ->notEmptyString('title')
+            ->add('title', [
+                'length' => [
+                    'rule' => ['minLength', 10],
+                    'message' => 'Title need to be at least 10 characters long'
+                ]
+            ])->requirePresence('desc')
+            ->notEmptyString('desc')
+            ->add('desc', [
+                'length' => [
+                    'rule' => ['minLength', 100],
+                    'message' => 'Description need to be at least 100 charachters long'
+                ]
+            ])->requirePresence('beginAt')
+            ->notEmptyTime('beginAt')
+            ->requirePresence('endAt')
+            ->notEmptyTime('endAt')
+            ->requirePresence('statusId')
+            ->notEmptyString('statusId')
+            ->requirePresence('priorityId')
+            ->notEmptyString('priorityId')
+            ->requirePresence('id')
+            ->notEmptyString('id');
 
-        if( empty($data['title']) ) {
-            $errors['title'] = 'Input required.';
-        }
-
-        if( empty($data['desc']) ) {
-            $errors['description'] = 'Input required.';
-        }
-
-        if( empty($data['beginAt']) ) {
-            $errors['beginAt'] = 'Input required.';
-        }
-
-        if( empty($data['endAt']) ) {
-            $errors['endAt'] = 'Input required.';
-        }
-
-        if( empty($data['statusId']) ) {
-            $errors['statusId'] = 'Status id is empty.';
-        } elseif ( false === filter_var($data['statusId'], FILTER_VALIDATE_INT) ) {
-            $errors['statusId'] = 'Id is not a number.';
-        }
-
-        if( empty($data['priorityId']) ) {
-            $errors = 'Priority id is empty.';
-        } elseif ( false === filter_var($data['priorityId'], FILTER_VALIDATE_INT) ) {
-            $errors['priorityId'] = 'Id is not a number.';
-        }
-
-        if( empty($data['contactId']) ) {
-            $errors = 'Contact id is empty';
-        } elseif ( false === filter_var($data['contactId'], FILTER_VALIDATE_INT) ) {
-            $errors['contactId'] = 'Id is not a number.';
-        }
+        $errors = $this->validator->validate( $formData );
 
         if ( $errors ) {
             throw new ValidationException('Please check your inputs: ', $errors);
         }
-
     }
 }
