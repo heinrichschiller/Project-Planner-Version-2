@@ -16,14 +16,19 @@
                     <div class="header">
                         <div class="title-bar">
                             <h1>Projekt -</h1>
-                            <input type="text" name="title" value="{{title}}" id="" class="form-control borderless header-title" placeholder="Hier neuen Titel eintragen">
+                            <input type="text" 
+                                name="title" 
+                                value="{{title}}" 
+                                class="form-control borderless header-title" 
+                                placeholder="Hier neuen Titel eintragen"
+                                required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="desc" class="col-form-label">Beschreibung:</label>
                         <div>
-                            <textarea class="form-control" name="desc" id="desc" cols="30" rows="10"></textarea>
+                            <textarea class="form-control" name="desc" id="desc" cols="30" rows="10" required></textarea>
                         </div>
                     </div>
 
@@ -31,11 +36,11 @@
                         <div class="row">
                             <div class="col">
                                 <label for="inputTaskBegin">Anfang:</label>
-                                <input type="datetime-local" name="beginAt" id="inputTaskBegin" class="form-control">
+                                <input type="datetime-local" name="beginAt" id="inputTaskBegin" class="form-control" required>
                             </div>
                             <div class="col">
                                 <label for="inputTaskEnd">Ende:</label>
-                                <input type="datetime-local" name="endAt" id="inputTaskEnd" class="form-control">
+                                <input type="datetime-local" name="endAt" id="inputTaskEnd" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -44,8 +49,8 @@
                         <div class="row">
                             <div class="col">
                                 <label for="inputStatus">Status:</label>
-                                <select name="statusId" id="inputStatus" class="form-control">
-                                    <option selected>Bitte auswählen...</option>
+                                <select name="statusId" id="inputStatus" class="form-control" required>
+                                    <option value="" selected>Bitte auswählen...</option>
                                     {{# statusList }}
                                     <option value="{{ getId }}">{{ getId }} {{ getDescription }}</option>
                                     {{/ statusList }}
@@ -53,8 +58,8 @@
                             </div>
                             <div class="col">
                                 <label for="inputPriority">Priorität:</label>
-                                <select name ="priorityId" id="inputPriority" class="form-control">
-                                    <option selected>Bitte auswählen...</option>
+                                <select name ="priorityId" id="inputPriority" class="form-control" required>
+                                    <option value="" selected>Bitte auswählen...</option>
                                     {{# priorityList }}
                                     <option value="{{ getId }}">{{ getId }}  {{ getDescription }}</option>
                                     {{/ priorityList }}
@@ -67,8 +72,8 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="inputContact">Kontakt:</label>
-                                <select name="contactId" id="inputContact" class="form-control">
-                                    <option selected>Bitte auswählen...</option>
+                                <select name="contactId" id="inputContact" class="form-control" required>
+                                    <option value="" selected>Bitte auswählen...</option>
                                     {{# contactList }}
                                     <option value="{{ getId }}">{{ getId}} {{ getDisplayName }}</option>
                                     {{/ contactList }}
