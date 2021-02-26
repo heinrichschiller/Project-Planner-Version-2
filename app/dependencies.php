@@ -36,13 +36,35 @@ use DI\ContainerBuilder;
 use Psr\Container\ContainerInterface;
 use App\Application\Actions\Dashboard\DashboardAction;
 use App\Application\Actions\Email\EmailAction;
+use App\Application\Actions\Project\EditAction as ProjectEditAction;
+use App\Application\Actions\Project\NewAction as ProjectNewAction;
+use App\Application\Actions\Project\ProjectAction;
+use App\Application\Actions\Project\ReadAction as ProjectReadAction;
 use App\Domain\Contact\Repository\ContactCreatorRepository;
 use App\Domain\Contact\Repository\ContactFinderRepository;
 use App\Domain\Contact\Repository\ContactReaderRepository;
 use App\Domain\Contact\Repository\ContactUpdatingRepository;
+use App\Domain\Contact\Service\ContactCreator;
 use App\Domain\Contact\Service\ContactFinder;
 use App\Domain\Contact\Service\ContactReader;
+use App\Domain\Priority\Repository\PriorityFinderRepository;
+use App\Domain\Priority\Service\PriorityFinder;
+use App\Domain\Project\Repository\ProjectCreatorRepository;
+use App\Domain\Project\Repository\ProjectFinderRepository;
+use App\Domain\Project\Repository\ProjectReaderRepository;
+use App\Domain\Project\Repository\ProjectTaskReaderRepository;
+use App\Domain\Project\Repository\ProjectUpdatingRepository;
+use App\Domain\Project\Service\ProjectCreator;
+use App\Domain\Project\Service\ProjectFinder;
+use App\Domain\Project\Service\ProjectReader;
+use App\Domain\Project\Service\ProjectTaskReader;
+use App\Domain\Project\Service\ProjectUpdating;
+use App\Domain\Status\Repository\StatusFinderRepository;
+use App\Domain\Status\Service\StatusFinder;
+use Cake\Validation\Validator;
 use Doctrine\ORM\EntityManager;
+use Entities\Project;
+use Psr\Log\LoggerInterface;
 use Slim\Views\Mustache;
 
 return function(ContainerBuilder $builder)
@@ -61,6 +83,15 @@ return function(ContainerBuilder $builder)
             return new ContactAction(
                 $container->get(ContactFinder::class),
                 $container->get(Mustache::class)
+            );
+        },
+
+        ContactCreator::class => function(ContainerInterface $container): ContactCreator
+        {
+            return new ContactCreator(
+                $container->get(ContactCreatorRepository::class),
+                $container->get(LoggerInterface::class),
+                $container->get(Validator::class)
             );
         },
 
@@ -127,7 +158,129 @@ return function(ContainerBuilder $builder)
             return new EmailAction(
                 $container->get(Mustache::class)
             );
+        },
+
+        /*
+        |----------------------------------------------------------------------------
+        | Project dependencies
+        |----------------------------------------------------------------------------
+        */
+
+        ProjectAction::class => function(ContainerInterface $container): ProjectAction
+        {
+            return new ProjectAction(
+                $container->get(Mustache::class),
+                $container->get(ProjectFinder::class)
+            );
+        },
+
+        ProjectNewAction::class => function(ContainerInterface $container): ProjectNewAction
+        {
+            return new ProjectNewAction(
+                $container->get(ContactFinder::class),
+                $container->get(PriorityFinder::class),
+                $container->get(StatusFinder::class),
+                $container->get(Mustache::class)
+            );
+        },
+
+        ProjectReadAction::class => function(ContainerInterface $container): ProjectReadAction
+        {
+            return new ProjectReadAction(
+                $container->get(Mustache::class),
+                $container->get(ProjectReader::class),
+                $container->get(ProjectTaskReader::class)
+            );
+        },
+
+        ProjectEditAction::class => function(ContainerInterface $container): ProjectEditAction
+        {
+            return new ProjectEditAction(
+                $container->get(Mustache::class),
+                $container->get(PriorityFinder::class),
+                $container->get(ProjectReader::class),
+                $container->get(StatusFinder::class)
+            );
+        },
+
+        ProjectCreatorRepository::class => function(ContainerInterface $container): ProjectCreatorRepository
+        {
+            return new ProjectCreatorRepository(
+                $container->get(EntityManager::class),
+                $container->get(Project::class)
+            );
+        },
+
+        ProjectCreator::class => function(ContainerInterface $container): ProjectCreator
+        {
+            return new ProjectCreator(
+                $container->get(ProjectCreatorRepository::class),
+                $container->get(LoggerInterface::class),
+                $container->get(Validator::class)
+            );
+        },
+
+        ProjectFinderRepository::class => function(ContainerInterface $container): ProjectFinderRepository
+        {
+            return new ProjectFinderRepository(
+                $container->get(EntityManager::class)
+            );
+        },
+
+        ProjectReaderRepository::class => function(ContainerInterface $container): ProjectReaderRepository
+        {
+            return new ProjectReaderRepository(
+                $container->get(EntityManager::class)
+            );
+        },
+
+        ProjectTaskReaderRepository::class => function(ContainerInterface $container): ProjectTaskReaderRepository
+        {
+            return new ProjectTaskReaderRepository(
+                $container->get(EntityManager::class)
+            );
+        },
+
+        ProjectUpdatingRepository::class => function(ContainerInterface $container): ProjectUpdatingRepository
+        {
+            return new ProjectUpdatingRepository(
+                $container->get(EntityManager::class)
+            );
+        },
+
+        ProjectUpdating::class => function(ContainerInterface $container): ProjectUpdating
+        {
+            return new ProjectUpdating(
+                $container->get(ProjectUpdatingRepository::class),
+                $container->get(LoggerInterface::class),
+                $container->get(Validator::class)
+            );
+        },
+
+        /*
+        |----------------------------------------------------------------------------
+        | Status dependencies
+        |----------------------------------------------------------------------------
+        */
+
+        PriorityFinderRepository::class => function(ContainerInterface $container): PriorityFinderRepository
+        {
+            return new PriorityFinderRepository(
+                $container->get(EntityManager::class)
+            );
+        },
+
+        /*
+        |----------------------------------------------------------------------------
+        | Status dependencies
+        |----------------------------------------------------------------------------
+        */
+
+        StatusFinderRepository::class => function(ContainerInterface $container): StatusFinderRepository
+        {
+            return new StatusFinderRepository(
+                $container->get(EntityManager::class)
+            );
         }
-        
     ]);
 };
