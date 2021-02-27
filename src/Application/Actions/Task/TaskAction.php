@@ -31,17 +31,17 @@ declare(strict_types = 1);
 namespace App\Application\Actions\Task;
 
 use App\Domain\Task\Service\TaskFinder;
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Views\Mustache;
 
 class TaskAction
 {
     /**
      * @Injection
-     * @var ContainerInterface
+     * @var Mustache
      */
-    private $ci;
+    private Mustache $view;
 
     /**
      * @Injection
@@ -52,13 +52,13 @@ class TaskAction
     /**
      * The constructor
      * 
-     * @param ContainerInterface $ci
      * @param TaskFinder $taskFinder
+     * @param Mustache $view Mustache engine
      */
-    public function __construct(ContainerInterface $ci, TaskFinder $taskFinder)
+    public function __construct(TaskFinder $taskFinder, Mustache $view)
     {
-        $this->ci = $ci;
         $this->taskFinder = $taskFinder;
+        $this->view = $view;
     }
 
     /**
@@ -81,9 +81,7 @@ class TaskAction
             'hasTasks' => $hasTasks
         ];
 
-        $html = $this->ci->get('view')->render('task/index', $data);
-
-        $response->getBody()->write($html);
+        $this->view->render($response, 'task/index', $data);
 
         return $response;
     }
