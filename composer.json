@@ -19,7 +19,7 @@
         "php-di/php-di": "6.3.*",
         "cakephp/validation": "4.2.*",
         "monolog/monolog": "2.2.*",
-        "heinrichschiller/slim4-mustache-view": "dev-main"
+        "heinrichschiller/slim4-mustache-view": "^1.0.1"
     },
     "autoload": {
         "psr-0": {
@@ -43,7 +43,7 @@
         "phpstan/phpstan": "0.12.x-dev"
     },
     "scripts": {
-        "start": "php -S localhost:8080 -t public",
+        "serve": "php -S localhost:8080 -t public",
         "phpstan": "phpstan analyse",
         "phpunit": "phpunit"
     }
