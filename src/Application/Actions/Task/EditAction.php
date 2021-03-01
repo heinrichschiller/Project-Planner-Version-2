@@ -33,18 +33,12 @@ namespace App\Application\Actions\Task;
 use App\Domain\Priority\Service\PriorityFinder;
 use App\Domain\Status\Service\StatusFinder;
 use App\Domain\Task\Service\TaskReader;
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Views\Mustache;
 
 class EditAction
 {
-    /**
-     * @Injection
-     * @var ContainerInterface
-     */
-    private $ci;
-
     /**
      * @Injection
      * @var PriorityFinder
@@ -64,22 +58,29 @@ class EditAction
     private TaskReader $taskReader;
 
     /**
+     * @Injection
+     * @var Mustache
+     */
+    private Mustache $view;
+
+    /**
      * The constructor
      * 
-     * @param ContainerInterface $ci
      * @param PriorityFinder $priorityFinder
      * @param StatusFinder $statusFinder
      * @param TaskReader $taskReader
+     * @param Mustache $view Mustache engine
      */
-    public function __construct(ContainerInterface $ci,
+    public function __construct(
         PriorityFinder $priorityFinder,
         StatusFinder $statusFinder,
-        TaskReader $taskReader)
+        TaskReader $taskReader,
+        Mustache $view)
     {
-        $this->ci = $ci;
         $this->priorityFinder = $priorityFinder;
         $this->statusFinder = $statusFinder;
         $this->taskReader = $taskReader;
+        $this->view = $view;
     }
 
     /**
@@ -103,8 +104,7 @@ class EditAction
             'task' => $task
         ];
 
-        $html = $this->ci->get('view')->render('task/edit', $data);
-        $response->getBody()->write($html);
+        $this->view->render($response, 'task/edit', $data);
         
         return $response;
     }
