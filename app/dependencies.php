@@ -40,6 +40,7 @@ use App\Application\Actions\Project\EditAction as ProjectEditAction;
 use App\Application\Actions\Project\NewAction as ProjectNewAction;
 use App\Application\Actions\Project\ProjectAction;
 use App\Application\Actions\Project\ReadAction as ProjectReadAction;
+use App\Application\Actions\Task\TaskAction;
 use App\Domain\Contact\Repository\ContactCreatorRepository;
 use App\Domain\Contact\Repository\ContactFinderRepository;
 use App\Domain\Contact\Repository\ContactReaderRepository;
@@ -61,6 +62,8 @@ use App\Domain\Project\Service\ProjectTaskReader;
 use App\Domain\Project\Service\ProjectUpdating;
 use App\Domain\Status\Repository\StatusFinderRepository;
 use App\Domain\Status\Service\StatusFinder;
+use App\Domain\Task\Repository\TaskFinderRepository;
+use App\Domain\Task\Service\TaskFinder;
 use Cake\Validation\Validator;
 use Doctrine\ORM\EntityManager;
 use Entities\Project;
@@ -259,7 +262,7 @@ return function(ContainerBuilder $builder)
 
         /*
         |----------------------------------------------------------------------------
-        | Status dependencies
+        | Priority dependencies
         |----------------------------------------------------------------------------
         */
 
@@ -279,6 +282,27 @@ return function(ContainerBuilder $builder)
         StatusFinderRepository::class => function(ContainerInterface $container): StatusFinderRepository
         {
             return new StatusFinderRepository(
+                $container->get(EntityManager::class)
+            );
+        },
+
+        /*
+        |----------------------------------------------------------------------------
+        | Task dependencies
+        |----------------------------------------------------------------------------
+        */
+
+        TaskAction::class => function(ContainerInterface $container): TaskAction
+        {
+            return new TaskAction(
+                $container->get(TaskFinder::class),
+                $container->get(Mustache::class),
+            );
+        },
+
+        TaskFinderRepository::class => function(ContainerInterface $container): TaskFinderRepository
+        {
+            return new TaskFinderRepository(
                 $container->get(EntityManager::class)
             );
         }
