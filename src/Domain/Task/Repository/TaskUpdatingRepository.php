@@ -31,20 +31,24 @@ declare(strict_types = 1);
 namespace App\Domain\Task\Repository;
 
 use DateTime;
-use Psr\Container\ContainerInterface;
+use Doctrine\ORM\EntityManager;
 
 class TaskUpdatingRepository
 {
-    private $ci;
+    /**
+     * @Injection
+     * @var EntityManager
+     */
+    private EntityManager $entityManager;
 
-    public function __construct(ContainerInterface $ci)
+    public function __construct(EntityManager $entityManager)
     {
-        $this->ci = $ci;
+        $this->entityManager = $entityManager;
     }
 
     public function updateTask(array $data)
     {
-        $task = $this->ci->get('EntityManager')
+        $task = $this->entityManager
             ->getRepository('Entities\Task')
             ->find( (int) $data['id']);
 
@@ -69,7 +73,7 @@ class TaskUpdatingRepository
             $task->setDiscardedOn(new DateTime('now'));
         }
 
-        $this->ci->get('EntityManager')->persist($task);
-        $this->ci->get('EntityManager')->flush();
+        $this->entityManager->persist($task);
+        $this->entityManager->flush();
     }
 }
