@@ -34,18 +34,12 @@ use App\Domain\Contact\Service\ContactFinder;
 use App\Domain\Priority\Service\PriorityFinder;
 use App\Domain\Project\Service\ProjectFinder;
 use App\Domain\Status\Service\StatusFinder;
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Views\Mustache;
 
 class NewAction
 {
-    /**
-     * @Injection
-     * @var ContainerInterface
-     */
-    private $ci;
-
     /**
      * @Injection
      * @var ContactFinder
@@ -71,25 +65,31 @@ class NewAction
     private StatusFinder $statusFinder;
 
     /**
+     * @Injection
+     * @var Mustache
+     */
+    private Mustache $view;
+
+    /**
      * The constructor
      * 
-     * @param ContainerInterface $ci
      * @param ContactFinder $contactFinder
      * @param ProjectFinder $projectFinder
      * @param PriorityFinder $priorityFinder
      * @param StatusFinder $statusFinder
+     * @param Mustache $view Mustache engine
      */
-    public function __construct(ContainerInterface $ci,
-        ContactFinder $contactFinder,
+    public function __construct(ContactFinder $contactFinder,
         ProjectFinder $projectFinder,
         PriorityFinder $priorityFinder,
-        StatusFinder $statusFinder)
+        StatusFinder $statusFinder,
+        Mustache $view)
     {
-        $this->ci = $ci;
         $this->contactFinder = $contactFinder;
         $this->priorityFinder = $priorityFinder;
         $this->projectFinder = $projectFinder;
         $this->statusFinder = $statusFinder;
+        $this->view = $view;
     }
 
     /**
@@ -101,7 +101,7 @@ class NewAction
      * 
      * @return Response
      */
-    public function __invoke(Request $request, Response $response, $args = []): Response
+    public function __invoke(Request $request, Response $response, array $args = []): Response
     {
         $contactList = $this->contactFinder->findAll();
         $priorityList = $this->priorityFinder->findAll();
@@ -115,8 +115,7 @@ class NewAction
             'projectList' => $projectList
         ];
         
-        $html = $this->ci->get('view')->render('task/new', $data);
-        $response->getBody()->write($html);
+        $this->view->render($response, 'task/new', $data);
 
         return $response;
     }
