@@ -31,18 +31,12 @@ declare(strict_types = 1);
 namespace App\Application\Actions\Task;
 
 use App\Domain\Task\Service\TaskReader;
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Views\Mustache;
 
 class ReadAction
 {
-    /**
-     * @Injection
-     * @var ContainerInterface
-     */
-    private $ci;
-
     /**
      * @Injection
      * @var TaskReader
@@ -50,15 +44,21 @@ class ReadAction
     private TaskReader $taskReader;
 
     /**
+     * @Injection
+     * @var Mustache
+     */
+    private Mustache $view;
+
+    /**
      * The constructor
      * 
-     * @param ContainerInterface $ci
      * @param TaskReader $taskReader
+     * @param Mustache $view Mustache engine
      */
-    public function __construct(ContainerInterface $ci, TaskReader $taskReader)
+    public function __construct(TaskReader $taskReader, Mustache $view)
     {
-        $this->ci = $ci;
         $this->taskReader = $taskReader;
+        $this->view = $view;
     }
 
     /**
@@ -74,9 +74,7 @@ class ReadAction
     {
         $task = $this->taskReader->readTask( (int) $args['id']);
         
-        $html = $this->ci->get('view')->render('task/read', $task);
-
-        $response->getBody()->write($html);
+        $this->view->render($response, 'task/read', $task);
 
         return $response;
     }
