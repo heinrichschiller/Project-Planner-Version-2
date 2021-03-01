@@ -40,6 +40,9 @@ use App\Application\Actions\Project\EditAction as ProjectEditAction;
 use App\Application\Actions\Project\NewAction as ProjectNewAction;
 use App\Application\Actions\Project\ProjectAction;
 use App\Application\Actions\Project\ReadAction as ProjectReadAction;
+use App\Application\Actions\Task\EditAction as TaskEditAction;
+use App\Application\Actions\Task\NewAction as TaskNewAction;
+use App\Application\Actions\Task\ReadAction as TaskReadAction;
 use App\Application\Actions\Task\TaskAction;
 use App\Domain\Contact\Repository\ContactCreatorRepository;
 use App\Domain\Contact\Repository\ContactFinderRepository;
@@ -63,10 +66,15 @@ use App\Domain\Project\Service\ProjectUpdating;
 use App\Domain\Status\Repository\StatusFinderRepository;
 use App\Domain\Status\Service\StatusFinder;
 use App\Domain\Task\Repository\TaskFinderRepository;
+use App\Domain\Task\Repository\TaskReaderRepository;
+use App\Domain\Task\Repository\TaskUpdatingRepository;
 use App\Domain\Task\Service\TaskFinder;
+use App\Domain\Task\Service\TaskReader;
 use Cake\Validation\Validator;
 use Doctrine\ORM\EntityManager;
+use Entities\Priority;
 use Entities\Project;
+use Entities\Status;
 use Psr\Log\LoggerInterface;
 use Slim\Views\Mustache;
 
@@ -300,9 +308,52 @@ return function(ContainerBuilder $builder)
             );
         },
 
+        TaskEditAction::class => function(ContainerInterface $container): TaskEditAction
+        {
+            return new TaskEditAction(
+                $container->get(PriorityFinder::class),
+                $container->get(StatusFinder::class),
+                $container->get(TaskReader::class),
+                $container->get(Mustache::class)
+            );
+        },
+
+        TaskNewAction::class => function(ContainerInterface $container): TaskNewAction
+        {
+            return new TaskNewAction(
+                $container->get(ContactFinder::class),
+                $container->get(ProjectFinder::class),
+                $container->get(PriorityFinder::class),
+                $container->get(StatusFinder::class),
+                $container->get(Mustache::class)
+            );
+        },
+
+        TaskReadAction::class => function(ContainerInterface $container): TaskReadAction
+        {
+            return new TaskReadAction(
+                $container->get(TaskReader::class),
+                $container->get(Mustache::class)
+            );
+        },
+
         TaskFinderRepository::class => function(ContainerInterface $container): TaskFinderRepository
         {
             return new TaskFinderRepository(
+                $container->get(EntityManager::class)
+            );
+        },
+
+        TaskReaderRepository::class => function(ContainerInterface $container): TaskReaderRepository
+        {
+            return new TaskReaderRepository(
+                $container->get(EntityManager::class)
+            );
+        },
+
+        TaskUpdatingRepository::class => function(ContainerInterface $container): TaskUpdatingRepository
+        {
+            return new TaskUpdatingRepository(
                 $container->get(EntityManager::class)
             );
         }
