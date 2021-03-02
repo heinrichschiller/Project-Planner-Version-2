@@ -35,6 +35,7 @@ use App\Application\Actions\Contact\ReadAction as ContactReadAction;
 use DI\ContainerBuilder;
 use Psr\Container\ContainerInterface;
 use App\Application\Actions\Dashboard\DashboardAction;
+use App\Application\Actions\Document\DocumentAction;
 use App\Application\Actions\Email\EmailAction;
 use App\Application\Actions\Project\EditAction as ProjectEditAction;
 use App\Application\Actions\Project\NewAction as ProjectNewAction;
@@ -167,6 +168,19 @@ return function(ContainerBuilder $builder)
         EmailAction::class => function(ContainerInterface $container): EmailAction
         {
             return new EmailAction(
+                $container->get(Mustache::class)
+            );
+        },
+
+        /*
+        |----------------------------------------------------------------------------
+        | Document dependencies
+        |----------------------------------------------------------------------------
+        */
+
+        DocumentAction::class => function(ContainerInterface $container): DocumentAction
+        {
+            return new DocumentAction(
                 $container->get(Mustache::class)
             );
         },
