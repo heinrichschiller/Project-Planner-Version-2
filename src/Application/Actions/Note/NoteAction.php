@@ -30,26 +30,26 @@ declare(strict_types = 1);
 
 namespace App\Application\Actions\Note;
 
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Views\Mustache;
 
 class NoteAction
 {
     /**
      * @Injection
-     * @var ContainerInterface
+     * @var Mustache
      */
-    private ContainerInterface $ci;
+    private Mustache $view;
 
     /**
      * The constructor
      * 
-     * @param ContainerInterface $ci
+     * @param Mustache $view Mustache engine
      */
-    public function __construct(ContainerInterface $ci)
+    public function __construct(Mustache $view)
     {
-        $this->ci = $ci;
+        $this->view = $view;
     }
 
     /**
@@ -63,8 +63,7 @@ class NoteAction
      */
     public function __invoke(Request $request, Response $response, array $args = []): Response
     {
-        $html = $this->ci->get('view')->render('note/index');
-        $response->getBody()->write($html);
+        $this->view->render($response, 'note/index');
 
         return $response;
     }
