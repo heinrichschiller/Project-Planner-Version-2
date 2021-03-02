@@ -133,4 +133,10 @@ return function(App $app)
     */
     $app->get('/timetrack', \App\Application\Actions\Timetrack\TimetrackAction::class);
 
+    /*
+    |----------------------------------------------------------------------------
+    | Settings routes
+    |----------------------------------------------------------------------------
+    */
+    $app->get('/settings', \App\Application\Actions\Settings\SettingsAction::class);
 };
