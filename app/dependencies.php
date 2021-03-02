@@ -49,6 +49,7 @@ use App\Application\Actions\Task\ReadAction as TaskReadAction;
 use App\Application\Actions\Task\TaskAction;
 use App\Application\Actions\Test\TestAction;
 use App\Application\Actions\Timetrack\TimetrackAction;
+use App\Application\Actions\Tool\ToolAction;
 use App\Domain\Contact\Repository\ContactCreatorRepository;
 use App\Domain\Contact\Repository\ContactFinderRepository;
 use App\Domain\Contact\Repository\ContactReaderRepository;
@@ -201,7 +202,7 @@ return function(ContainerBuilder $builder)
                 $container->get(Mustache::class)
             );
         },
-        
+
         /*
         |----------------------------------------------------------------------------
         | Note dependencies
@@ -424,6 +425,19 @@ return function(ContainerBuilder $builder)
         TimetrackAction::class => function(ContainerInterface $container): TimetrackAction
         {
             return new TimetrackAction(
+                $container->get(Mustache::class)
+            );
+        },
+
+        /*
+        |----------------------------------------------------------------------------
+        | Tool dependencies
+        |----------------------------------------------------------------------------
+        */
+
+        ToolAction::class => function(ContainerInterface $container): ToolAction
+        {
+            return new ToolAction(
                 $container->get(Mustache::class)
             );
         }
