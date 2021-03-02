@@ -46,6 +46,7 @@ use App\Application\Actions\Task\EditAction as TaskEditAction;
 use App\Application\Actions\Task\NewAction as TaskNewAction;
 use App\Application\Actions\Task\ReadAction as TaskReadAction;
 use App\Application\Actions\Task\TaskAction;
+use App\Application\Actions\Timetrack\TimetrackAction;
 use App\Domain\Contact\Repository\ContactCreatorRepository;
 use App\Domain\Contact\Repository\ContactFinderRepository;
 use App\Domain\Contact\Repository\ContactReaderRepository;
@@ -383,6 +384,19 @@ return function(ContainerBuilder $builder)
         {
             return new TaskUpdatingRepository(
                 $container->get(EntityManager::class)
+            );
+        },
+
+        /*
+        |----------------------------------------------------------------------------
+        | Timetrack dependencies
+        |----------------------------------------------------------------------------
+        */
+
+        TimetrackAction::class => function(ContainerInterface $container): TimetrackAction
+        {
+            return new TimetrackAction(
+                $container->get(Mustache::class)
             );
         }
     ]);
