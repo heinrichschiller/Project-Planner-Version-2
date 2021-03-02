@@ -30,23 +30,40 @@ declare(strict_types = 1);
 
 namespace App\Application\Actions\Timetrack;
 
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Views\Mustache;
 
 class TimetrackAction
 {
-    private $ci;
+    /**
+     * @Injection
+     * @var Mustache
+     */
+    private Mustache $view;
 
-    public function __construct(ContainerInterface $ci)
+    /**
+     * The constructor
+     * 
+     * @param Mustache $view Mustache engine
+     */
+    public function __construct(Mustache $view)
     {
-        $this->ci = $ci;
+        $this->view = $view;
     }
 
+    /**
+     * The invoker
+     * 
+     * @param Request $request
+     * @param Response $response
+     * @param array $args
+     * 
+     * @return Response
+     */
     public function __invoke(Request $request, Response $response, array $args = []): Response
     {
-        $html = $this->ci->get('view')->render('timetrack/index');
-        $response->getBody()->write($html);
+        $this->view->render($response, 'timetrack/index');
 
         return $response;
     }
