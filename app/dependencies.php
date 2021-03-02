@@ -37,6 +37,7 @@ use Psr\Container\ContainerInterface;
 use App\Application\Actions\Dashboard\DashboardAction;
 use App\Application\Actions\Document\DocumentAction;
 use App\Application\Actions\Email\EmailAction;
+use App\Application\Actions\Note\NoteAction;
 use App\Application\Actions\Project\EditAction as ProjectEditAction;
 use App\Application\Actions\Project\NewAction as ProjectNewAction;
 use App\Application\Actions\Project\ProjectAction;
@@ -181,6 +182,19 @@ return function(ContainerBuilder $builder)
         DocumentAction::class => function(ContainerInterface $container): DocumentAction
         {
             return new DocumentAction(
+                $container->get(Mustache::class)
+            );
+        },
+
+        /*
+        |----------------------------------------------------------------------------
+        | Note dependencies
+        |----------------------------------------------------------------------------
+        */
+
+        NoteAction::class => function(ContainerInterface $container): NoteAction
+        {
+            return new NoteAction(
                 $container->get(Mustache::class)
             );
         },
