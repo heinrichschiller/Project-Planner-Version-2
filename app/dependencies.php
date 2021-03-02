@@ -43,6 +43,7 @@ use App\Application\Actions\Project\EditAction as ProjectEditAction;
 use App\Application\Actions\Project\NewAction as ProjectNewAction;
 use App\Application\Actions\Project\ProjectAction;
 use App\Application\Actions\Project\ReadAction as ProjectReadAction;
+use App\Application\Actions\Settings\SettingsAction;
 use App\Application\Actions\Task\EditAction as TaskEditAction;
 use App\Application\Actions\Task\NewAction as TaskNewAction;
 use App\Application\Actions\Task\ReadAction as TaskReadAction;
@@ -323,6 +324,19 @@ return function(ContainerBuilder $builder)
         {
             return new PriorityFinderRepository(
                 $container->get(EntityManager::class)
+            );
+        },
+
+        /*
+        |----------------------------------------------------------------------------
+        | Settings dependencies
+        |----------------------------------------------------------------------------
+        */
+
+        SettingsAction::class => function(ContainerInterface $container): SettingsAction
+        {
+            return new SettingsAction(
+                $container->get(Mustache::class)
             );
         },
 
