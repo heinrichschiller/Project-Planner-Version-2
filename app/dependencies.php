@@ -46,6 +46,7 @@ use App\Application\Actions\Task\EditAction as TaskEditAction;
 use App\Application\Actions\Task\NewAction as TaskNewAction;
 use App\Application\Actions\Task\ReadAction as TaskReadAction;
 use App\Application\Actions\Task\TaskAction;
+use App\Application\Actions\Test\TestAction;
 use App\Application\Actions\Timetrack\TimetrackAction;
 use App\Domain\Contact\Repository\ContactCreatorRepository;
 use App\Domain\Contact\Repository\ContactFinderRepository;
@@ -384,6 +385,19 @@ return function(ContainerBuilder $builder)
         {
             return new TaskUpdatingRepository(
                 $container->get(EntityManager::class)
+            );
+        },
+
+        /*
+        |----------------------------------------------------------------------------
+        | Test dependencies
+        |----------------------------------------------------------------------------
+        */
+
+        TestAction::class => function(ContainerInterface $container): TestAction
+        {
+            return new TestAction(
+                $container->get(Mustache::class)
             );
         },
 
