@@ -98,7 +98,7 @@ final class ProjectCreator
     /**
      * Input validation
      * 
-     * @param array $data
+     * @param array $formData
      *
      * @throws ValidationException
      * 
