@@ -43,7 +43,7 @@ class StatusFinderRepository
     /**
      * The constructor
      * 
-     * @param ContainerInterface $ci
+     * @param EntityManager $entityManager
      */
     public function __construct(EntityManager $entityManager)
     {
