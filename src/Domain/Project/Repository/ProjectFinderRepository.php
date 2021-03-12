@@ -43,7 +43,7 @@ class ProjectFinderRepository
     /**
      * The constructor
      * 
-     * @param EntityManager
+     * @param EntityManager $entityManager
      */
     public function __construct(EntityManager $entityManager)
     {
