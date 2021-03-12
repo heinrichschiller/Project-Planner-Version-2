@@ -79,9 +79,7 @@ use App\Domain\Task\Service\TaskFinder;
 use App\Domain\Task\Service\TaskReader;
 use Cake\Validation\Validator;
 use Doctrine\ORM\EntityManager;
-use Entities\Priority;
 use Entities\Project;
-use Entities\Status;
 use Psr\Log\LoggerInterface;
 use Slim\Views\Mustache;
 
