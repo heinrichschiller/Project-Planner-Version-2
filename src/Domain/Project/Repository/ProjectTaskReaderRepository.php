@@ -36,9 +36,9 @@ class ProjectTaskReaderRepository
 {
     /**
      * @Injection
-     * @var EntityMananger
+     * @var EntityManager
      */
-    private $entityManager;
+    private EntityManager $entityManager;
 
     /**
      * The constructor
