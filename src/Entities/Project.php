@@ -213,8 +213,10 @@ class Project
      * Set title
      *
      * @param string $title Title
+     * 
+     * @return void
      */ 
-    public function setTitle(string $title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
@@ -233,8 +235,10 @@ class Project
      * Set description
      *
      * @param  string  $description  Description
+     * 
+     * @return void
      */ 
-    public function setDescription(string $description)
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
@@ -251,6 +255,8 @@ class Project
 
     /**
      * Get the value of beginAt with DateTimeLocal-Format
+     * 
+     * @return string
      */
     public function getBeginAtDateTimeLocal(): string
     {
@@ -261,8 +267,10 @@ class Project
      * Set begin at
      *
      * @param  string  $date  Begin at
+     * 
+     * @return void
      */ 
-    public function setBeginAt(string $date)
+    public function setBeginAt(string $date): void
     {
         $dateTime = DateTime::createFromFormat('Y-m-d\TH:i', $date);
         
@@ -293,8 +301,10 @@ class Project
      * Set end at
      *
      * @param string $date End at
+     * 
+     * @return void
      */ 
-    public function setEndAt(string $date)
+    public function setEndAt(string $date): void
     {
         $dateTime = DateTime::createFromFormat('Y-m-d\TH:i', $date);
 
@@ -325,8 +335,10 @@ class Project
      * Set contact id
      *
      * @param int $contactId Contact id
+     * 
+     * @return void
      */ 
-    public function setContactId(int $contactId)
+    public function setContactId(int $contactId): void
     {
         $this->contactId = $contactId;
     }
@@ -335,8 +347,10 @@ class Project
      * Set status id
      *
      * @param  int  $statusId  Status id
+     * 
+     * @return void
      */ 
-    public function setStatusId(int $statusId)
+    public function setStatusId(int $statusId): void
     {
         $this->statusId = $statusId;
     }
@@ -355,8 +369,10 @@ class Project
      * Set priority Id
      *
      * @param  int  $priorityId  Priority Id
+     * 
+     * @return void
      */ 
-    public function setPriorityId(int $priorityId)
+    public function setPriorityId(int $priorityId): void
     {
         $this->priorityId = $priorityId;
     }
@@ -375,8 +391,10 @@ class Project
      * Set created at
      *
      * @param  DateTime  $createdAt  Created at
+     * 
+     * @return void
      */ 
-    public function setCreatedAt(DateTime $createdAt)
+    public function setCreatedAt(DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
@@ -401,8 +419,10 @@ class Project
      * Set updated at
      *
      * @param null|DateTime $updatedAt
+     * 
+     * @return void
      */ 
-    public function setUpdatedAt(?DateTime $updatedAt)
+    public function setUpdatedAt(?DateTime $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
     }
@@ -427,8 +447,10 @@ class Project
      * Set finished on
      * 
      * @param null|DateTime $finishedOn 
+     * 
+     * @return void
      */
-    public function setFinishedOn(?DateTime $finishedOn)
+    public function setFinishedOn(?DateTime $finishedOn): void
     {
         $this->finishedOn = $finishedOn;
     }
@@ -453,8 +475,10 @@ class Project
      * Set discarded on
      * 
      * @param null|DateTime $discardedOn 
+     * 
+     * @return void
      */
-    public function setDiscardedOn(?DateTime $discardedOn)
+    public function setDiscardedOn(?DateTime $discardedOn): void
     {
         $this->discardedOn = $discardedOn;
     }
@@ -462,7 +486,7 @@ class Project
     /**
      * Get contact
      *
-     * @return  Contact
+     * @return Contact
      */ 
     public function getContact(): Contact
     {
@@ -472,9 +496,11 @@ class Project
     /**
      * Set contact
      *
-     * @param  Contact  $contact  Contact
+     * @param Contact $contact Contact
+     * 
+     * @return void
      */ 
-    public function setContact(Contact $contact)
+    public function setContact(Contact $contact): void
     {
         $contact->assignedToProject($this);
 
@@ -485,24 +511,32 @@ class Project
      * Assigned to task
      * 
      * @param Task $task
+     * 
+     * @return void
      */
-    public function assignedToTask(Task $task)
+    public function assignedToTask(Task $task): void
     {
         $this->assignedTasks[] = $task;
     }
 
     /**
      * Get the value of status
+     * 
+     * @return Status $status
      */ 
-    public function getStatus()
+    public function getStatus(): Status
     {
         return $this->status;
     }
 
     /**
      * Set the value of status
+     * 
+     * @param Status $status
+     * 
+     * @return void
      */ 
-    public function setStatus($status)
+    public function setStatus($status): void
     {
         $this->status = $status;
     }
@@ -510,7 +544,7 @@ class Project
     /**
      * Get priority
      *
-     * @return  Priority
+     * @return Priority
      */ 
     public function getPriority()
     {
@@ -520,9 +554,11 @@ class Project
     /**
      * Set priority
      *
-     * @param  Priority  $priority  Priority
+     * @param Priority $priority Priority
+     * 
+     * @return void
      */ 
-    public function setPriority(Priority $priority)
+    public function setPriority(Priority $priority): void
     {
         $this->priority = $priority;
     }
