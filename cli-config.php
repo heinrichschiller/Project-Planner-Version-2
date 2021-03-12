@@ -28,10 +28,11 @@
 
 declare(strict_types = 1);
 
-require_once __DIR__ . "/bootstrap/bootstrap.php";
+require_once __DIR__ . "/bootstrap/app.php";
 
 use \Doctrine\ORM\Tools\Console\ConsoleRunner;
+use Doctrine\ORM\EntityManager;
 
-$entityManager = $container->get('EntityManager');
+$entityManager = $container->get(EntityManager::class);
 
 return ConsoleRunner::createHelperSet($entityManager);
