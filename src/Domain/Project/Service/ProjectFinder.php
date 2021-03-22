@@ -53,7 +53,7 @@ final class ProjectFinder
     /**
      * Find all active projects
      * 
-     * @return array
+     * @return array<mixed>
      */
     public function findAll(): array
     {
