@@ -34,14 +34,30 @@ use App\Domain\Project\Repository\ProjectReaderRepository;
 
 final class ProjectReader
 {
+    /**
+     * @Injection
+     * @var ProjectReaderRepository
+     */
     private ProjectReaderRepository $repository;
 
+    /**
+     * The constructor
+     * 
+     * @param ProjectReaderRepository $repository
+     */
     public function __construct(ProjectReaderRepository $repository)
     {
         $this->repository = $repository;
     }
 
-    public function readProject(int $id)
+    /**
+     * Read a project of id
+     * 
+     * @param int $id Id of a project
+     * 
+     * @return Object
+     */
+    public function readProject(int $id): Object
     {
         return $this->repository->readProject($id);
     }
