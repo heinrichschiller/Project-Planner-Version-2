@@ -63,9 +63,11 @@ final class TaskUpdating
     /**
      * Task update
      * 
-     * @param array $formData The form data
+     * @param array<mixed> $formData The form data
+     * 
+     * @return void
      */
-    public function updateTask(array $formData)
+    public function updateTask(array $formData): void
     {
         $this->validateTaskUpdate($formData);
 
@@ -75,11 +77,13 @@ final class TaskUpdating
     /**
      * Input validation
      * 
-     * @param array $formData The form data
+     * @param array<mixed> $formData The form data
      * 
      * @throws ValidationException
+     * 
+     * @return void
      */
-    public function validateTaskUpdate(array $formData)
+    public function validateTaskUpdate(array $formData): void
     {
         $this->validator
             ->requirePresence('title', 'This field is required')
