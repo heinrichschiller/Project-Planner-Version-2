@@ -55,7 +55,7 @@ class ProjectTaskReaderRepository
      * 
      * @param int $id Id of a project task
      * 
-     * @return array
+     * @return array<mixed>
      */
     public function readProjectTask(int $id): array
     {
