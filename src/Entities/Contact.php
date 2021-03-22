@@ -103,7 +103,7 @@ class Contact
     /**
      * Get the value of id
      *
-     * @return  int
+     * @return int
      */ 
     public function getId(): int
     {
@@ -113,7 +113,7 @@ class Contact
     /**
      * Get the value of displayName
      *
-     * @return  string
+     * @return string
      */ 
     public function getDisplayName(): string
     {
@@ -123,9 +123,11 @@ class Contact
     /**
      * Set the value of displayName
      *
-     * @param  string  $displayName
+     * @param string $displayName
+     * 
+     * @return void
      */ 
-    public function setDisplayName(string $displayName)
+    public function setDisplayName(string $displayName): void
     {
         $displayName = trim($displayName, " \n\r\t\v\0");
         $displayName = ucwords($displayName, " \n\r\t\f\v");
@@ -136,7 +138,7 @@ class Contact
     /**
      * Get the value of createdAt
      *
-     * @return  string
+     * @return string
      */ 
     public function getCreatedAt(): string
     {
@@ -146,9 +148,11 @@ class Contact
     /**
      * Set the value of createdAt
      *
-     * @param  DateTime  $createdAt
+     * @param DateTime $createdAt
+     * 
+     * @return void
      */ 
-    public function setCreatedAt(?DateTime $createdAt)
+    public function setCreatedAt(?DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
@@ -172,9 +176,11 @@ class Contact
     /**
      * Set the value of updatedAt
      *
-     * @param  DateTime  $updatedAt
+     * @param DateTime $updatedAt
+     * 
+     * @return void
      */ 
-    public function setUpdatedAt(?DateTime $updatedAt)
+    public function setUpdatedAt(?DateTime $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
     }
@@ -183,8 +189,10 @@ class Contact
      * Assigned to project
      * 
      * @param Project $project
+     * 
+     * @return void
      */
-    public function assignedToProject(Project $project)
+    public function assignedToProject(Project $project): void
     {
         $this->assignedProjects[] = $project;
     }
@@ -193,8 +201,10 @@ class Contact
      * Assigned to task
      * 
      * @param Task $task
+     * 
+     * @return void
      */
-    public function assignedToTask(Task $task)
+    public function assignedToTask(Task $task): void
     {
         $this->assignedTasks[] = $task;
     }
