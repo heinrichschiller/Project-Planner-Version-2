@@ -36,7 +36,7 @@ use Throwable;
 final class ValidationException extends RuntimeException
 {
     /**
-     * @var array<int> $errors
+     * @var array<mixed> $errors
      */
     private array $errors = [];
 
@@ -44,7 +44,7 @@ final class ValidationException extends RuntimeException
      * The constructor
      * 
      * @param string $message
-     * @param array<int> $errors
+     * @param array<mixed> $errors
      * @param int $code
      * @param Throwable $previous
      */
