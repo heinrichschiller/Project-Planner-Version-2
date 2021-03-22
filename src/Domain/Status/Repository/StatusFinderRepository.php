@@ -53,7 +53,7 @@ class StatusFinderRepository
     /**
      * Find all status values
      * 
-     * @return array
+     * @return array<mixed>
      */
     public function findAll(): array
     {
