@@ -41,35 +41,47 @@ class TaskUpdatingRepository
      */
     private EntityManager $entityManager;
 
+    /**
+     * The constructor
+     * 
+     * @param EntityManager $entityManager 
+     */
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
     }
 
-    public function updateTask(array $data)
+    /**
+     * Update a task
+     * 
+     * @param array<mixed> $formData The form data
+     * 
+     * @return void
+     */
+    public function updateTask(array $formData): void
     {
         $task = $this->entityManager
             ->getRepository('Entities\Task')
-            ->find( (int) $data['id']);
+            ->find( (int) $formData['id']);
 
         if ( null === $task ) {
-            echo "No task found for the given id: {$data['id']}";
+            echo "No task found for the given id: {$formData['id']}";
             exit(1);
         }
 
-        $task->setTitle($data['title']);
-        $task->setDescription($data['desc']);
-        $task->setBeginAt($data['beginAt']);
-        $task->setEndAt($data['endAt']);
-        $task->setStatusId( (int) $data['statusId']);
-        $task->setPriorityId( (int) $data['priorityId']);
+        $task->setTitle($formData['title']);
+        $task->setDescription($formData['desc']);
+        $task->setBeginAt($formData['beginAt']);
+        $task->setEndAt($formData['endAt']);
+        $task->setStatusId( (int) $formData['statusId']);
+        $task->setPriorityId( (int) $formData['priorityId']);
         $task->setUpdatedAt(new DateTime('now'));
 
-        if( 5 === (int) $data['statusId'] ) {
+        if( 5 === (int) $formData['statusId'] ) {
             $task->setFinishedOn(new DateTime('now'));
         }
 
-        if( 6 === (int) $data['statusId'] ) {
+        if( 6 === (int) $formData['statusId'] ) {
             $task->setDiscardedOn(new DateTime('now'));
         }
 
