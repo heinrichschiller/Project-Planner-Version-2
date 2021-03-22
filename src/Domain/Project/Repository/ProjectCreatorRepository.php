@@ -63,24 +63,24 @@ class ProjectCreatorRepository
     /**
      * Create a project
      * 
-     * @param array $data The form data
+     * @param array<mixed> $formData The form data
      * 
      * @return int Last insert id
      */
-    public function createProject(array $data): int
+    public function createProject(array $formData): int
     {
-        $this->project->setTitle($data['title']);
-        $this->project->setDescription($data['desc']);
-        $this->project->setBeginAt($data['beginAt']);
-        $this->project->setEndAt($data['endAt']);
+        $this->project->setTitle($formData['title']);
+        $this->project->setDescription($formData['desc']);
+        $this->project->setBeginAt($formData['beginAt']);
+        $this->project->setEndAt($formData['endAt']);
         $this->project->setCreatedAt(new DateTime('now'));
 
         $contact = $this->entityManager
             ->getRepository('Entities\Contact')
-            ->find($data['contactId']);
+            ->find($formData['contactId']);
 
         if ($contact === null) {
-            echo "No contact found for the given id: {$data['id']}";
+            echo "No contact found for the given id: {$formData['id']}";
             exit(1);
         }
 
@@ -88,10 +88,10 @@ class ProjectCreatorRepository
 
         $status = $this->entityManager
             ->getRepository('Entities\Status')
-            ->find($data['statusId']);
+            ->find($formData['statusId']);
 
         if ($status === null) {
-            echo "No status found for the given id: {$data['statusId']}";
+            echo "No status found for the given id: {$formData['statusId']}";
             exit(1);
         }
 
@@ -99,10 +99,10 @@ class ProjectCreatorRepository
 
         $priority = $this->entityManager
             ->getRepository('Entities\Priority')
-            ->find($data['priorityId']);
+            ->find($formData['priorityId']);
 
         if ($priority === null) {
-            echo "No priority found for the given id: {$data['priorityId']}";
+            echo "No priority found for the given id: {$formData['priorityId']}";
             exit(1);
         }
         
