@@ -36,21 +36,44 @@ use Cake\Validation\Validator;
 
 final class TaskCreator
 {
+    /**
+     * @Injection
+     * @var TaskCreatorRepository
+     */
     private TaskCreatorRepository $repository;
 
+    /**
+     * The constructor
+     * 
+     * @param TaskCreatorRepository $repository
+     */
     public function __construct(TaskCreatorRepository $repository)
     {
         $this->repository = $repository;
     }
 
-    public function createTask(array $formData)
+    /**
+     * Create a new task
+     * 
+     * @param array<mixed> $formData The form data
+     * 
+     * @return void
+     */
+    public function createTask(array $formData): void
     {
-        $this->validateNewTask($formData);
+        $this->validate($formData);
 
         $this->repository->createTask($formData);
     }
 
-    public function validateNewTask(array $formData)
+    /**
+     * Validate the form data
+     * 
+     * @param array<mixed> $formData The form data
+     * 
+     * @return void
+     */
+    public function validate(array $formData): void
     {
         $validator = new Validator;
 
