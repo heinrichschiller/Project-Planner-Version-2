@@ -32,20 +32,42 @@ namespace App\Domain\Task\Repository;
 
 use Entities\Task;
 use DateTime;
-use Psr\Container\ContainerInterface;
+use Doctrine\ORM\EntityManager;
 
 class TaskCreatorRepository
 {
-    private $ci;
+    /**
+     * @Injection
+     * @var EntityManager
+     */
+    private EntityManager $entityManager;
+
+    /**
+     * @Injection
+     * @var Task
+     */
     private Task $task;
 
-    public function __construct(ContainerInterface $ci, Task $task)
+    /**
+     * The constructor
+     * 
+     * @param EntityManager $entityManager
+     * @param Task $task
+     */
+    public function __construct(EntityManager $entityManager, Task $task)
     {
-        $this->ci = $ci;
+        $this->entityManager = $entityManager;
         $this->task = $task;
     }
 
-    public function createTask(array $formData)
+    /**
+     * Create a new task
+     * 
+     * @param array<mixed> $formData The form data
+     * 
+     * @return void
+     */
+    public function createTask(array $formData): void
     {
         $this->task->setTitle($formData['title']);
         $this->task->setDescription($formData['desc']);
@@ -53,7 +75,7 @@ class TaskCreatorRepository
         $this->task->setEndAt($formData['endAt']);
         $this->task->setCreatedAt(new DateTime('now'));
 
-        $contact = $this->ci->get('EntityManager')
+        $contact = $this->entityManager
             ->getRepository('Entities\Contact')
             ->find($formData['contactId']);
 
@@ -64,7 +86,7 @@ class TaskCreatorRepository
 
         $this->task->setContact($contact);
 
-        $project = $this->ci->get('EntityManager')
+        $project = $this->entityManager
             ->getRepository('Entities\Project')
             ->find($formData['projectId']);
 
@@ -75,7 +97,7 @@ class TaskCreatorRepository
 
         $this->task->setProject($project);
 
-        $status = $this->ci->get('EntityManager')
+        $status = $this->entityManager
             ->getRepository('Entities\Status')
             ->find($formData['statusId']);
 
@@ -86,18 +108,18 @@ class TaskCreatorRepository
         
         $this->task->setStatus($status);
 
-        $priority = $this->ci->get('EntityManager')
+        $priority = $this->entityManager
             ->getRepository('Entities\Priority')
             ->find($formData['priorityId']);
 
-        if ($priority === null) {
+        if (null === $priority) {
             echo "No priority found for the given id: {$formData['priorityId']}";
             exit(1);
         }
 
         $this->task->setPriority($priority);
 
-        $this->ci->get('EntityManager')->persist($this->task);
-        $this->ci->get('EntityManager')->flush();
+        $this->entityManager->persist($this->task);
+        $this->entityManager->flush();
     }
 }
