@@ -55,7 +55,7 @@ class ProjectUpdatingRepository
     /**
      * Updating project data
      * 
-     * @param array $formData The form data
+     * @param array<mixed> $formData The form data
      * 
      * @return void
      */
