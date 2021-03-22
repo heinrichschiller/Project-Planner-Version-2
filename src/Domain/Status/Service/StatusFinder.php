@@ -53,7 +53,7 @@ final class StatusFinder
     /**
      * Find all status values
      * 
-     * @return array
+     * @return array<mixed>
      */
     public function findAll(): array
     {
