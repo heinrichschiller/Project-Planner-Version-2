@@ -53,7 +53,7 @@ class TaskFinderRepository
     /**
      * Find all active tasks
      * 
-     * @return array 
+     * @return array<mixed>
      */
     public function findAll(): array
     {
