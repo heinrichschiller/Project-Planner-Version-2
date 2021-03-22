@@ -53,7 +53,7 @@ final class PriorityFinder
     /**
      * Find all priority values
      * 
-     * @return array List of priority values
+     * @return array<string> List of priority values
      */
     public function findAll(): array
     {
