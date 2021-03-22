@@ -76,14 +76,14 @@ final class ProjectCreator
     /**
      * Insert new project
      * 
-     * @param array $formData The form data
+     * @param array<mixed> $formData The form data
      * 
      * @return int Last insert id
      */
     public function createProject(array $formData): int
     {
         try {
-            $this->validateNewProject($formData);
+            $this->validate($formData);
 
             $this->logger->info(sprintf('Project created: %s', $formData['title']));
 
@@ -98,13 +98,13 @@ final class ProjectCreator
     /**
      * Input validation
      * 
-     * @param array $formData
+     * @param array<mixed> $formData The form data
      *
      * @throws ValidationException
      * 
      * @return void
      */
-    public function validateNewProject(array $formData)
+    public function validate(array $formData)
     {
         $this->validator
             ->requirePresence('title')
