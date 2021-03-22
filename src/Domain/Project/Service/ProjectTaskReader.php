@@ -34,13 +34,29 @@ use App\Domain\Project\Repository\ProjectTaskReaderRepository;
 
 final class ProjectTaskReader
 {
+    /**
+     * @Injection
+     * @var ProjectTaskReaderRepository
+     */
     private ProjectTaskReaderRepository $repository;
 
+    /**
+     * The constructor
+     * 
+     * @param ProjectTaskReaderRepository $repository
+     */
     public function __construct(ProjectTaskReaderRepository $repository)
     {
         $this->repository = $repository;
     }
 
+    /**
+     * Read a project task
+     * 
+     * @param int $id Id of a project
+     * 
+     * @return array<mixed>
+     */
     public function readProjectTask(int $id): array
     {
         return $this->repository->readProjectTask($id);
