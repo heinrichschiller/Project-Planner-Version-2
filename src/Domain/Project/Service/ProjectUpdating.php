@@ -76,7 +76,7 @@ final class ProjectUpdating
     /**
      * Update the project
      * 
-     * @param array $formData
+     * @param array<mixed> $formData The form data
      * 
      * @return void
      */
@@ -98,7 +98,7 @@ final class ProjectUpdating
     /**
      * Input validation
      * 
-     * @param array $formData
+     * @param array<mixed> $formData The form data
      *
      * @throws ValidationException
      * 
