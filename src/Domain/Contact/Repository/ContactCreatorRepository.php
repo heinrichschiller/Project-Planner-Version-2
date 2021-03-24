@@ -55,7 +55,7 @@ class ContactCreatorRepository
     /**
      * Insert contact data
      * 
-     * @param array $data The form data
+     * @param array<mixed> $data The form data
      * 
      * @return int
      */

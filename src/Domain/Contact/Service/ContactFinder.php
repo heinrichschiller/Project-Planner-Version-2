@@ -53,7 +53,7 @@ final class ContactFinder
     /**
      * Find all contacts
      * 
-     * @return array List of all contacts
+     * @return array<mixed> List of all contacts
      */
     public function findAll(): array
     {

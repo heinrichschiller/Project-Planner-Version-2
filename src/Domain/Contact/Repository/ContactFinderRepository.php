@@ -53,7 +53,7 @@ use Doctrine\ORM\EntityManager;
     /**
      * Find all contacts
      * 
-     * @return array List with all contacts
+     * @return array<mixed> List with all contacts
      */
     public function findAll(): array
     {

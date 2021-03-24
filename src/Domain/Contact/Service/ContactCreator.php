@@ -76,7 +76,7 @@ final class ContactCreator
     /**
      * Create a new contact.
      * 
-     * @param array $formData The form data
+     * @param array<mixed> $formData The form data
      * 
      * @return int $lastInsertId
      */
@@ -84,7 +84,7 @@ final class ContactCreator
     {
         try {
 
-            $this->validateNewContact($formData);
+            $this->validate($formData);
 
             $this->logger->info(sprintf('Contact created: %s', $formData['display_name']));
 
@@ -102,13 +102,13 @@ final class ContactCreator
     /**
      * Input validation
      * 
-     * @param array $formData The form data
+     * @param array<mixed> $formData The form data
      * 
      * @throws ValidationException
      * 
      * @return void
      */
-    private function validateNewContact(array $formData): void
+    private function validate(array $formData): void
     {
         $this->validator
             ->requirePresence('display_name')

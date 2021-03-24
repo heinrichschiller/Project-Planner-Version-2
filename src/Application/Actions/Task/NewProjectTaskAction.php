@@ -106,7 +106,7 @@ class NewProjectTaskAction
      * 
      * @param Request $request
      * @param Response $response
-     * @param array $args
+     * @param array<int> $args
      * 
      * @return Response
      */

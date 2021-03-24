@@ -57,7 +57,7 @@ class NoteAction
      * 
      * @param Request $request
      * @param Response $response
-     * @param array $args
+     * @param array<mixed> $args
      * 
      * @return Response
      */

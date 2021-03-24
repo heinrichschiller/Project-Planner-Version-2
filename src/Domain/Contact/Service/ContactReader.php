@@ -55,10 +55,12 @@ final class ContactReader
      * Edit a contact
      * 
      * @param int $id Id of a contact
+     * 
+     * @return Object
      */
-    public function readContact(int $id)
+    public function readContact(int $id): Object
     {
-        $this->validateReadContact($id);
+        $this->validate($id);
 
         return $this->repository->readContact($id);
     }
@@ -67,8 +69,10 @@ final class ContactReader
      * Input validation
      * 
      * @param int $id Id of a contact
+     * 
+     * @return void
      */
-    public function validateReadContact(int $id)
+    public function validate(int $id): void
     {
         $errors = [];
 

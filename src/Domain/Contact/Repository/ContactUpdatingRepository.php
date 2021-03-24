@@ -54,7 +54,7 @@ class ContactUpdatingRepository
     /**
      * Update a contact
      * 
-     * @param array $formData The form data.
+     * @param array<mixed> $formData The form data.
      * 
      * @return int
      */

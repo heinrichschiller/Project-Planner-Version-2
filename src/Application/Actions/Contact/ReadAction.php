@@ -66,8 +66,7 @@ class ReadAction
      * 
      * @param Request $request
      * @param Response $response
-     * @param array $args
-     * 
+     * @param array<mixed> $args
      * @return Response
      */
     public function __invoke(Request $request, Response $response, $args = []): Response

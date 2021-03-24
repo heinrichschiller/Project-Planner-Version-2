@@ -36,13 +36,31 @@ use Slim\Views\Mustache;
 
 class EmailAction
 {
-    private $view;
+    /**
+     * @Injection
+     * @var Mustache
+     */
+    private Mustache $view;
 
+    /**
+     * The constructor
+     * 
+     * @param Mustache $view The Mustache engine
+     */
     public function __construct(Mustache $view)
     {
         $this->view = $view;
     }
 
+    /**
+     * The invoker
+     * 
+     * @param Request $request
+     * @param Response $response
+     * @param array<mixed> $args
+     * 
+     * @return Response
+     */
     public function __invoke(Request $request, Response $response, array $args = []): Response
     {
         $response = $this->view->render($response, 'email/index');
