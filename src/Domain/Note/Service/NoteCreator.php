@@ -63,9 +63,11 @@ final class NoteCreator
     /**
      * Insert note
      * 
-     * @param array $formData The form data
+     * @param array<mixed> $formData The form data
+     * 
+     * @return void
      */
-    public function insertNote(array $formData)
+    public function insertNote(array $formData): void
     {
         $this->validateNote($formData);
 
@@ -75,9 +77,13 @@ final class NoteCreator
     /**
      * Validation
      * 
-     * @param array $formData The form data
+     * @param array<mixed> $formData The form data
+     * 
+     * @throws ValidationException
+     * 
+     * @return void
      */
-    public function validateNote(array $formData)
+    public function validateNote(array $formData): void
     {
         $this->validator
             ->allowEmptyString('title', 'Title cannot be empty', true)
