@@ -55,9 +55,11 @@ class NoteCreatorRepository
     /**
      * Insert note
      * 
-     * @param array $formData The form data
+     * @param array<mixed> $formData The form data
+     * 
+     * @return void
      */
-    public function insertNote(array $formData)
+    public function insertNote(array $formData): void
     {
         $note = new Note;
 
