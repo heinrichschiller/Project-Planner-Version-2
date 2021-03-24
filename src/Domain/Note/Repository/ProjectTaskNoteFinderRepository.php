@@ -58,7 +58,7 @@ class ProjectTaskNoteFinderRepository
      * @param int $projectId Project id
      * @param int $taskId Task id
      * 
-     * @return array Notes from id.
+     * @return array<mixed> Notes from id.
      */
     public function findAll(int $projectId, int $taskId): array
     {
