@@ -62,13 +62,13 @@ final class ContactUpdating
     /**
      * Contact update
      * 
-     * @param array $formData The form data
+     * @param array<mixed> $formData The form data
      * 
      * @return int
      */
     public function contactUpdate(array $formData): int
     {
-        $this->validateContact($formData);
+        $this->validate($formData);
 
         return (int) $this->repository->updateContact($formData);
     }
@@ -76,9 +76,13 @@ final class ContactUpdating
     /**
      * Input validation
      * 
-     * @param array $formData The form data
+     * @param array<mixed> $formData The form data
+     * 
+     * @throws ValidationException
+     * 
+     * @return void
      */
-    public function validateContact(array $formData)
+    public function validate(array $formData): void
     {
         $this->validator
             ->requirePresence('display_name')
