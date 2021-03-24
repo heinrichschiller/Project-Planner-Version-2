@@ -53,7 +53,7 @@ class PriorityFinderRepository
     /**
      * Find all priority values
      * 
-     * @return array List of priority values
+     * @return array<mixed> List of priority values
      */
     public function findAll(): array
     {
