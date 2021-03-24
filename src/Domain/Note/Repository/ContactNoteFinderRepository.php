@@ -45,11 +45,11 @@ class ContactNoteFinderRepository
     /**
      * The constructor
      * 
-     * @param EntityManager $em
+     * @param EntityManager $entityManager
      */
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManager $entityManager)
     {
-        $this->entityManager = $em;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -57,7 +57,7 @@ class ContactNoteFinderRepository
      * 
      * @param int $id Contact or project or task id
      * 
-     * @return array Notes from id.
+     * @return array<mixed> Notes from id.
      */
     public function findAll(int $id): array
     {
