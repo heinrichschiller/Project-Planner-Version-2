@@ -88,7 +88,7 @@ let Controller = ((UICtrl) => {
             modal.style.display = 'block';
         });
 
-        document.forms['note'].addEventListener('submit', (e) => {
+        document.forms[DOM.noteForm].addEventListener('submit', (e) => {
             e.preventDefault();
 
             let desc = document.getElementById(DOM.noteDesc);
