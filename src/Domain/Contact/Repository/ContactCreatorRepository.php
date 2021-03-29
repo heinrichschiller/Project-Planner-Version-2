@@ -63,7 +63,7 @@ class ContactCreatorRepository
     {
         $contact = new Contact;
 
-        $contact->setDisplayName($data['display_name']);
+        $contact->setDisplayName( (string) $data['display_name']);
         $contact->setCreatedAt(new DateTime('now'));
 
         $this->entityManager->persist($contact);
