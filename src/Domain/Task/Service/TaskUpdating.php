@@ -69,7 +69,7 @@ final class TaskUpdating
      */
     public function updateTask(array $formData): void
     {
-        $this->validateTaskUpdate($formData);
+        $this->validate($formData);
 
         $this->repository->updateTask($formData);
     }
@@ -83,7 +83,7 @@ final class TaskUpdating
      * 
      * @return void
      */
-    public function validateTaskUpdate(array $formData): void
+    public function validate(array $formData): void
     {
         $this->validator
             ->requirePresence('title', 'This field is required')
