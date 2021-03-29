@@ -83,7 +83,7 @@ final class ProjectUpdating
     public function updateProject(array $formData): void
     {
         try {
-            $this->validateProject($formData);
+            $this->validate($formData);
 
             $this->logger->info(sprintf('Project updated: %s', $formData['title']));
 
@@ -104,7 +104,7 @@ final class ProjectUpdating
      * 
      * @return void
      */
-    public function validateProject(array $formData): void
+    public function validate(array $formData): void
     {
         $this->validator
             ->requirePresence('title')
