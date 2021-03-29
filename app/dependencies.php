@@ -58,6 +58,7 @@ use App\Domain\Contact\Repository\ContactUpdatingRepository;
 use App\Domain\Contact\Service\ContactCreator;
 use App\Domain\Contact\Service\ContactFinder;
 use App\Domain\Contact\Service\ContactReader;
+use App\Domain\Note\Repository\NoteCreatorRepository;
 use App\Domain\Priority\Repository\PriorityFinderRepository;
 use App\Domain\Priority\Service\PriorityFinder;
 use App\Domain\Project\Repository\ProjectCreatorRepository;
@@ -212,6 +213,13 @@ return function(ContainerBuilder $builder)
         {
             return new NoteAction(
                 $container->get(Mustache::class)
+            );
+        },
+        
+        NoteCreatorRepository::class => function(ContainerInterface $container): NoteCreatorRepository
+        {
+            return new NoteCreatorRepository(
+                $container->get(EntityManager::class)
             );
         },
 
