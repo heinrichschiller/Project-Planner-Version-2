@@ -69,7 +69,7 @@ final class NoteCreator
      */
     public function insertNote(array $formData): void
     {
-        $this->validateNote($formData);
+        $this->validate($formData);
 
         $this->repository->insertNote($formData);
     }
@@ -83,7 +83,7 @@ final class NoteCreator
      * 
      * @return void
      */
-    public function validateNote(array $formData): void
+    public function validate(array $formData): void
     {
         $this->validator
             ->allowEmptyString('title', 'Title cannot be empty', true)
@@ -93,12 +93,6 @@ final class NoteCreator
                 'length' => [
                     'rule' => ['minLength', 10],
                     'message' => 'Description need to be at least 10 characters long'
-                ]
-            ])
-            ->requirePresence([
-                'contactId' => [
-                    'mode' => 'create',
-                    'message' => 'An contact is required'
                 ]
             ]);
 
