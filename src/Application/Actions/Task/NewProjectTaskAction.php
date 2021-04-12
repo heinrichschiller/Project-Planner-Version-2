@@ -38,15 +38,10 @@ use App\Domain\Status\Service\StatusFinder;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Views\Mustache;
 
 class NewProjectTaskAction
 {
-    /**
-     * @Injection
-     * @var ContainerInterface
-     */
-    private $ci;
-
     /**
      * @Injection
      * @var ContactFinder
@@ -78,6 +73,12 @@ class NewProjectTaskAction
     private StatusFinder $statusFinder;
 
     /**
+     * @Injection
+     * @var Mustache
+     */
+    private Mustache $view;
+
+    /**
      * The constructor
      * 
      * @param ContainerInterface $ci
@@ -86,19 +87,20 @@ class NewProjectTaskAction
      * @param ProjectReader $projectReader
      * @param StatusFinder $statusFinder
      */
-    public function __construct(ContainerInterface $ci,
+    public function __construct(
         ContactFinder $contactFinder,
         PriorityFinder $priorityFinder,
         ProjectFinder $projectFinder,
         ProjectReader $projectReader,
-        StatusFinder $statusFinder)
+        StatusFinder $statusFinder,
+        Mustache $view)
     {
-        $this->ci = $ci;
         $this->contactFinder = $contactFinder;
         $this->priorityFinder = $priorityFinder;
         $this->projectFinder = $projectFinder;
         $this->projectReader = $projectReader;
         $this->statusFinder = $statusFinder;
+        $this->view = $view;
     }
 
     /**
@@ -126,8 +128,7 @@ class NewProjectTaskAction
             'projectList' => $projectList
         ];
 
-        $html = $this->ci->get('view')->render('/project/newTask', $data);
-        $response->getBody()->write($html);
+        $this->view->render($response, '/project/newTask', $data);
 
         return $response;
     }
