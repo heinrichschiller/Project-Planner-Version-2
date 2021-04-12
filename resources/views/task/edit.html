@@ -17,14 +17,24 @@
                     <div class="header">
                         <div class="title-bar">
                             <h1>Aufgabe -</h1>
-                            <input type="text" name="title" value="{{ getTitle }}" id="" class="form-control borderless header-title">
+                            <input type="text" 
+                                name="title" 
+                                value="{{ getTitle }}" 
+                                id="title" 
+                                class="form-control borderless header-title"
+                                required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="desc" class="col-form-label">Beschreibung:</label>
                         <div>
-                            <textarea class="form-control" name="desc" id="desc" cols="30" rows="10">{{ getDescription }}</textarea>
+                            <textarea class="form-control" 
+                                name="desc" 
+                                id="desc" 
+                                cols="30" 
+                                rows="10" 
+                                required>{{ getDescription }}</textarea>
                         </div>
                     </div>
 
@@ -32,11 +42,19 @@
                         <div class="row">
                             <div class="col">
                                 <label for="inputTaskBegin">Anfang:</label>
-                                <input type="datetime-local" name="beginAt" value="{{ getBeginAtDateTimeLocal }}" id="inputTaskBegin" class="form-control">
+                                <input type="datetime-local" 
+                                    name="beginAt" 
+                                    value="{{ getBeginAtDateTimeLocal }}" 
+                                    id="inputTaskBegin" 
+                                    class="form-control">
                             </div>
                             <div class="col">
                                 <label for="inputTaskEnd">Ende:</label>
-                                <input type="datetime-local" name="endAt" value="{{ getEndAtDateTimeLocal }}" id="inputTaskEnd" class="form-control">
+                                <input type="datetime-local" 
+                                    name="endAt" 
+                                    value="{{ getEndAtDateTimeLocal }}" 
+                                    id="inputTaskEnd" 
+                                    class="form-control">
                             </div>
                         </div>
                     </div>
@@ -45,7 +63,11 @@
                         <div class="row">
                             <div class="col">
                                 <label for="input__status">Status:</label>
-                                <select name="statusId" data-status_id="{{ getStatusId}}" id="input__status" class="form-control">
+                                <select name="statusId" 
+                                    data-status_id="{{ getStatusId}}" 
+                                    id="input__status" 
+                                    class="form-control"
+                                    required>
 
                                     {{# statusList }}
                                     <option value="{{ getId }}">{{ getId }} {{ getDescription }}</option>
@@ -55,7 +77,11 @@
                             </div>
                             <div class="col">
                                 <label for="input__riority">Priorität:</label>
-                                <select name="priorityId" data-priority_id="{{ getPriorityId }}" id="input__priority" class="form-control">
+                                <select name="priorityId" 
+                                    data-priority_id="{{ getPriorityId }}" 
+                                    id="input__priority" 
+                                    class="form-control"
+                                    required>
 
                                     {{# priorityList }}
                                     <option value="{{ getId }}">{{ getId }}  {{ getDescription }}</option>
