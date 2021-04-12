@@ -55,7 +55,7 @@ return [
     |   created through the command line.
     |
     */
-    'dev_mode' => true,
+    'dev_mode' => env('DEV_MODE'),
 
     /*
     |----------------------------------------------------------------------------
@@ -70,8 +70,8 @@ return [
     | https://www.doctrine-project.org/projects/doctrine-orm/en/2.7/reference/advanced-configuration.html
     |
     */
-    'cache_dir' => null,
-    'metadata_dirs' => null,
+    'cache_dir' => env('CACHE_DIR'),
+    'metadata_dirs' => env('METADATA_DIRS'),
 
     /*
     |----------------------------------------------------------------------------
@@ -81,7 +81,7 @@ return [
     | If `proxyDir` is not set, use the systems temporary directory.
     |
     */
-    'proxy_dir' => null,
+    'proxy_dir' => env('PROXY_DIR'),
 
     /*
     |----------------------------------------------------------------------------
@@ -89,7 +89,7 @@ return [
     |----------------------------------------------------------------------------
     |
     */
-    'useSimpleAnnotationReader' => false,
+    'useSimpleAnnotationReader' => env('USE_SIMPLE_ANNOTATION_READER'),
 
     /*
     |----------------------------------------------------------------------------
@@ -170,7 +170,7 @@ return [
         | Name of the socket used to connect to the database.
         |
         */
-        'unix_socket' => '',
+        'unix_socket' => env('UNIX_SOCKET'),
 
         /*
         |----------------------------------------------------------------------------
@@ -180,6 +180,6 @@ return [
         | The charset used when connecting to the database.
         |
         */
-        'charset' => 'utf8mb4'
+        'charset' => env('CHARSET')
     ]
 ];
