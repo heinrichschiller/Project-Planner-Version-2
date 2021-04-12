@@ -46,6 +46,7 @@ use App\Application\Actions\Project\ReadAction as ProjectReadAction;
 use App\Application\Actions\Settings\SettingsAction;
 use App\Application\Actions\Task\EditAction as TaskEditAction;
 use App\Application\Actions\Task\NewAction as TaskNewAction;
+use App\Application\Actions\Task\NewProjectTaskAction;
 use App\Application\Actions\Task\ReadAction as TaskReadAction;
 use App\Application\Actions\Task\TaskAction;
 use App\Application\Actions\Test\TestAction;
@@ -247,6 +248,18 @@ return function(ContainerBuilder $builder)
             );
         },
 
+        NewProjectTaskAction::class => function(ContainerInterface $container): NewProjectTaskAction
+        {
+            return new NewProjectTaskAction(
+                $container->get(ContactFinder::class),
+                $container->get(PriorityFinder::class),
+                $container->get(ProjectFinder::class),
+                $container->get(ProjectReader::class),
+                $container->get(StatusFinder::class),
+                $container->get(Mustache::class)
+            );
+        },
+
         ProjectReadAction::class => function(ContainerInterface $container): ProjectReadAction
         {
             return new ProjectReadAction(
@@ -369,7 +382,7 @@ return function(ContainerBuilder $builder)
         {
             return new TaskAction(
                 $container->get(TaskFinder::class),
-                $container->get(Mustache::class),
+                $container->get(Mustache::class)
             );
         },
 
