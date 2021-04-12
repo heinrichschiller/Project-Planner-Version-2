@@ -26,7 +26,7 @@
  *
  */
 
-declare(strict_types = 1 );
+declare( strict_types = 1 );
 
 use Monolog\Logger;
 
@@ -41,9 +41,9 @@ return [
     |
     */
     'error' => [
-        'displayErrorDetails' => $_ENV['DISPLAY_ERROR_DETAILS'],
-        'logErrors' => $_ENV['LOG_ERRORS'],
-        'logErrorDetails' => $_ENV['LOG_ERROR_DETAILS']
+        'displayErrorDetails' => env('DISPLAY_ERROR_DETAILS'),
+        'logErrors' => env('LOG_ERRORS'),
+        'logErrorDetails' => env('LOG_ERROR_DETAILS')
     ],
 
     /*
@@ -56,7 +56,7 @@ return [
     |
     */
     'mustache' => [
-        'cache' => ROOT_DIR.'/var/caches/mustache',
+        'cache' => ROOT_DIR . '/var/caches/mustache',
         'loader' => new Mustache_Loader_FilesystemLoader(
             ROOT_DIR . 'resources/views', 
             ['extension' => '.html']
