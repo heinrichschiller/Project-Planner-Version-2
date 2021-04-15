@@ -59,6 +59,8 @@ use App\Domain\Contact\Repository\ContactUpdatingRepository;
 use App\Domain\Contact\Service\ContactCreator;
 use App\Domain\Contact\Service\ContactFinder;
 use App\Domain\Contact\Service\ContactReader;
+use App\Domain\Dashboard\Service\ImportantProjectFinder;
+use App\Domain\Dashboard\Service\ImportantTaskFinder;
 use App\Domain\Note\Repository\NoteCreatorRepository;
 use App\Domain\Priority\Repository\PriorityFinderRepository;
 use App\Domain\Priority\Service\PriorityFinder;
@@ -167,6 +169,8 @@ return function(ContainerBuilder $builder)
         DashboardAction::class => function(ContainerInterface $container): DashboardAction
         {
             return new DashboardAction(
+                $container->get(ImportantProjectFinder::class),
+                $container->get(ImportantTaskFinder::class),
                 $container->get(Mustache::class)
             );
         },
