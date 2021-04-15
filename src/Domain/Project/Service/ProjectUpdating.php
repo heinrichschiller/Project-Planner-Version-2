@@ -111,7 +111,7 @@ final class ProjectUpdating
             ->notEmptyString('title')
             ->add('title', [
                 'length' => [
-                    'rule' => ['minLength', 10],
+                    'rule' => ['minLength', 3],
                     'message' => 'Title need to be at least 10 characters long'
                 ]
             ])->requirePresence('desc')
