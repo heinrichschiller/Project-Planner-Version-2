@@ -129,8 +129,8 @@ final class ProjectCreator
             ->notEmptyString('statusId')
             ->requirePresence('priorityId')
             ->notEmptyString('priorityId')
-            ->requirePresence('id')
-            ->notEmptyString('id');
+            ->requirePresence('contactId')
+            ->notEmptyString('contactId');
 
         $errors = $this->validator->validate( $formData );
 
