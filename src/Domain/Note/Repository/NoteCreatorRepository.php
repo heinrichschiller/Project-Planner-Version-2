@@ -64,7 +64,7 @@ class NoteCreatorRepository
         $note = new Note;
 
         $note->setTitle($formData['title']);
-        $note->setDescription($formData['desc']);
+        $note->setDescription($formData['body']);
 
         if(!empty($formData['contactId'])) {
             $note->setContactId( (int) $formData['contactId']);
