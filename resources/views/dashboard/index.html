@@ -66,6 +66,7 @@
                             {{# tasks }}
                             <tr class="clickable__row" data-href="/task/read/{{ getId }}">
                                 <td>{{ getTitle }}</td>
+                                <td>{{ getProject.getTitle }}</td>
                                 <td>{{ getBeginAt }}</td>
                                 <td>{{ getEndAt }}</td>
                                 <td class="priority__color" data-priority_id="{{ getPriorityId }}">{{ getPriority.getDescription }}</td>

@@ -59,8 +59,9 @@ class ImportantTaskFinderRepository
     {
         return (array) $this->entityManager
             ->createQueryBuilder()
-            ->select('t')
+            ->select('t, p')
             ->from('Entities\Task', 't')
+            ->leftJoin('t.project', 'p')
             ->where('t.priorityId = 1 OR t.priorityId = 2')
             ->andWhere('t.statusId != 5 AND t.statusId != 6')
             ->orderBy('t.priorityId', 'ASC')
