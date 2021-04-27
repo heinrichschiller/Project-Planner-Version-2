@@ -87,8 +87,8 @@ final class NoteCreator
     {
         $this->validator
             ->allowEmptyString('title', 'Title cannot be empty', true)
-            ->requirePresence('desc')
-            ->notEmptyString('desc')
+            ->requirePresence('body')
+            ->notEmptyString('body')
             ->add('desc', [
                 'length' => [
                     'rule' => ['minLength', 10],
