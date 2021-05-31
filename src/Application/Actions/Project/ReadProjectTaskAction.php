@@ -30,6 +30,7 @@ declare(strict_types = 1);
 
 namespace App\Application\Actions\Project;
 
+use App\Domain\Project\Service\ProjectReader;
 use App\Domain\Project\Service\ProjectTaskReader;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -43,7 +44,17 @@ class ReadProjectTaskAction
      */
     private Mustache $view;
 
-    private ProjectTaskReader $reader;
+    /**
+     * @Injection
+     * @var ProjectReader
+     */
+    private ProjectReader $projectReader;
+
+    /**
+     * @Injection
+     * @var ProjectTaskReader $taskReader
+     */
+    private ProjectTaskReader $taskReader;
 
     /**
      * The constructor
@@ -52,10 +63,13 @@ class ReadProjectTaskAction
      * @param ProjectReader $projectReader
      * @param ProjectTaskReader $projectTaskReader
      */
-    public function __construct(Mustache $view, ProjectTaskReader $reader)
+    public function __construct(Mustache $view
+        , ProjectReader $projectReader
+        , ProjectTaskReader $taskReader)
     {
         $this->view = $view;
-        $this->reader = $reader;
+        $this->projectReader = $projectReader;
+        $this->taskReader = $taskReader;
     }
 
     /**
@@ -69,12 +83,14 @@ class ReadProjectTaskAction
      */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $openTasks = $this->reader->findAllOpenTasks( (int) $args['pid']);
-        $closedTasks = $this->reader->findAllClosedTasks( (int) $args['pid']);
+        $project     = $this->projectReader->readProject( (int) $args['pid'] );
+        $openTasks   = $this->taskReader->findAllOpenTasks( (int) $args['pid'] );
+        $closedTasks = $this->taskReader->findAllClosedTasks( (int) $args['pid'] );
         
         $data = [
-            'openTasks'  => $openTasks,
-            'closedTasks'  => $closedTasks
+            'project'     => $project,
+            'openTasks'   => $openTasks,
+            'closedTasks' => $closedTasks
         ];
 
         $this->view->render($response, 'project/read-task', $data);
