@@ -57,8 +57,32 @@ final class ProjectTaskReader
      * 
      * @return array<mixed>
      */
-    public function readProjectTask(int $id): array
+    public function findOpenTasks(int $id): array
     {
-        return $this->repository->readProjectTask($id);
+        return $this->repository->findOpenTasks($id);
+    }
+
+    /**
+     * Find all open tasks
+     * 
+     * @param int $id Id of a project
+     * 
+     * @return array<mixed>
+     */
+    public function findAllOpenTasks(int $id): array
+    {
+        return $this->repository->findAllOpenTasks($id);
+    }
+
+    /**
+     * Find all closed tasks
+     * 
+     * @param int $id Id of a project
+     * 
+     * @return array<mixed>
+     */
+    public function findAllClosedTasks(int $id): array
+    {
+        return $this->repository->findAllClosedTasks($id);
     }
 }
