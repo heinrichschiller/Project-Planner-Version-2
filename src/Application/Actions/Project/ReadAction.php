@@ -85,7 +85,7 @@ class ReadAction
     {
         $project = $this->projectReader->readProject( (int) $args['id']);
         
-        $taskList = $this->projectTaskReader->readProjectTask( (int) $args['id']);
+        $taskList = $this->projectTaskReader->findOpenTasks( (int) $args['id']);
 
         $data = [
             'project' => $project,
