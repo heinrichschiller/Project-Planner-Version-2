@@ -57,7 +57,7 @@ class ProjectTaskReaderRepository
      * 
      * @return array<mixed>
      */
-    public function readProjectTask(int $id): array
+    public function findOpenTasks(int $id): array
     {
         return (array) $this->entityManager
             ->createQueryBuilder()
@@ -68,6 +68,48 @@ class ProjectTaskReaderRepository
             ->orderBy('t.priorityId', 'ASC')
             ->setParameter(':id', $id)
             ->setMaxResults(5)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Find all open tasks
+     * 
+     * @param int $id Id of a project task
+     * 
+     * @return array<mixed>
+     */
+    public function findAllOpenTasks(int $id): array
+    {
+        return (array) $this->entityManager
+            ->createQueryBuilder()
+            ->select('t')
+            ->from('Entities\Task', 't')
+            ->where('t.projectId = :id')
+            ->andWhere('t.statusId != 5 AND t.statusId != 6')
+            ->orderBy('t.priorityId', 'ASC')
+            ->setParameter(':id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Find all open tasks
+     * 
+     * @param int $id Id of a project task
+     * 
+     * @return array<mixed>
+     */
+    public function findAllClosedTasks(int $id): array
+    {
+        return (array) $this->entityManager
+            ->createQueryBuilder()
+            ->select('t')
+            ->from('Entities\Task', 't')
+            ->where('t.projectId = :id')
+            ->andWhere('t.statusId = 5 OR t.statusId = 6')
+            ->orderBy('t.priorityId', 'ASC')
+            ->setParameter(':id', $id)
             ->getQuery()
             ->getResult();
     }
