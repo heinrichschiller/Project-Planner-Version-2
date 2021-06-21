@@ -39,7 +39,6 @@ use Slim\App;
 use Slim\Factory\AppFactory;
 use Psr\Log\LoggerInterface;
 use Slim\Middleware\ErrorMiddleware;
-use Slim\Views\Mustache;
 
 return function(ContainerBuilder $builder) 
 {
@@ -103,13 +102,6 @@ return function(ContainerBuilder $builder)
             $logger->pushHandler($streamHandler);
 
             return $logger;
-        },
-
-        Mustache::class => function(ContainerInterface $container): Mustache
-        {
-            $options = $container->get('settings')['mustache'];
-
-            return new Mustache($options);
         }
     ]);
 };
