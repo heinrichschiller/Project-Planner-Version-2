@@ -57,8 +57,11 @@ use Doctrine\ORM\EntityManager;
      */
     public function findAll(): array
     {
-        return $this->entityManager
-            ->getRepository('Entities\Contact')
-            ->findAll();
+        return (array) $this->entityManager
+            ->createQueryBuilder()
+            ->select('c')
+            ->from('Entities\Contact', 'c')
+            ->getQuery()
+            ->getArrayResult();
     }
  }
