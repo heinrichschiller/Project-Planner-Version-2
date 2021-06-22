@@ -26,7 +26,7 @@
  *
  */
 
-declare(strict_types = 1);
+declare( strict_types = 1 );
 
 namespace App\Application\Actions\Dashboard;
 
@@ -34,7 +34,6 @@ use App\Domain\Dashboard\Service\ImportantProjectFinder;
 use App\Domain\Dashboard\Service\ImportantTaskFinder;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use Slim\Views\Mustache;
 
 class DashboardAction
 {
@@ -44,26 +43,22 @@ class DashboardAction
      */
     private ImportantProjectFinder $projectFinder;
 
-    private ImportantTaskFinder $taskFinder;
-
     /**
      * @Injection
-     * @var Mustache
+     * @var ImportantTaskFinder
      */
-    private $view;
+    private ImportantTaskFinder $taskFinder;
 
     /**
      * The constructor
      * 
      * @param ImportantProjectFinder $projectFinder
      * @param ImportantTaskFinder $taskFinder
-     * @param Mustache $view Mustache-Engine
      */
-    public function __construct(ImportantProjectFinder $projectFinder, ImportantTaskFinder $taskFinder, Mustache $view)
+    public function __construct(ImportantProjectFinder $projectFinder, ImportantTaskFinder $taskFinder)
     {
         $this->projectFinder = $projectFinder;
         $this->taskFinder = $taskFinder;
-        $this->view = $view;
     }
 
     /**
@@ -83,15 +78,17 @@ class DashboardAction
         $tasks = (array) $this->taskFinder->findAll();
         $hasTasks = !empty($tasks) ? true : false;
 
-        $viewData = [
+        $data = [
             'projects'    => $projects,
             'hasProjects' => $hasProjects,
             'tasks'       => $tasks,
             'hasTasks'    => $hasTasks
         ];
 
-        $this->view->render($response, 'dashboard/index', $viewData);
+        $response->getBody()->write(json_encode($data));
 
-        return $response;
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
     }
 }
