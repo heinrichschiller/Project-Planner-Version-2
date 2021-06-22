@@ -48,27 +48,6 @@ return [
 
     /*
     |----------------------------------------------------------------------------
-    | Settings for PHP Mustache_Engine
-    |----------------------------------------------------------------------------
-    |
-    | For more information, see: 
-    | https://github.com/bobthecow/mustache.php
-    |
-    */
-    'mustache' => [
-        'cache' => ROOT_DIR . '/var/caches/mustache',
-        'loader' => new Mustache_Loader_FilesystemLoader(
-            ROOT_DIR . 'resources/views', 
-            ['extension' => '.html']
-        ),
-        'escape' => function(string $var) {
-            return htmlspecialchars($var, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-        },
-        'charset' => 'UTF-8',
-    ],
-
-    /*
-    |----------------------------------------------------------------------------
     | Settings for Monolog Logger
     |----------------------------------------------------------------------------
     |
