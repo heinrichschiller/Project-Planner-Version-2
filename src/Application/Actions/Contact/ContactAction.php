@@ -33,7 +33,6 @@ namespace App\Application\Actions\Contact;
 use App\Domain\Contact\Service\ContactFinder;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use Slim\Views\Mustache;
 
 class ContactAction
 {
@@ -44,21 +43,13 @@ class ContactAction
     private ContactFinder $contactFinder;
 
     /**
-     * @Injection
-     * @var Mustache
-     */
-    private $view;
-
-    /**
      * The constructor
      * 
      * @param ContactFinder $contactFinder
-     * @param Mustache $view
      */
-    public function __construct(ContactFinder $contactFinder, Mustache $view)
+    public function __construct(ContactFinder $contactFinder)
     {
         $this->contactFinder = $contactFinder;
-        $this->view = $view;
     }
     
     /**
@@ -81,8 +72,10 @@ class ContactAction
             'hasContacts' => $hasContacts,
         ];
 
-        $this->view->render($response, 'contact/index', $data);
+        $response->getBody()->write(json_encode($data));
 
-        return $response;
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
     }
 }
