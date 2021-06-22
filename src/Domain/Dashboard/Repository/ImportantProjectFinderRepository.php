@@ -64,6 +64,6 @@ class ImportantProjectFinderRepository
             ->where('p.priorityId = 1 OR p.priorityId = 2')
             ->orderBy('p.priorityId', 'ASC')
             ->getQuery()
-            ->getResult();
+            ->getArrayResult();
     }
 }

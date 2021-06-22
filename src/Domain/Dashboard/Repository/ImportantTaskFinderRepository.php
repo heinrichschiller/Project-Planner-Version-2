@@ -66,6 +66,6 @@ class ImportantTaskFinderRepository
             ->andWhere('t.statusId != 5 AND t.statusId != 6')
             ->orderBy('t.priorityId', 'ASC')
             ->getQuery()
-            ->getResult();
+            ->getArrayResult();
     }
 }
