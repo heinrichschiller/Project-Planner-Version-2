@@ -101,8 +101,7 @@ return function(ContainerBuilder $builder)
         ContactAction::class => function(ContainerInterface $container): ContactAction
         {
             return new ContactAction(
-                $container->get(ContactFinder::class),
-                $container->get(Mustache::class)
+                $container->get(ContactFinder::class)
             );
         },
 
