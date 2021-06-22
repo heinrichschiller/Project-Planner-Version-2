@@ -170,8 +170,7 @@ return function(ContainerBuilder $builder)
         {
             return new DashboardAction(
                 $container->get(ImportantProjectFinder::class),
-                $container->get(ImportantTaskFinder::class),
-                $container->get(Mustache::class)
+                $container->get(ImportantTaskFinder::class)
             );
         },
 
