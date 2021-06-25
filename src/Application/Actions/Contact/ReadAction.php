@@ -33,7 +33,6 @@ namespace App\Application\Actions\Contact;
 use App\Domain\Contact\Service\ContactReader;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use Slim\Views\Mustache;
 
 class ReadAction
 {
@@ -44,21 +43,14 @@ class ReadAction
     private ContactReader $contactReader;
 
     /**
-     * @Injection
-     * @var Mustache
-     */
-    private $view;
-
-    /**
      * The constructor
      * 
      * @param ContactReader $contactReader
      * @param Mustache $view
      */
-    public function __construct(ContactReader $contactReader, Mustache $view)
+    public function __construct(ContactReader $contactReader)
     {
         $this->contactReader = $contactReader;
-        $this->view = $view;
     }
 
     /**
@@ -73,8 +65,10 @@ class ReadAction
     {
         $contact = $this->contactReader->readContact( (int) $args['id']);
         
-        $this->view->render($response, 'contact/read', $contact);
+        $response->getBody()->write(json_encode($contact));
 
-        return $response;
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
     }
 }
