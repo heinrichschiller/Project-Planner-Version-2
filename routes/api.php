@@ -45,6 +45,7 @@ return function(App $app)
     |----------------------------------------------------------------------------
     */
     $app->get('/api/v1/contacts', \App\Application\Actions\Contact\ContactAction::class);
+    $app->get('/api/v1/contact/{id:\d+}/read', \App\Application\Actions\Contact\ReadAction::class);
 
     /*
     |----------------------------------------------------------------------------
