@@ -124,8 +124,7 @@ return function(ContainerBuilder $builder)
         ContactReadAction::class => function(ContainerInterface $container): ContactReadAction
         {
             return new ContactReadAction(
-                $container->get(ContactReader::class),
-                $container->get(Mustache::class)
+                $container->get(ContactReader::class)
             );
         },
 
