@@ -55,12 +55,17 @@ class ContactReaderRepository
      * 
      * @param int $id Id of a contact
      * 
-     * @return Object
+     * @return array
      */
-    public function readContact(int $id): Object
+    public function readContact(int $id): array
     {
-        return $this->entityManager
-            ->getRepository('Entities\Contact')
-            ->find($id);
+        return (array) $this->entityManager
+            ->createQueryBuilder()
+            ->select('c')
+            ->from('Entities\Contact', 'c')
+            ->where('c.id = :id')
+            ->setParameter(':id', $id)
+            ->getQuery()
+            ->getArrayResult();
     }
 }
