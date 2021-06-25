@@ -56,9 +56,9 @@ final class ContactReader
      * 
      * @param int $id Id of a contact
      * 
-     * @return Object
+     * @return array
      */
-    public function readContact(int $id): Object
+    public function readContact(int $id): array
     {
         $this->validate($id);
 
@@ -67,6 +67,8 @@ final class ContactReader
 
     /**
      * Input validation
+     * 
+     * TODO: replace this old validation through CakePHP Validation
      * 
      * @param int $id Id of a contact
      * 
