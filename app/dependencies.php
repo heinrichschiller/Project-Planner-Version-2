@@ -378,8 +378,7 @@ return function(ContainerBuilder $builder)
         TaskAction::class => function(ContainerInterface $container): TaskAction
         {
             return new TaskAction(
-                $container->get(TaskFinder::class),
-                $container->get(Mustache::class)
+                $container->get(TaskFinder::class)
             );
         },
 
