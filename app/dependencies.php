@@ -270,7 +270,6 @@ return function(ContainerBuilder $builder)
         ProjectEditAction::class => function(ContainerInterface $container): ProjectEditAction
         {
             return new ProjectEditAction(
-                $container->get(Mustache::class),
                 $container->get(PriorityFinder::class),
                 $container->get(ProjectReader::class),
                 $container->get(StatusFinder::class)
