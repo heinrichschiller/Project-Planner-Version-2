@@ -37,7 +37,6 @@ return function(App $app)
     | Contact routes
     |----------------------------------------------------------------------------
     */
-    $app->get('/contact/edit/{id:\d+}', \App\Application\Actions\Contact\EditAction::class);
     $app->post('/contact/create',  \App\Application\Actions\Contact\CreateAction::class);
     $app->post('/contact/update', \App\Application\Actions\Contact\UpdateAction::class);
 
