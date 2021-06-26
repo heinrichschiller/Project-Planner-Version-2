@@ -33,16 +33,9 @@ namespace App\Application\Actions\Project;
 use App\Domain\Project\Service\ProjectFinder;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use Slim\Views\Mustache;
 
 class ProjectAction
 {
-    /**
-     * @Injection
-     * @var Mustache
-     */
-    private Mustache $view;
-
     /**
      * @Injection
      * @var ProjectFinder 
@@ -55,9 +48,8 @@ class ProjectAction
      * @param Mustache $view
      * @param ProjectFinder $projectFinder
      */
-    public function __construct(Mustache $view, ProjectFinder $projectFinder)
+    public function __construct(ProjectFinder $projectFinder)
     {
-        $this->view = $view;
         $this->projectFinder = $projectFinder;
     }
 
@@ -73,7 +65,6 @@ class ProjectAction
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
         $projects = (array) $this->projectFinder->findAll();
-
         $hasProjects = !empty($projects) ? true : false;
 
         $data = [
@@ -81,8 +72,10 @@ class ProjectAction
             'hasProjects' => $hasProjects
         ];
 
-        $this->view->render($response, 'project/index', $data);
+        $response->getBody()->write(json_encode($data));
 
-        return $response;
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
     }
 }
