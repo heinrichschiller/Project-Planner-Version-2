@@ -233,7 +233,6 @@ return function(ContainerBuilder $builder)
         ProjectAction::class => function(ContainerInterface $container): ProjectAction
         {
             return new ProjectAction(
-                $container->get(Mustache::class),
                 $container->get(ProjectFinder::class)
             );
         },
