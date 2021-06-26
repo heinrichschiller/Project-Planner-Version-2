@@ -65,6 +65,6 @@ class ProjectFinderRepository
             ->where('p.statusId != 5 AND p.statusId != 6')
             ->orderBy('p.priorityId', 'ASC')
             ->getQuery()
-            ->getResult();
+            ->getArrayResult();
     }
 }
