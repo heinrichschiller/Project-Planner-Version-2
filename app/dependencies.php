@@ -262,7 +262,6 @@ return function(ContainerBuilder $builder)
         ProjectReadAction::class => function(ContainerInterface $container): ProjectReadAction
         {
             return new ProjectReadAction(
-                $container->get(Mustache::class),
                 $container->get(ProjectReader::class),
                 $container->get(ProjectTaskReader::class)
             );
