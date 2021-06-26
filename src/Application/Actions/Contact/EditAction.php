@@ -31,10 +31,8 @@ declare(strict_types = 1);
 namespace App\Application\Actions\Contact;
 
 use App\Domain\Contact\Service\ContactReader;
-use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use Slim\Views\Mustache;
 
 class EditAction
 {
@@ -45,21 +43,14 @@ class EditAction
     private ContactReader $contactReader;
 
     /**
-     * @Injection
-     * @var Mustache
-     */
-    private $view;
-
-    /**
      * The constructor
      * 
      * @param ContactReader $contactReader
      * @param Mustache $view;
      */
-    public function __construct(ContactReader $contactReader, Mustache $view)
+    public function __construct(ContactReader $contactReader)
     {
         $this->contactReader = $contactReader;
-        $this->view = $view;
     }
 
     /**
@@ -75,8 +66,10 @@ class EditAction
     {
         $contact = $this->contactReader->readContact( (int) $args['id']);
 
-        $this->view->render($response, 'contact/edit', $contact);
+        $response->getBody()->write(json_encode($contact));
 
-        return $response;
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
     }
 }
