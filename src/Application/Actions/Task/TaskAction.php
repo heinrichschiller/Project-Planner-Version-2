@@ -33,16 +33,9 @@ namespace App\Application\Actions\Task;
 use App\Domain\Task\Service\TaskFinder;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use Slim\Views\Mustache;
 
 class TaskAction
 {
-    /**
-     * @Injection
-     * @var Mustache
-     */
-    private Mustache $view;
-
     /**
      * @Injection
      * @var TaskFinder $taskFinder
@@ -55,10 +48,9 @@ class TaskAction
      * @param TaskFinder $taskFinder
      * @param Mustache $view Mustache engine
      */
-    public function __construct(TaskFinder $taskFinder, Mustache $view)
+    public function __construct(TaskFinder $taskFinder)
     {
         $this->taskFinder = $taskFinder;
-        $this->view = $view;
     }
 
     /**
@@ -73,7 +65,6 @@ class TaskAction
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
         $tasks = $this->taskFinder->findAll();
-
         $hasTasks = !empty($tasks) ? true : false;
 
         $data = [
@@ -81,8 +72,10 @@ class TaskAction
             'hasTasks' => $hasTasks
         ];
 
-        $this->view->render($response, 'task/index', $data);
+        $response->getBody()->write(json_encode($data));
 
-        return $response;
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
     }
 }
