@@ -58,7 +58,10 @@ class PriorityFinderRepository
     public function findAll(): array
     {
         return (array) $this->entityManager
-            ->getRepository('Entities\Priority')
-            ->findAll();
+            ->createQueryBuilder()
+            ->select('p')
+            ->from('Entities\Priority', 'p')
+            ->getQuery()
+            ->getArrayResult();
     }
 }

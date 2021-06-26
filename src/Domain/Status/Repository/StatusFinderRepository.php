@@ -58,7 +58,10 @@ class StatusFinderRepository
     public function findAll(): array
     {
         return (array) $this->entityManager
-            ->getRepository(('Entities\Status'))
-            ->findAll();
+            ->createQueryBuilder()
+            ->select('s')
+            ->from('Entities\Status', 's')
+            ->getQuery()
+            ->getArrayResult();
     }
 }
