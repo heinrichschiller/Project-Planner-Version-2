@@ -37,7 +37,6 @@ return function(App $app)
     | Project routes
     |----------------------------------------------------------------------------
     */
-    $app->get('/project/new', \App\Application\Actions\Project\NewAction::class);
     $app->get('/project/read/{id:\d+}', \App\Application\Actions\Project\ReadAction::class);
     $app->get('/project/edit/{id:\d+}', \App\Application\Actions\Project\EditAction::class);
     $app->get('/project/task/new/{pid:\d+}', \App\Application\Actions\Task\NewProjectTaskAction::class);
