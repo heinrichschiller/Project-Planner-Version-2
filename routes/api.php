@@ -89,6 +89,8 @@ return function(App $app)
     */
     $app->get('/api/v1/projects', \App\Application\Actions\Project\ProjectAction::class);
     $app->get('/api/v1/project/{id:\d+}/read', \App\Application\Actions\Project\ReadAction::class);
+    $app->get('/api/v1/project/{id:\d+}/edit', \App\Application\Actions\Project\EditAction::class);
+
     /*
     |----------------------------------------------------------------------------
     | Notes routes
