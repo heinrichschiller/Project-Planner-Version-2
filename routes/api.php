@@ -48,6 +48,7 @@ return function(App $app)
     $app->get('/api/v1/contact/{id:\d+}/read', \App\Application\Actions\Contact\ReadAction::class);
     $app->get('/api/v1/contact/{id:\d+}/edit', \App\Application\Actions\Contact\EditAction::class);
     $app->post('/api/v1/contact',  \App\Application\Actions\Contact\CreateAction::class);
+    $app->patch('/api/v1/contact', \App\Application\Actions\Contact\UpdateAction::class);
 
     /*
     |----------------------------------------------------------------------------
