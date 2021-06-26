@@ -131,8 +131,7 @@ return function(ContainerBuilder $builder)
         ContactEditAction::class => function(ContainerInterface $container): ContactEditAction
         {
             return new ContactEditAction(
-                $container->get(ContactReader::class),
-                $container->get(Mustache::class)
+                $container->get(ContactReader::class)
             );
         },
 
