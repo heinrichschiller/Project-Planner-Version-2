@@ -55,9 +55,9 @@ final class ProjectReader
      * 
      * @param int $id Id of a project
      * 
-     * @return Object
+     * @return array
      */
-    public function readProject(int $id): Object
+    public function readProject(int $id): array
     {
         return $this->repository->readProject($id);
     }
