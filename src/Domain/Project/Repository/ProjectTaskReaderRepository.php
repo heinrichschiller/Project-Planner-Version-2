@@ -59,6 +59,7 @@ class ProjectTaskReaderRepository
      */
     public function findOpenTasks(int $id): array
     {
+        // TODO: replace static value with dynamic value from setMaxResults
         return (array) $this->entityManager
             ->createQueryBuilder()
             ->select('t')
@@ -69,7 +70,7 @@ class ProjectTaskReaderRepository
             ->setParameter(':id', $id)
             ->setMaxResults(5)
             ->getQuery()
-            ->getResult();
+            ->getArrayResult();
     }
 
     /**
