@@ -35,16 +35,9 @@ use App\Domain\Project\Service\ProjectReader;
 use App\Domain\Status\Service\StatusFinder;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use Slim\Views\Mustache;
 
 class EditAction
 {
-    /**
-     * @Injection
-     * @var Mustache
-     */
-    private Mustache $view;
-
     /**
      * @Injection
      * @var PriorityFinder
@@ -71,12 +64,11 @@ class EditAction
      * @param ProjectReader $projectReader
      * @param StatusFinder $statusFinder
      */
-    public function __construct(Mustache $view
-        , PriorityFinder $priorityFinder
+    public function __construct(
+        PriorityFinder $priorityFinder
         , ProjectReader $projectReader
         , StatusFinder $statusFinder)
     {
-        $this->view = $view;
         $this->priorityFinder = $priorityFinder;
         $this->projectReader = $projectReader;
         $this->statusFinder = $statusFinder;
@@ -103,8 +95,10 @@ class EditAction
             'statusList' => $statusList
         ];
 
-        $this->view->render($response, 'project/edit', $data);
+        $response->getBody()->write(json_encode($data));
 
-        return $response;
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
     }
 }
