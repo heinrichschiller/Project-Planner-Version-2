@@ -46,7 +46,6 @@ return function(App $app)
     | Task routes
     |----------------------------------------------------------------------------
     */
-    $app->get('/tasks',  \App\Application\Actions\Task\TaskAction::class);
     $app->get('/task/new', \App\Application\Actions\Task\NewAction::class);
     $app->get('/task/read/{id:\d+}', \App\Application\Actions\Task\ReadAction::class);
     $app->get('/task/edit/{id:\d+}', \App\Application\Actions\Task\EditAction::class);
