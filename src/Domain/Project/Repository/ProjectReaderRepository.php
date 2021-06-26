@@ -31,6 +31,7 @@ declare(strict_types = 1);
 namespace App\Domain\Project\Repository;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Query;
 
 class ProjectReaderRepository
 {
@@ -55,9 +56,9 @@ class ProjectReaderRepository
      * 
      * @param int $id Id of a project
      * 
-     * @return Object
+     * @return array
      */
-    public function readProject(int $id): Object
+    public function readProject(int $id): array
     {
         return $this->entityManager
             ->createQueryBuilder()
@@ -67,6 +68,6 @@ class ProjectReaderRepository
             ->where('p.id = :id')
             ->setParameter(':id', $id)
             ->getQuery()
-            ->getSingleResult();
+            ->getResult(Query::HYDRATE_ARRAY);
     }
 }
