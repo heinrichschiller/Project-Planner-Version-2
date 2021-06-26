@@ -37,7 +37,7 @@ return function(App $app)
     | Contact routes
     |----------------------------------------------------------------------------
     */
-    $app->post('/contact/create',  \App\Application\Actions\Contact\CreateAction::class);
+    
     $app->post('/contact/update', \App\Application\Actions\Contact\UpdateAction::class);
 
     /*
