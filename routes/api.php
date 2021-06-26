@@ -55,7 +55,16 @@ return function(App $app)
     | Email routes
     |----------------------------------------------------------------------------
     */
+    // TODO: rewrite code to api
     $app->get('/api/v1/emails', \App\Application\Actions\Email\EmailAction::class);
+
+    /*
+    |----------------------------------------------------------------------------
+    | Calendar routes
+    |----------------------------------------------------------------------------
+    */
+    // TODO: rewrite code to api
+    $app->get('/api/v1/calendar', \App\Application\Actions\Calendar\CalendarAction::class);
 
     /*
     |----------------------------------------------------------------------------
