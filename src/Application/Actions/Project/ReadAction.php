@@ -34,16 +34,9 @@ use App\Domain\Project\Service\ProjectReader;
 use App\Domain\Project\Service\ProjectTaskReader;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use Slim\Views\Mustache;
 
 class ReadAction
 {
-    /**
-     * @Injection
-     * @var Mustache
-     */
-    private Mustache $view;
-
     /**
      * @Injection
      * @var ProjectReader $projectReader
@@ -63,11 +56,10 @@ class ReadAction
      * @param ProjectReader $projectReader
      * @param ProjectTaskReader $projectTaskReader
      */
-    public function __construct(Mustache $view
-        , ProjectReader $projectReader
+    public function __construct(
+        ProjectReader $projectReader
         , ProjectTaskReader $projectTaskReader)
     {
-        $this->view = $view;
         $this->projectReader = $projectReader;
         $this->projectTaskReader = $projectTaskReader;
     }
@@ -94,8 +86,10 @@ class ReadAction
             'hasTasks' => $hasTasks
         ];
 
-        $this->view->render($response, 'project/read', $data);
+        $response->getBody()->write(json_encode($data));
 
-        return $response;
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
     }
 }
