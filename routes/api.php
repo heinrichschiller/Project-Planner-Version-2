@@ -99,6 +99,7 @@ return function(App $app)
     |----------------------------------------------------------------------------
     */
     $app->get('/api/v1/tasks',  \App\Application\Actions\Task\TaskAction::class);
+    $app->get('/api/v1/task/{id:\d+}/read', \App\Application\Actions\Task\ReadAction::class);
 
     /*
     |----------------------------------------------------------------------------
