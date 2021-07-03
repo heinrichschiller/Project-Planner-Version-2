@@ -55,11 +55,11 @@ class TaskReaderRepository
      * 
      * @param int $id Id from a task
      * 
-     * @return Object
+     * @return array
      */
-    public function readTask(int $id): Object
+    public function readTask(int $id): array
     {
-        return $this->entityManager
+        return (array) $this->entityManager
             ->createQueryBuilder()
             ->select('t, c, p')
             ->from('Entities\Task', 't')
@@ -68,6 +68,6 @@ class TaskReaderRepository
             ->where('t.id = :id')
             ->setParameter(':id', $id)
             ->getQuery()
-            ->getSingleResult();
+            ->getArrayResult();
     }
 }
