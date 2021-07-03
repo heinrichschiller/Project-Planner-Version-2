@@ -406,8 +406,7 @@ return function(ContainerBuilder $builder)
         TaskReadAction::class => function(ContainerInterface $container): TaskReadAction
         {
             return new TaskReadAction(
-                $container->get(TaskReader::class),
-                $container->get(Mustache::class)
+                $container->get(TaskReader::class)
             );
         },
 
