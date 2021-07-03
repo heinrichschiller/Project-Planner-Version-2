@@ -47,8 +47,6 @@ return function(App $app)
     |----------------------------------------------------------------------------
     */
     $app->get('/task/new', \App\Application\Actions\Task\NewAction::class);
-    
-    $app->post('/task/create', \App\Application\Actions\Task\CreateAction::class);
 
     /*
     |----------------------------------------------------------------------------
