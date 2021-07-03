@@ -33,7 +33,6 @@ namespace App\Application\Actions\Task;
 use App\Domain\Task\Service\TaskReader;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use Slim\Views\Mustache;
 
 class ReadAction
 {
@@ -44,21 +43,14 @@ class ReadAction
     private TaskReader $taskReader;
 
     /**
-     * @Injection
-     * @var Mustache
-     */
-    private Mustache $view;
-
-    /**
      * The constructor
      * 
      * @param TaskReader $taskReader
      * @param Mustache $view Mustache engine
      */
-    public function __construct(TaskReader $taskReader, Mustache $view)
+    public function __construct(TaskReader $taskReader)
     {
         $this->taskReader = $taskReader;
-        $this->view = $view;
     }
 
     /**
@@ -72,10 +64,12 @@ class ReadAction
      */
     public function __invoke(Request $request, Response $response, $args = []): Response
     {
-        $task = $this->taskReader->readTask( (int) $args['id']);
+        $data = $this->taskReader->readTask( (int) $args['id']);
         
-        $this->view->render($response, 'task/read', $task);
+        $response->getBody()->write(json_encode($data));
 
-        return $response;
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
     }
 }
