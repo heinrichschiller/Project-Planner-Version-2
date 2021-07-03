@@ -85,7 +85,6 @@ use Cake\Validation\Validator;
 use Doctrine\ORM\EntityManager;
 use Entities\Project;
 use Psr\Log\LoggerInterface;
-use Slim\Views\Mustache;
 
 return function(ContainerBuilder $builder)
 {
@@ -94,7 +93,7 @@ return function(ContainerBuilder $builder)
         CalendarAction::class => function(ContainerInterface $container): CalendarAction
         {
             return new CalendarAction(
-                $container->get(Mustache::class)
+                
             );
         },
 
@@ -145,7 +144,7 @@ return function(ContainerBuilder $builder)
         ContactNewAction::class => function(ContainerInterface $container): ContactNewAction
         {
             return new ContactNewAction(
-                $container->get(Mustache::class)
+                
             );
         },
 
@@ -174,7 +173,7 @@ return function(ContainerBuilder $builder)
         EmailAction::class => function(ContainerInterface $container): EmailAction
         {
             return new EmailAction(
-                $container->get(Mustache::class)
+                
             );
         },
 
@@ -187,7 +186,7 @@ return function(ContainerBuilder $builder)
         DocumentAction::class => function(ContainerInterface $container): DocumentAction
         {
             return new DocumentAction(
-                $container->get(Mustache::class)
+                
             );
         },
 
@@ -200,7 +199,7 @@ return function(ContainerBuilder $builder)
         IssueAction::class => function(ContainerInterface $container): IssueAction
         {
             return new IssueAction(
-                $container->get(Mustache::class)
+                
             );
         },
 
@@ -213,7 +212,7 @@ return function(ContainerBuilder $builder)
         NoteAction::class => function(ContainerInterface $container): NoteAction
         {
             return new NoteAction(
-                $container->get(Mustache::class)
+                
             );
         },
         
@@ -242,8 +241,7 @@ return function(ContainerBuilder $builder)
             return new ProjectNewAction(
                 $container->get(ContactFinder::class),
                 $container->get(PriorityFinder::class),
-                $container->get(StatusFinder::class),
-                $container->get(Mustache::class)
+                $container->get(StatusFinder::class)
             );
         },
 
@@ -254,8 +252,7 @@ return function(ContainerBuilder $builder)
                 $container->get(PriorityFinder::class),
                 $container->get(ProjectFinder::class),
                 $container->get(ProjectReader::class),
-                $container->get(StatusFinder::class),
-                $container->get(Mustache::class)
+                $container->get(StatusFinder::class)
             );
         },
 
@@ -352,7 +349,7 @@ return function(ContainerBuilder $builder)
         SettingsAction::class => function(ContainerInterface $container): SettingsAction
         {
             return new SettingsAction(
-                $container->get(Mustache::class)
+                
             );
         },
 
@@ -397,8 +394,7 @@ return function(ContainerBuilder $builder)
                 $container->get(ContactFinder::class),
                 $container->get(ProjectFinder::class),
                 $container->get(PriorityFinder::class),
-                $container->get(StatusFinder::class),
-                $container->get(Mustache::class)
+                $container->get(StatusFinder::class)
             );
         },
 
@@ -439,7 +435,7 @@ return function(ContainerBuilder $builder)
         TestAction::class => function(ContainerInterface $container): TestAction
         {
             return new TestAction(
-                $container->get(Mustache::class)
+                
             );
         },
 
@@ -452,7 +448,7 @@ return function(ContainerBuilder $builder)
         TimetrackAction::class => function(ContainerInterface $container): TimetrackAction
         {
             return new TimetrackAction(
-                $container->get(Mustache::class)
+                
             );
         },
 
@@ -465,7 +461,7 @@ return function(ContainerBuilder $builder)
         ToolAction::class => function(ContainerInterface $container): ToolAction
         {
             return new ToolAction(
-                $container->get(Mustache::class)
+                
             );
         }
     ]);
