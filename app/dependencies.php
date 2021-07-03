@@ -387,8 +387,7 @@ return function(ContainerBuilder $builder)
             return new TaskEditAction(
                 $container->get(PriorityFinder::class),
                 $container->get(StatusFinder::class),
-                $container->get(TaskReader::class),
-                $container->get(Mustache::class)
+                $container->get(TaskReader::class)
             );
         },
 
