@@ -55,10 +55,10 @@ final class TaskReader
      * 
      * @param int $id Id of a task
      * 
-     * @return Object
+     * @return array
      */
-    public function readTask(int $id): Object
+    public function readTask(int $id): array
     {
-        return $this->repository->readTask($id);
+        return (array) $this->repository->readTask($id);
     }
 }
