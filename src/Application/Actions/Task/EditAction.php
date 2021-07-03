@@ -35,7 +35,6 @@ use App\Domain\Status\Service\StatusFinder;
 use App\Domain\Task\Service\TaskReader;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use Slim\Views\Mustache;
 
 class EditAction
 {
@@ -58,29 +57,20 @@ class EditAction
     private TaskReader $taskReader;
 
     /**
-     * @Injection
-     * @var Mustache
-     */
-    private Mustache $view;
-
-    /**
      * The constructor
      * 
      * @param PriorityFinder $priorityFinder
      * @param StatusFinder $statusFinder
      * @param TaskReader $taskReader
-     * @param Mustache $view Mustache engine
      */
     public function __construct(
         PriorityFinder $priorityFinder,
         StatusFinder $statusFinder,
-        TaskReader $taskReader,
-        Mustache $view)
+        TaskReader $taskReader)
     {
         $this->priorityFinder = $priorityFinder;
         $this->statusFinder = $statusFinder;
         $this->taskReader = $taskReader;
-        $this->view = $view;
     }
 
     /**
@@ -104,8 +94,10 @@ class EditAction
             'task' => $task
         ];
 
-        $this->view->render($response, 'task/edit', $data);
+        $response->getBody()->write(json_encode($data));
         
-        return $response;
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
     }
 }
