@@ -47,7 +47,6 @@ return function(App $app)
     |----------------------------------------------------------------------------
     */
     $app->get('/task/new', \App\Application\Actions\Task\NewAction::class);
-    $app->get('/task/edit/{id:\d+}', \App\Application\Actions\Task\EditAction::class);
     $app->post('/task/update', \App\Application\Actions\Task\UpdateAction::class);
     $app->post('/task/create', \App\Application\Actions\Task\CreateAction::class);
 
