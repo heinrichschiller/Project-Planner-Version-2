@@ -32,24 +32,17 @@ namespace App\Application\Actions\Issue;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use Slim\Views\Mustache;
 
 class IssueAction
 {
-    /**
-     * @Injection
-     * @var Mustache
-     */
-    private Mustache $view;
-
     /**
      * The constructor
      * 
      * @param Mustache $view
      */
-    public function __construct(Mustache $view)
+    public function __construct()
     {
-        $this->view = $view;
+        // put your code here
     }
 
     /**
@@ -63,8 +56,17 @@ class IssueAction
      */
     public function __invoke(Request $request, Response $response, array $args = []): Response
     {
-        $this->view->render($response, 'issue/index');
+        $data = [
+            'success' => [
+                'status' => 200,
+                'message' => 'Logic for issues is not implemented yet.'
+            ]
+        ];
 
-        return $response;
+        $response->getBody()->write(json_encode($data));
+
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
     }
 }
