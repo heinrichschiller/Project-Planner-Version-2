@@ -113,6 +113,13 @@ return function(App $app)
 
     /*
     |----------------------------------------------------------------------------
+    | Timetrack routes
+    |----------------------------------------------------------------------------
+    */
+    $app->get('/api/v1/timetracks', \App\Application\Actions\Timetrack\TimetrackAction::class);
+
+    /*
+    |----------------------------------------------------------------------------
     | Tool routes
     |----------------------------------------------------------------------------
     */
@@ -127,11 +134,18 @@ return function(App $app)
 
     /*
     |----------------------------------------------------------------------------
-    | Notes routes
+    | Notes routes (deprecated)
     |----------------------------------------------------------------------------
     */
     $app->get('/api/contact/notes/{cid:\d+}', \App\Application\Actions\Note\ContactNotesAction::class);
     $app->get('/api/project/notes/{pid:\d+}', \App\Application\Actions\Note\ProjectNotesAction::class);
     $app->get('/api/project/task/notes/{pid:\d+}/{tid:\d+}', \App\Application\Actions\Note\ProjectTaskNotesAction::class);
     $app->post('/api/note/create', \App\Application\Actions\Note\CreateAction::class);
+
+    /*
+    |----------------------------------------------------------------------------
+    | Settings routes
+    |----------------------------------------------------------------------------
+    */
+    $app->get('/api/v1/settings', \App\Application\Actions\Settings\SettingsAction::class);
 };
