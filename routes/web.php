@@ -1,10 +1,9 @@
 <?php
 
 /**
- *
  * MIT License
  *
- * Copyright (c) 2019-2020 Heinrich Schiller
+ * Copyright (c) 2020 - 2021 Heinrich Schiller
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,25 +25,27 @@
  *
  */
 
-declare(strict_types = 1 );
+declare(strict_types = 1);
 
 use Slim\App;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
 
+/*
+|----------------------------------------------------------------------------
+| Set up routes with nikic/fast-route
+|----------------------------------------------------------------------------
+|
+| For more informations see: 
+| https://www.slimframework.com/docs/v4/objects/routing.html
+|
+*/
 return function(App $app)
 {
-    /*
-    |----------------------------------------------------------------------------
-    | Project routes
-    |----------------------------------------------------------------------------
-    */
-    $app->get('/project/task/new/{pid:\d+}', \App\Application\Actions\Task\NewProjectTaskAction::class);
-    $app->get('/project/task/read/{pid:\d+}', \App\Application\Actions\Project\ReadProjectTaskAction::class);
-    $app->post('/project/task/create', \App\Application\Actions\Project\CreateProjectTaskAction::class);
+    $app->get('/', function(Request $request, Response $response, array $args = []): Response
+    {
+        $response->getBody()->write('Welcome to Slim PHP micro framework!');
 
-    /*
-    |----------------------------------------------------------------------------
-    | Task routes
-    |----------------------------------------------------------------------------
-    */
-    $app->get('/task/new', \App\Application\Actions\Task\NewAction::class);
+        return $response;
+    });
 };
