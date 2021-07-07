@@ -45,10 +45,10 @@ return function(App $app)
     |----------------------------------------------------------------------------
     */
     $app->get('/api/v1/contacts', \App\Application\Actions\Contact\ContactAction::class);
-    $app->get('/api/v1/contact/{id:\d+}/read', \App\Application\Actions\Contact\ReadAction::class);
-    $app->get('/api/v1/contact/{id:\d+}/edit', \App\Application\Actions\Contact\EditAction::class);
-    $app->post('/api/v1/contact',  \App\Application\Actions\Contact\CreateAction::class);
-    $app->patch('/api/v1/contact', \App\Application\Actions\Contact\UpdateAction::class);
+    $app->get('/api/v1/contacts/{id:\d+}/read', \App\Application\Actions\Contact\ReadAction::class);
+    $app->get('/api/v1/contacts/{id:\d+}/edit', \App\Application\Actions\Contact\EditAction::class);
+    $app->post('/api/v1/contacts',  \App\Application\Actions\Contact\CreateAction::class);
+    $app->patch('/api/v1/contacts', \App\Application\Actions\Contact\UpdateAction::class);
 
     /*
     |----------------------------------------------------------------------------
@@ -64,7 +64,7 @@ return function(App $app)
     |----------------------------------------------------------------------------
     */
     // TODO: rewrite code to api
-    $app->get('/api/v1/calendar', \App\Application\Actions\Calendar\CalendarAction::class);
+    $app->get('/api/v1/calendars', \App\Application\Actions\Calendar\CalendarAction::class);
 
     /*
     |----------------------------------------------------------------------------
@@ -88,10 +88,10 @@ return function(App $app)
     |----------------------------------------------------------------------------
     */
     $app->get('/api/v1/projects', \App\Application\Actions\Project\ProjectAction::class);
-    $app->get('/api/v1/project/{id:\d+}/read', \App\Application\Actions\Project\ReadAction::class);
-    $app->get('/api/v1/project/{id:\d+}/edit', \App\Application\Actions\Project\EditAction::class);
-    $app->post('/api/v1/project', \App\Application\Actions\Project\CreateAction::class);
-    $app->patch('/api/v1/project',  \App\Application\Actions\Project\UpdateAction::class);
+    $app->get('/api/v1/projects/{id:\d+}/read', \App\Application\Actions\Project\ReadAction::class);
+    $app->get('/api/v1/projects/{id:\d+}/edit', \App\Application\Actions\Project\EditAction::class);
+    $app->post('/api/v1/projects', \App\Application\Actions\Project\CreateAction::class);
+    $app->patch('/api/v1/projects',  \App\Application\Actions\Project\UpdateAction::class);
 
     /*
     |----------------------------------------------------------------------------
@@ -99,8 +99,8 @@ return function(App $app)
     |----------------------------------------------------------------------------
     */
     $app->get('/api/v1/tasks',  \App\Application\Actions\Task\TaskAction::class);
-    $app->get('/api/v1/task/{id:\d+}/read', \App\Application\Actions\Task\ReadAction::class);
-    $app->get('/api/v1/task/{id:\d+}/edit', \App\Application\Actions\Task\EditAction::class);
+    $app->get('/api/v1/tasks/{id:\d+}/read', \App\Application\Actions\Task\ReadAction::class);
+    $app->get('/api/v1/tasks/{id:\d+}/edit', \App\Application\Actions\Task\EditAction::class);
     $app->post('/api/v1/tasks', \App\Application\Actions\Task\CreateAction::class);
     $app->patch('/api/v1/tasks', \App\Application\Actions\Task\UpdateAction::class);
 
