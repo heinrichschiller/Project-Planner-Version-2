@@ -32,24 +32,17 @@ namespace App\Application\Actions\Email;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use Slim\Views\Mustache;
 
 class EmailAction
 {
-    /**
-     * @Injection
-     * @var Mustache
-     */
-    private Mustache $view;
-
     /**
      * The constructor
      * 
      * @param Mustache $view The Mustache engine
      */
-    public function __construct(Mustache $view)
+    public function __construct()
     {
-        $this->view = $view;
+        // put your code here
     }
 
     /**
@@ -63,8 +56,17 @@ class EmailAction
      */
     public function __invoke(Request $request, Response $response, array $args = []): Response
     {
-        $response = $this->view->render($response, 'email/index');
+        $data = [
+            'success' => [
+                'status' => 200,
+                'message' => 'Logic for emails is not implemented yet.'
+            ]
+        ];
 
-        return $response;
+        $response->getBody()->write(json_encode($data));
+
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
     }
 }
