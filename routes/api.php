@@ -26,7 +26,7 @@
  *
  */
 
-declare(strict_types = 1 );
+declare( strict_types = 1 );
 
 use Slim\App;
 
@@ -63,7 +63,6 @@ return function(App $app)
     | Calendar routes
     |----------------------------------------------------------------------------
     */
-    // TODO: rewrite code to api
     $app->get('/api/v1/calendars', \App\Application\Actions\Calendar\CalendarAction::class);
 
     /*
