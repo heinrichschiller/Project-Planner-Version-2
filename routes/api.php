@@ -71,7 +71,6 @@ return function(App $app)
     | Document routes
     |----------------------------------------------------------------------------
     */
-    // TODO: rewrite code to api
     $app->get('/api/v1/documents', \App\Application\Actions\Document\DocumentAction::class);
 
     /*
@@ -79,7 +78,6 @@ return function(App $app)
     | Issue routes
     |----------------------------------------------------------------------------
     */
-    // TODO: rewrite code to api
     $app->get('/api/v1/issues', \App\Application\Actions\Issue\IssueAction::class);
 
     /*
