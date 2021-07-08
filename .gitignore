@@ -4,11 +4,7 @@
 composer.lock
 composer.phar
 
-package-lock.json
-
 phpstan.neon
-
-/node_modules/
 
 /public/assets/js/lib/
 /public/assets/js/node_modules/
