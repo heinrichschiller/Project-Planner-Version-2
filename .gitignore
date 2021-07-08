@@ -1,15 +1,8 @@
 .vscode
 .env
-
 composer.lock
 composer.phar
-
 phpstan.neon
-
-/public/assets/js/lib/
-/public/assets/js/node_modules/
-
-/resources/node_modules/
 
 /var/caches/
 /var/logs/
